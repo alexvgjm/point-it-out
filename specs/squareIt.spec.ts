@@ -7,14 +7,14 @@ test.describe('Common asserts', ()=>{
     test.describe('Happy', async () => {
         it('creates an SVG with specified class and append it to body', async ({ page })=>{
             await page.goto('/');
-            page.evaluate(()=>{ squareIt({target: 'test-text', className: 'test-class'}) })
+            page.evaluate(()=>{ squareIt({target: '.test-text', className: 'test-class'}) })
             await expectCreatedSVGElementAsBodyChild(page)
             await expectCreatedSVGElementContainsClass(page, 'test-class')
         })
     });
 
-    test('Unhappy', async ({ page }) => {
-        it(`does nothing if selector doesn't match anything`, async ()=>{
+    test.describe('Unhappy', async () => {
+        it(`does nothing if selector doesn't match anything`, async ({ page })=>{
             await page.goto('/');
             page.evaluate(()=>{ squareIt({target: '.asdasdas'}) })
             await expect(page.locator('svg')).not.toBeAttached()
@@ -71,6 +71,4 @@ test.describe('squareIt() specifics', ()=>{
                expect(Math.abs(targetRect?.top - createdSVGRect?.top)).toBeLessThanOrEqual(8)
         })
     })
-
-
 })

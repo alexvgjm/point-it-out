@@ -8,10 +8,6 @@ function newSvg(svgType = 'svg') {
 }
 
 export function squareIt(options: CommonOptions) {
-    const svg = newSvg()
-    document.body.appendChild(svg)
-    if (options.className) { svg.classList.add(options.className) }
-
     let target: HTMLElement | null
     if (typeof options.target == 'string') {
         target = document.querySelector(options.target) as HTMLElement
@@ -20,6 +16,10 @@ export function squareIt(options: CommonOptions) {
     }
 
     if (!target) { return }
+
+    const svg = newSvg()
+    document.body.appendChild(svg)
+    if (options.className) { svg.classList.add(options.className) }
 
     const rect = target.getBoundingClientRect()
     svg.setAttribute('width', rect.width.toString())
