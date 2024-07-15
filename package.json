@@ -1,0 +1,19 @@
+{
+  "name": "pointitout",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "e2e": "vite --port 4173",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "pnpm exec playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.1",
+    "@types/node": "^20.14.10",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1"
+  }
+}
