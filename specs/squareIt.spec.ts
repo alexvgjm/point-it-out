@@ -54,4 +54,13 @@ test.describe('squareIt()', ()=>{
                expect(Math.abs(targetRect?.top - createdSVGRect?.top)).toBeLessThanOrEqual(8)
         })
     })
+
+    it(`creates a rect element inside the SVG`, async ({page})=>{
+        await page.evaluate(() => squareIt({
+            target: `.test-box--300x300`,  
+            className: `result`
+        }))
+
+        await expect(page.locator('.result rect')).toBeAttached()
+    })
 })
