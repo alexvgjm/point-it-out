@@ -7,7 +7,7 @@ import { CommonOptions } from "../src/types";
  * @param fnName a name of a public core function.
  */
 export function testCommonBehavior(fnName: keyof typeof import('../src/core')) {
-    test.describe(`${fnName} > Happy`, async () => {
+    test.describe(`Common OK`, async () => {
         it('creates an SVG with specified class and append it to body', async ({ page })=>{
             await page.goto('/');
             page.evaluate((fnName)=>{
@@ -20,7 +20,7 @@ export function testCommonBehavior(fnName: keyof typeof import('../src/core')) {
         })
     });
 
-    test.describe(`${fnName} > Unhappy`, async () => {
+    test.describe(`Common KO`, async () => {
         it(`does nothing if selector doesn't match anything`, async ({ page })=>{
             await page.goto('/');
             page.evaluate((fnName)=>{ 

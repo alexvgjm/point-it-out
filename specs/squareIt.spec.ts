@@ -2,9 +2,10 @@ import { test, test as it, expect } from "@playwright/test";
 import { squareIt } from "../src/core";
 import { testCommonBehavior } from "./common-behaviors";
 
-testCommonBehavior('squareIt')
 
-test.describe('squareIt() related', ()=>{
+test.describe('squareIt()', ()=>{
+    testCommonBehavior('squareIt')
+
     const testsTargets = [ 
         {expectedWidth: 300,  expectedHeight: 300, color: '#fea'}, 
         {expectedWidth: 400,  expectedHeight: 250, color: '#cae'},

@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "npm exec playwright test",
     "test:e2e": "npm exec playwright test -- --headed",
-    "testui": "npm exec playwright test -- --ui"
+    "testui": "npm exec playwright test -- --ui",
+    "report": "npm exec playwright show-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.45.1",
