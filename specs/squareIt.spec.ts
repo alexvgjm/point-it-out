@@ -1,28 +1,10 @@
 import { test, test as it, expect } from "@playwright/test";
 import { squareIt } from "../src/core";
-import { expectCreatedSVGElementAsBodyChild, 
-         expectCreatedSVGElementContainsClass } from "./common-asserts";
+import { testCommonBehavior } from "./common-behaviors";
 
-test.describe('Common asserts', ()=>{
-    test.describe('Happy', async () => {
-        it('creates an SVG with specified class and append it to body', async ({ page })=>{
-            await page.goto('/');
-            page.evaluate(()=>{ squareIt({target: '.test-text', className: 'test-class'}) })
-            await expectCreatedSVGElementAsBodyChild(page)
-            await expectCreatedSVGElementContainsClass(page, 'test-class')
-        })
-    });
+testCommonBehavior('squareIt')
 
-    test.describe('Unhappy', async () => {
-        it(`does nothing if selector doesn't match anything`, async ({ page })=>{
-            await page.goto('/');
-            page.evaluate(()=>{ squareIt({target: '.asdasdas'}) })
-            await expect(page.locator('svg')).not.toBeAttached()
-        })
-    });
-})
-
-test.describe('squareIt() specifics', ()=>{
+test.describe('squareIt() related', ()=>{
     const testsTargets = [ 
         {expectedWidth: 300,  expectedHeight: 300, color: '#fea'}, 
         {expectedWidth: 400,  expectedHeight: 250, color: '#cae'},
