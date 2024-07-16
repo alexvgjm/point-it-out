@@ -20,7 +20,6 @@ export function squareIt(options: CommonOptions) {
     if (!target) { return }
 
     const svg = newSvg()
-    document.body.appendChild(svg)
     if (options.className) { svg.classList.add(options.className) }
 
     const htmlRect = target.getBoundingClientRect()
@@ -31,4 +30,5 @@ export function squareIt(options: CommonOptions) {
 
     const svgRect = newSvg<SVGRectElement>('rect')
     svg.appendChild(svgRect)
+    document.body.appendChild(svg)
 }

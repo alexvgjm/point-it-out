@@ -12,11 +12,10 @@ export function testCommonBehavior(fnName: keyof typeof import('../src/core')) {
             await page.goto('/');
             page.evaluate((fnName)=>{
                 const fn = window[fnName] as (options: CommonOptions)=>void
-                fn({target: '.test-text', className: 'test-class'}) 
+                fn({target: 'h1', className: 'test-class'}) 
             }, fnName)
-            const svg = page.locator('svg')
+            const svg = page.locator('.test-class')
             await expect(svg).toBeAttached()
-            await expect(svg).toHaveClass('test-class')
         })
     });
 
@@ -25,7 +24,7 @@ export function testCommonBehavior(fnName: keyof typeof import('../src/core')) {
             await page.goto('/');
             page.evaluate((fnName)=>{ 
                 const fn = window[fnName] as (options: CommonOptions)=>void
-                fn({target: '.asdasdas'}) 
+                fn({target: '.not-existing'}) 
             }, fnName)
             await expect(page.locator('svg')).not.toBeAttached()
         })

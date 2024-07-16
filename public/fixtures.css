@@ -1,0 +1,12 @@
+.fixture {
+    display: block;
+    position: absolute;
+    stroke: orange;
+    stroke-width: 4px;
+    fill: none;
+}
+
+.fixture--squareIt-default {
+    left: -4px;
+    top: -4px;
+}

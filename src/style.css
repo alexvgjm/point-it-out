@@ -28,8 +28,6 @@
 
   --color-bg-semi: color-mix(in srgb, var(--color-bg) 90%, transparent 10%);
   --color-link: var(--color-font-highlight);
-
-
 }
 
 * {
@@ -126,6 +124,7 @@ main {
 }
 
 .test-box {
+  position: relative;
   background: #333;
   margin-top: 1rem;
   display: flex;
@@ -146,3 +145,12 @@ main {
   width: 1000px;
   height: 1000px;
 }
+
+h1 {
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-top: 0;
+} 

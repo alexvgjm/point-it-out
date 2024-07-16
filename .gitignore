@@ -28,5 +28,7 @@ dist-ssr
 /blob-report/
 /playwright/.cache/
 
+# Using web fixtures instead
+*-snapshots
 
 *.bkp.*
