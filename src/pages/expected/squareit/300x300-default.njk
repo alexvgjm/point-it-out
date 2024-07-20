@@ -1,12 +1,12 @@
 {% extends "layouts/main-layout.njk" %}
 {% block css %}
     {{ super() }}
-    <link rel="stylesheet" href="/fixtures.css">
+    <link rel="stylesheet" href="/expected.css">
 {% endblock css %}
 {% block content %}
     <p class="subtitle">A 300x300 box</p>
-    <div class="test-box test-box--300x300">
-        <svg class="fixture fixture--squareIt-default" width="308" height="308">
+    <div class="test-box test-box--300x300 test-box--expected">
+        <svg class="expected expected--squareIt-default" width="308" height="308">
             <rect x="2" y="2" width="304" height="304"/>
         </svg>
     </div>

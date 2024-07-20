@@ -8,18 +8,21 @@
     "e2e": "vite --port 4173",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "npm exec playwright test",
-    "test:e2e": "npm exec playwright test -- --headed",
+    "test": "vitest",
+    "test:visual": "npm exec playwright test",
     "testui": "npm exec playwright test -- --ui",
     "report": "npm exec playwright show-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.45.1",
+    "@testing-library/dom": "^10.3.2",
+    "@testing-library/jest-dom": "^6.4.6",
     "@types/node": "^20.14.10",
     "@vituum/vite-plugin-nunjucks": "^1.1.0",
     "@vituum/vite-plugin-pug": "^1.1.0",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
+    "vitest": "^2.0.3",
     "vituum": "^1.1.0"
   }
 }

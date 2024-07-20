@@ -1,12 +1,15 @@
-.fixture {
+.test-box--expected {
+    position: relative;
+}
+
+.expected {
     display: block;
     position: absolute;
     stroke: orange;
     stroke-width: 4px;
     fill: none;
 }
-
-.fixture--squareIt-default {
+.expected--squareIt-default {
     left: -4px;
     top: -4px;
 }

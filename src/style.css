@@ -124,12 +124,8 @@ main {
 }
 
 .test-box {
-  position: relative;
   background: #333;
   margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .test-box--300x300 {

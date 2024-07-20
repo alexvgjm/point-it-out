@@ -32,3 +32,5 @@ dist-ssr
 *-snapshots
 
 *.bkp.*
+
+*.config.ts.timestamp*
