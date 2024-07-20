@@ -1,0 +1,31 @@
+.test-box {
+    box-sizing: content-box;
+    background: #333;
+    position: absolute;
+}
+
+.test-box--300x300 {
+    width: 300px;
+    height: 300px;
+}
+
+.test-box--400x250 {
+    width: 400px;
+    height: 250px;
+}
+
+.test-box--1000x1000 {
+    width: 1000px;
+    height: 1000px;
+}
+
+.visual-test header {
+    position: absolute;
+    left: 50%;
+    top: 10rem;
+    transform: translateX(-50%);
+}
+
+.visual-test .subtitle {
+    text-align: center;
+}

@@ -9,11 +9,15 @@
   <script src="/src/main.ts" defer type="module"></script>
 
   {% block css %}
+  <link rel="stylesheet" href="/test-styles.css">
   {% endblock css %}
 </head>
 
-<body>
-    <h1>Point it out test page</h1>
+<body class="visual-test">
+    <header>
+      <h1>Point it out test page</h1>
+      <p class="subtitle">{% block subtitle %}{% endblock subtitle %}</p>
+    </header>
     {% block content %}
     {% endblock content %}
 </body>

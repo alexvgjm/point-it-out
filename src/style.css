@@ -123,30 +123,10 @@ main {
   padding: 2rem;
 }
 
-.test-box {
-  background: #333;
-  margin-top: 1rem;
-}
-
-.test-box--300x300 {
-  width: 300px;
-  height: 300px;
-}
-
-.test-box--400x250 {
-  width: 400px;
-  height: 250px;
-}
-.test-box--1000x1000 {
-  width: 1000px;
-  height: 1000px;
-}
-
-h1 {
-  margin-bottom: 0.25rem;
-}
-
 .subtitle {
   font-size: 1.2rem;
   margin-top: 0;
-} 
+}
+h1 {
+  margin-bottom: 0.25rem;
+}
