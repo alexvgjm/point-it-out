@@ -1,6 +1,14 @@
 {% extends "layouts/main-layout.njk" %}
-
+{% block css %}
+    {{ super() }}
+    <link rel="stylesheet" href="/expected.css">
+    <style>
+        .test-box--expected {
+            border: 4px solid orange;
+        }
+    </style>
+{% endblock css %}
 {% block content %}
     <p class="subtitle">A 400x250 box</p>
-    <div class="test-box test-box--400x250"></div>
+    <div class="test-box test-box--400x250 test-box--expected"></div>
 {% endblock content %}
