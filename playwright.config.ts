@@ -74,7 +74,7 @@ export default defineConfig({
 		port: 4173
 	},
 
-  globalTeardown: './specs/visual/teardown.ts'
+  globalSetup: './specs/visual/setup.ts'
 
   /* Run your local dev server before starting the tests */
   // webServer: {
