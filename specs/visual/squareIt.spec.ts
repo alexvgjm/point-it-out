@@ -72,4 +72,28 @@ test.describe('squareIt()', () => {
             })
         })
     })
+
+    test.describe('Options', () => {
+        testsTargets.forEach(({ expectedWidth, expectedHeight }, idx) => {
+            test(`strokeWidth & color (${expectedWidth}x${expectedHeight})`, async ({page}, testInfo)=>{
+                await visualComparisonBetweenPages({
+                    testingURL: `/${expectedWidth}x${expectedHeight}`,
+                    expectedURL: `/expected/squareit/${expectedWidth}x${expectedHeight}-strokeWidth-and-color-options`,
+                    action: () => {
+                        return page.evaluate(({ expectedWidth, expectedHeight }) => squareIt({
+                            target: `.test-box--${expectedWidth}x${expectedHeight}`,
+                            className: `result`,
+                            strokeWidth: 8,
+                            strokeColor: 'limegreen'
+                        }), { expectedWidth, expectedHeight })
+                    },
+                    pwPage: page,
+                    pwTestInfo: testInfo,
+                })
+            })
+
+        })
+
+
+    })
 })
