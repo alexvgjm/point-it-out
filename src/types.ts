@@ -6,3 +6,9 @@ export type CommonOptions = {
     strokeWidth?: number,
     strokeColor?: string
 }
+
+export type ShapeOptions = {
+    'square': {} & CommonOptions // No options beside commons ATM
+}
+
+export type ShapeName = keyof ShapeOptions
