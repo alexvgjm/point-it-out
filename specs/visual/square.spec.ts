@@ -1,4 +1,4 @@
-import { test, test as it, expect } from "@playwright/test";
+import { test, test as it, expect, Page } from "@playwright/test";
 import { visualComparisonBetweenPages } from "./test-utils";
 import * as pio from "../../src/main";
 
@@ -45,6 +45,32 @@ test.describe("create('square')", () => {
 
             expect(Math.abs(targetRect?.left - createdSVGRect?.left)).toBeLessThanOrEqual(8)
             expect(Math.abs(targetRect?.top - createdSVGRect?.top)).toBeLessThanOrEqual(8)
+        })
+
+        test(`created square follow target element on resize (${expectedWidth}x${expectedHeight})`, async ({page}, testInfo)=>{
+            await visualComparisonBetweenPages({
+                testingURL: `/${expectedWidth}x${expectedHeight}`,
+                expectedURL: `/expected/square/${expectedWidth}x${expectedHeight}-default`,
+
+                beforeExpectedScreenshot: 
+                    async () => await page.setViewportSize({width: 600, height: 600}),
+
+                beforeAction: 
+                    async () => await page.setViewportSize({width: 1280, height: 768}),
+
+                action: async () => {
+                    await page.evaluate(({ expectedWidth, expectedHeight }) => pio.create('square', {
+                        target: `.test-box--${expectedWidth}x${expectedHeight}`,
+                        className: `result`,
+                    }), { expectedWidth, expectedHeight })
+                },
+
+                beforeActionScreenshot: 
+                    async () => await page.setViewportSize({width: 600, height: 600}),
+
+                pwPage: page,
+                pwTestInfo: testInfo,
+            })
         })
     })
 

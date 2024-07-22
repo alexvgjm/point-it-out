@@ -4,7 +4,10 @@ import { randomUUID } from "crypto";
 type TestPagesParams = {
     expectedURL: string,
     testingURL: string,
-    action: () => Promise<unknown>
+    beforeExpectedScreenshot?: ()=>Promise<unknown>
+    beforeAction?: ()=>Promise<unknown>
+    beforeActionScreenshot?: ()=>Promise<unknown>
+    action?: () => Promise<unknown>
     pwPage: Page,
     pwTestInfo: TestInfo,
 }
@@ -26,10 +29,15 @@ export async function visualComparisonBetweenPages(params: TestPagesParams) {
     const suffix = params.pwTestInfo.snapshotSuffix
     
     await page.goto(params.expectedURL);
-    await page.screenshot({path: `${dir}/${id}-${projectName}-${suffix}.png`,
-        scale: 'css'});
+    if (params.beforeAction) { await params.beforeExpectedScreenshot() }
+    await page.screenshot({
+        path: `${dir}/${id}-${projectName}-${suffix}.png`,
+        scale: 'css'
+    });
 
     await page.goto(params.testingURL);
+    if (params.beforeAction) { await params.beforeAction() }
     await params.action()
+    if (params.beforeActionScreenshot) { await params.beforeActionScreenshot() }
     await expect(page).toHaveScreenshot([`${id}.png`])
 }

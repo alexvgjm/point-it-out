@@ -55,18 +55,11 @@ export abstract class PointItOutShape {
         this.svg = createParentSVG(options)
     }
 
+    /**
+     * Updates the shape to fit its target element. onResize calls it by 
+     * default, but must be called manually if the position or size of the 
+     * target element changes for some other reason.
+     */
+    abstract update(): void
     abstract onResize(): void
 }
-
-
-/*class PointItOutBase {
-    resizeListener: () => void
-    created: { svg: SVGElement, target: HTMLElement, }[] = []
-
-    constructor() {
-        this.resizeListener = () => {
-
-        }
-        window.addEventListener('resize', this.resizeListener)
-    }
-}*/
