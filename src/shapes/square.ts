@@ -1,10 +1,10 @@
-import { commonOpiontsDefaults, createSVG, PointItOutShape } from "./core"
+import { createSVG, PointItOutShape } from "./core"
 import { ShapeOptions } from "../types"
 
-const squareOptionsDefaults: Partial<ShapeOptions['square']> = {
+// TODO: round & gap options
+/*const squareOptionsDefaults: Partial<ShapeOptions['square']> = {
     ...commonOpiontsDefaults,
-    // TODO: round option
-}
+}*/
 
 export class PIOSquareShape extends PointItOutShape {
     rectElm: SVGRectElement

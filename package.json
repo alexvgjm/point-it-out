@@ -22,6 +22,7 @@
     "@vituum/vite-plugin-pug": "^1.1.0",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
+    "vite-plugin-dts": "4.0.0-beta.1",
     "vitest": "^2.0.3",
     "vituum": "^1.1.0"
   }

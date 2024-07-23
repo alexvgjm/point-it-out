@@ -99,7 +99,7 @@ test.describe("create('square')", () => {
             test(`strokeWidth & color (${expectedWidth}x${expectedHeight})`, async ({ page }, testInfo) => {
                 await visualComparisonBetweenPages({
                     testingURL: `/${expectedWidth}x${expectedHeight}`,
-                    expectedURL: `/expected/square/${expectedWidth}x${expectedHeight}-strokeWidth-and-color-options`,
+                    expectedURL: `/expected/square/${expectedWidth}x${expectedHeight}-stroke-width-color-options`,
                     action: () => {
                         return page.evaluate(({ expectedWidth, expectedHeight }) => pio.create('square', {
                             target: `.test-box--${expectedWidth}x${expectedHeight}`,
