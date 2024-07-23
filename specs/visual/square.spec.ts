@@ -72,6 +72,28 @@ test.describe("create('square')", () => {
                 pwTestInfo: testInfo,
             })
         })
+        test(`created SVG should ignore pointer events and let pass through it (${expectedWidth}x${expectedHeight})`, async ({page}, testInfo)=>{
+            await page.goto(`/${expectedWidth}x${expectedHeight}`)
+            await page.waitForLoadState('load')
+            const selector = `.test-box--${expectedWidth}x${expectedHeight}`
+
+            const targetRect = await page.evaluate(
+                ({ selector, idx }) => {
+                    pio.create('square', { target: selector, className: `result${idx}` })
+                    const tgt = document.querySelector(selector)
+                    // Remove target on click on it for testing
+                    tgt!.addEventListener('click', () => tgt!.remove())
+                    return tgt?.getBoundingClientRect()
+                }, { selector, idx }
+            ) as DOMRect
+
+            await page.mouse.click(
+                targetRect.left + targetRect.width/2,
+                targetRect.top + targetRect.height/2
+            )
+
+            await expect(page.locator(selector)).not.toBeAttached()
+        })
     })
 
 

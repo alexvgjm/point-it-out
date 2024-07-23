@@ -14,6 +14,7 @@ function createParentSVG(options: CommonOptions) {
     svg.style.position = 'absolute'
     svg.style.stroke = opts.strokeColor
     svg.style.fill = 'none'
+    svg.style.pointerEvents = 'none'
 
     if (opts.className) { svg.classList.add(opts.className) }
 
