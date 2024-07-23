@@ -65,5 +65,9 @@ export abstract class PointItOutShape {
      * target element changes for some other reason.
      */
     abstract update(): void
+
+    /**
+     * 
+     */
     abstract onResize(): void
 }

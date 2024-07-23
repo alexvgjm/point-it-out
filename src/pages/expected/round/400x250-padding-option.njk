@@ -1,0 +1,27 @@
+{% extends "layouts/main-layout.njk" %}
+{% block css %}
+    {{ super() }}
+    <link rel="stylesheet" href="/expected.css">
+    <style>
+        .test-box.test-box--expected {
+            position: relative;
+        }
+        .test-box.test-box--expected svg {
+            stroke: orange;
+            stroke-width: 4px;
+            position: absolute;
+            fill: none;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    <div class="test-box test-box--400x250 test-box--expected">
+        <svg width="602" height="390" style="left: -101px; top: -69.875px;">
+            <ellipse cx="301" cy="195" rx="299" ry="193"></ellipse>
+        </svg>
+    </div>
+{% endblock content %}
+
+
+

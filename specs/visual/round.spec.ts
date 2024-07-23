@@ -4,15 +4,15 @@ import * as pio from "../../src/main";
 
 test.describe("create('round')", () => {
     const testsTargets = [
-        { expectW: 300, expectH: 300 },
-        { expectW: 400, expectH: 250 }
+        { xW: 300, xH: 300 },
+        { xW: 400, xH: 250 }
     ]
 
-    testsTargets.forEach(({ expectW, expectH }, idx) => {
-        test(`created SVG follow target element on resize (${expectW}x${expectH})`, async ({page}, testInfo)=>{
+    testsTargets.forEach(({ xW, xH }, idx) => {
+        test(`created SVG follow target element on resize (${xW}x${xH})`, async ({page}, testInfo)=>{
             await visualComparisonBetweenPages({
-                testingURL: `/${expectW}x${expectH}`,
-                expectedURL: `/expected/round/${expectW}x${expectH}-default`,
+                testingURL: `/${xW}x${xH}`,
+                expectedURL: `/expected/round/${xW}x${xH}-default`,
 
                 beforeExpectedScreenshot: 
                     async () => await page.setViewportSize({width: 600, height: 600}),
@@ -21,10 +21,10 @@ test.describe("create('round')", () => {
                     async () => await page.setViewportSize({width: 1280, height: 768}),
 
                 action: async () => {
-                    await page.evaluate(({ expectW, expectH }) => pio.create('round', {
-                        target: `.test-box--${expectW}x${expectH}`,
+                    await page.evaluate(({ xW, xH }) => pio.create('round', {
+                        target: `.test-box--${xW}x${xH}`,
                         className: `result`,
-                    }), { expectW, expectH })
+                    }), { xW, xH })
                 },
 
                 beforeActionScreenshot: 
@@ -37,16 +37,16 @@ test.describe("create('round')", () => {
     })
 
     test.describe('Default behavior (no options)', () => {
-        testsTargets.forEach(({ expectW, expectH }, idx) => {
-            it(`creates an orange ellipse with a width of 4px around target (${expectW}x${expectH})`, async ({ page }, testInfo) => {
+        testsTargets.forEach(({ xW, xH }, idx) => {
+            it(`creates an orange ellipse with a width of 4px around target (${xW}x${xH})`, async ({ page }, testInfo) => {
                 await visualComparisonBetweenPages({
-                    testingURL: `/${expectW}x${expectH}`,
-                    expectedURL: `/expected/round/${expectW}x${expectH}-default`,
+                    testingURL: `/${xW}x${xH}`,
+                    expectedURL: `/expected/round/${xW}x${xH}-default`,
                     action: () => {
-                        return page.evaluate(({ expectW, expectH }) => pio.create('round', {
-                            target: `.test-box--${expectW}x${expectH}`,
+                        return page.evaluate(({ xW, xH }) => pio.create('round', {
+                            target: `.test-box--${xW}x${xH}`,
                             className: `result`
-                        }), { expectW, expectH })
+                        }), { xW, xH })
                     },
                     pwPage: page,
                     pwTestInfo: testInfo,
@@ -56,18 +56,34 @@ test.describe("create('round')", () => {
     })
 
     test.describe('Options', () => {
-        testsTargets.forEach(({ expectW, expectH }, idx) => {
-            test(`strokeWidth & color (${expectW}x${expectH})`, async ({ page }, testInfo) => {
+        testsTargets.forEach(({ xW, xH }, idx) => {
+            test(`strokeWidth & color (${xW}x${xH})`, async ({ page }, testInfo) => {
                 await visualComparisonBetweenPages({
-                    testingURL: `/${expectW}x${expectH}`,
-                    expectedURL: `/expected/round/${expectW}x${expectH}-stroke-width-color-options`,
+                    testingURL: `/${xW}x${xH}`,
+                    expectedURL: `/expected/round/${xW}x${xH}-stroke-width-color-options`,
                     action: () => {
-                        return page.evaluate(({ expectW, expectH }) => pio.create('round', {
-                            target: `.test-box--${expectW}x${expectH}`,
+                        return page.evaluate(({ xW, xH }) => pio.create('round', {
+                            target: `.test-box--${xW}x${xH}`,
                             className: `result`,
                             strokeWidth: 8,
                             strokeColor: 'limegreen'
-                        }), { expectW, expectH })
+                        }), { xW, xH })
+                    },
+                    pwPage: page,
+                    pwTestInfo: testInfo,
+                })
+            })
+
+            test(`padding (${xW}x${xH})`, async ({ page }, testInfo) => {
+                await visualComparisonBetweenPages({
+                    testingURL: `/${xW}x${xH}`,
+                    expectedURL: `/expected/round/${xW}x${xH}-padding-option`,
+                    action: () => {
+                        return page.evaluate(({ xW, xH }) => pio.create('round', {
+                            target: `.test-box--${xW}x${xH}`,
+                            className: `result`,
+                            padding: 16
+                        }), { xW, xH })
                     },
                     pwPage: page,
                     pwTestInfo: testInfo,

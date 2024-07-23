@@ -1,7 +1,7 @@
 import { createSVG, PointItOutShape } from "./core"
 import { ShapeOptions } from "../types"
 
-// TODO: gap option
+// TODO: only if some shape specific option added
 /*const roundOptionsDefaults: Partial<ShapeOptions['round']> = {
     ...commonOpiontsDefaults,
 }*/
@@ -23,6 +23,7 @@ export class PIORoundShape extends PointItOutShape {
         const eli = this.ellipseElm
         const rect = this.target.getBoundingClientRect()
 
+        const pad = this.padding
         const sw = this.strokeWidth
         const w = rect.width
         const h = rect.height
@@ -30,10 +31,10 @@ export class PIORoundShape extends PointItOutShape {
         const max = Math.max(w, h)
         const diam = Math.round(Math.sqrt(max*max + max*max))
 
-        let rLeft = rect.left + (max - diam)/2              -sw/2
-        let rTop =  rect.top  + (max - diam)/2 / aspect     -sw/2
-        let svgHeight = Math.ceil(diam/aspect + sw)
-        let svgWidth  = Math.ceil(diam + sw)
+        let rLeft     = rect.left + (max - diam)/2           -sw/2   -pad
+        let rTop      = rect.top  + (max - diam)/2/ aspect   -sw/2   -pad
+        let svgHeight = Math.ceil(diam/aspect + sw) + pad*2
+        let svgWidth  = Math.ceil(diam        + sw) + pad*2
 
         if (aspect < 1) {
             rLeft = rect.left + (max - diam)/2 * aspect  -sw/2

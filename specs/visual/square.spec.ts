@@ -4,33 +4,33 @@ import * as pio from "../../src/main";
 
 test.describe("create('square')", () => {
     const testsTargets = [
-        { expectedWidth: 300, expectedHeight: 300 },
-        { expectedWidth: 400, expectedHeight: 250 }
+        { xW: 300, xH: 300 },
+        { xW: 400, xH: 250 }
     ]
 
-    testsTargets.forEach(({ expectedWidth, expectedHeight }, idx) => {
+    testsTargets.forEach(({ xW, xH }, idx) => {
         it("creates an SVG of approximately same width and height of target's"
-            + ` rect (${expectedWidth}x${expectedHeight})`, async ({ page }) => {
+            + ` rect (${xW}x${xH})`, async ({ page }) => {
 
-                await page.goto(`/${expectedWidth}x${expectedHeight}`)
+                await page.goto(`/${xW}x${xH}`)
 
-                const createdSVGRect = await page.evaluate(({ expectedWidth, expectedHeight, idx }) => {
-                        const selector = `.test-box--${expectedWidth}x${expectedHeight}`
+                const createdSVGRect = await page.evaluate(({ xW, xH, idx }) => {
+                        const selector = `.test-box--${xW}x${xH}`
                         pio.create('square', { target: selector, className: `result${idx}` })
 
                         const elm = document.querySelector(`.result${idx}`)
                         return elm?.getBoundingClientRect()
-                    }, { expectedWidth, expectedHeight, idx }
+                    }, { xW, xH, idx }
                 )
 
-                expect(Math.abs(createdSVGRect.width - expectedWidth)).toBeLessThanOrEqual(8)
-                expect(Math.abs(createdSVGRect.height - expectedHeight)).toBeLessThanOrEqual(8)
+                expect(Math.abs(createdSVGRect.width - xW)).toBeLessThanOrEqual(8)
+                expect(Math.abs(createdSVGRect.height - xH)).toBeLessThanOrEqual(8)
             })
 
-        it(`creates an SVG absolutely positioned over target (${expectedWidth}x${expectedHeight})`, async ({ page }) => {
-            await page.goto(`/${expectedWidth}x${expectedHeight}`)
+        it(`creates an SVG absolutely positioned over target (${xW}x${xH})`, async ({ page }) => {
+            await page.goto(`/${xW}x${xH}`)
             await page.waitForLoadState('load')
-            const selector = `.test-box--${expectedWidth}x${expectedHeight}`
+            const selector = `.test-box--${xW}x${xH}`
 
             const [targetRect, createdSVGRect] = await page.evaluate(
                 ({ selector, idx }) => {
@@ -47,10 +47,10 @@ test.describe("create('square')", () => {
             expect(Math.abs(targetRect?.top - createdSVGRect?.top)).toBeLessThanOrEqual(8)
         })
 
-        test(`created square follow target element on resize (${expectedWidth}x${expectedHeight})`, async ({page}, testInfo)=>{
+        test(`created square follow target element on resize (${xW}x${xH})`, async ({page}, testInfo)=>{
             await visualComparisonBetweenPages({
-                testingURL: `/${expectedWidth}x${expectedHeight}`,
-                expectedURL: `/expected/square/${expectedWidth}x${expectedHeight}-default`,
+                testingURL: `/${xW}x${xH}`,
+                expectedURL: `/expected/square/${xW}x${xH}-default`,
 
                 beforeExpectedScreenshot: 
                     async () => await page.setViewportSize({width: 600, height: 600}),
@@ -59,10 +59,10 @@ test.describe("create('square')", () => {
                     async () => await page.setViewportSize({width: 1280, height: 768}),
 
                 action: async () => {
-                    await page.evaluate(({ expectedWidth, expectedHeight }) => pio.create('square', {
-                        target: `.test-box--${expectedWidth}x${expectedHeight}`,
+                    await page.evaluate(({ xW, xH }) => pio.create('square', {
+                        target: `.test-box--${xW}x${xH}`,
                         className: `result`,
-                    }), { expectedWidth, expectedHeight })
+                    }), { xW, xH })
                 },
 
                 beforeActionScreenshot: 
@@ -72,10 +72,10 @@ test.describe("create('square')", () => {
                 pwTestInfo: testInfo,
             })
         })
-        test(`created SVG should ignore pointer events and let pass through it (${expectedWidth}x${expectedHeight})`, async ({page}, testInfo)=>{
-            await page.goto(`/${expectedWidth}x${expectedHeight}`)
+        test(`created SVG should ignore pointer events and let pass through it (${xW}x${xH})`, async ({page}, testInfo)=>{
+            await page.goto(`/${xW}x${xH}`)
             await page.waitForLoadState('load')
-            const selector = `.test-box--${expectedWidth}x${expectedHeight}`
+            const selector = `.test-box--${xW}x${xH}`
 
             const targetRect = await page.evaluate(
                 ({ selector, idx }) => {
@@ -98,16 +98,16 @@ test.describe("create('square')", () => {
 
 
     test.describe('Default behavior (no options)', () => {
-        testsTargets.forEach(({ expectedWidth, expectedHeight }, idx) => {
-            it(`creates an orange rect with a width of 4px around target (${expectedWidth}x${expectedHeight})`, async ({ page }, testInfo) => {
+        testsTargets.forEach(({ xW, xH }, idx) => {
+            it(`creates an orange rect with a width of 4px around target (${xW}x${xH})`, async ({ page }, testInfo) => {
                 await visualComparisonBetweenPages({
-                    testingURL: `/${expectedWidth}x${expectedHeight}`,
-                    expectedURL: `/expected/square/${expectedWidth}x${expectedHeight}-default`,
+                    testingURL: `/${xW}x${xH}`,
+                    expectedURL: `/expected/square/${xW}x${xH}-default`,
                     action: () => {
-                        return page.evaluate(({ expectedWidth, expectedHeight }) => pio.create('square', {
-                            target: `.test-box--${expectedWidth}x${expectedHeight}`,
+                        return page.evaluate(({ xW, xH }) => pio.create('square', {
+                            target: `.test-box--${xW}x${xH}`,
                             className: `result`
-                        }), { expectedWidth, expectedHeight })
+                        }), { xW, xH })
                     },
                     pwPage: page,
                     pwTestInfo: testInfo,
@@ -117,34 +117,34 @@ test.describe("create('square')", () => {
     })
 
     test.describe('Options', () => {
-        testsTargets.forEach(({ expectedWidth, expectedHeight }, idx) => {
-            test(`strokeWidth & color (${expectedWidth}x${expectedHeight})`, async ({ page }, testInfo) => {
+        testsTargets.forEach(({ xW, xH }, idx) => {
+            test(`strokeWidth & color (${xW}x${xH})`, async ({ page }, testInfo) => {
                 await visualComparisonBetweenPages({
-                    testingURL: `/${expectedWidth}x${expectedHeight}`,
-                    expectedURL: `/expected/square/${expectedWidth}x${expectedHeight}-stroke-width-color-options`,
+                    testingURL: `/${xW}x${xH}`,
+                    expectedURL: `/expected/square/${xW}x${xH}-stroke-width-color-options`,
                     action: () => {
-                        return page.evaluate(({ expectedWidth, expectedHeight }) => pio.create('square', {
-                            target: `.test-box--${expectedWidth}x${expectedHeight}`,
+                        return page.evaluate(({ xW, xH }) => pio.create('square', {
+                            target: `.test-box--${xW}x${xH}`,
                             className: `result`,
                             strokeWidth: 8,
                             strokeColor: 'limegreen'
-                        }), { expectedWidth, expectedHeight })
+                        }), { xW, xH })
                     },
                     pwPage: page,
                     pwTestInfo: testInfo,
                 })
             })
 
-            test(`padding (${expectedWidth}x${expectedHeight})`, async ({ page }, testInfo) => {
+            test(`padding (${xW}x${xH})`, async ({ page }, testInfo) => {
                 await visualComparisonBetweenPages({
-                    testingURL: `/${expectedWidth}x${expectedHeight}`,
-                    expectedURL: `/expected/square/${expectedWidth}x${expectedHeight}-padding-option`,
+                    testingURL: `/${xW}x${xH}`,
+                    expectedURL: `/expected/square/${xW}x${xH}-padding-option`,
                     action: () => {
-                        return page.evaluate(({ expectedWidth, expectedHeight }) => pio.create('square', {
-                            target: `.test-box--${expectedWidth}x${expectedHeight}`,
+                        return page.evaluate(({ xW, xH }) => pio.create('square', {
+                            target: `.test-box--${xW}x${xH}`,
                             className: `result`,
                             padding: 16
-                        }), { expectedWidth, expectedHeight })
+                        }), { xW, xH })
                     },
                     pwPage: page,
                     pwTestInfo: testInfo,
