@@ -2,4 +2,8 @@
 
 {% block content %}
     <div class="test-box test-box--300x300"></div>
+    <script type="module">
+        import { create } from '/src/main'
+        window.create = create
+    </script>
 {% endblock content %}

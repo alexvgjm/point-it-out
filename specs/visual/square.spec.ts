@@ -135,6 +135,22 @@ test.describe("create('square')", () => {
                 })
             })
 
+            test(`padding (${expectedWidth}x${expectedHeight})`, async ({ page }, testInfo) => {
+                await visualComparisonBetweenPages({
+                    testingURL: `/${expectedWidth}x${expectedHeight}`,
+                    expectedURL: `/expected/square/${expectedWidth}x${expectedHeight}-padding-option`,
+                    action: () => {
+                        return page.evaluate(({ expectedWidth, expectedHeight }) => pio.create('square', {
+                            target: `.test-box--${expectedWidth}x${expectedHeight}`,
+                            className: `result`,
+                            padding: 16
+                        }), { expectedWidth, expectedHeight })
+                    },
+                    pwPage: page,
+                    pwTestInfo: testInfo,
+                })
+            })
+
         })
 
 

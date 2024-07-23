@@ -18,14 +18,3 @@
     width: 1000px;
     height: 1000px;
 }
-
-.visual-test header {
-    position: absolute;
-    left: 50%;
-    top: 10rem;
-    transform: translateX(-50%);
-}
-
-.visual-test .subtitle {
-    text-align: center;
-}

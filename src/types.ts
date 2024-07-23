@@ -5,6 +5,9 @@ export type CommonOptions = {
     /** Only pixels allowed ATM */
     strokeWidth?: number,
     strokeColor?: string
+
+    /* space between shape and content. Can be negative. Default: 0*/
+    padding?: number
 }
 
 export type ShapeOptions = {

@@ -3,6 +3,7 @@ import { CommonOptions, ShapeName } from "../types";
 export const commonOpiontsDefaults: Partial<CommonOptions> = {
     strokeColor: 'orange',
     strokeWidth: 4,
+    padding: 0,
     className: undefined
 }
 
@@ -39,6 +40,7 @@ export const availableShapes: ShapeName[] = ['square', 'round']
 export abstract class PointItOutShape {
     strokeWidth: number
     strokeColor: string
+    padding: number
     target: HTMLElement
     svg: SVGElement
 
@@ -46,6 +48,7 @@ export abstract class PointItOutShape {
         const opts = { ...commonOpiontsDefaults, ...options } as Required<CommonOptions>
         this.strokeWidth = opts.strokeWidth
         this.strokeColor = opts.strokeColor
+        this.padding = opts.padding
         const target = getTarget(options.target)
         if (!target) {
             throw new Error(
