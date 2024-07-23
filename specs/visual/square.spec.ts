@@ -4,8 +4,8 @@ import * as pio from "../../src/main";
 
 test.describe("create('square')", () => {
     const testsTargets = [
-        { expectedWidth: 300, expectedHeight: 300, color: '#fea' },
-        { expectedWidth: 400, expectedHeight: 250, color: '#cae' }
+        { expectedWidth: 300, expectedHeight: 300 },
+        { expectedWidth: 400, expectedHeight: 250 }
     ]
 
     testsTargets.forEach(({ expectedWidth, expectedHeight }, idx) => {

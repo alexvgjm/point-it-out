@@ -33,7 +33,7 @@ function getTarget(selectorOrTarget: HTMLElement | string | null) {
     return selectorOrTarget
 }
 
-export const availableShapes: ShapeName[] = ['square']
+export const availableShapes: ShapeName[] = ['square', 'round']
 
 export abstract class PointItOutShape {
     strokeWidth: number

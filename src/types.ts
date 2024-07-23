@@ -8,7 +8,8 @@ export type CommonOptions = {
 }
 
 export type ShapeOptions = {
-    'square': {} & CommonOptions // No options beside commons ATM
+    'square': {} & CommonOptions, // No options beside commons ATM
+    'round': {} & CommonOptions // No options beside commons ATM
 }
 
 export type ShapeName = keyof ShapeOptions

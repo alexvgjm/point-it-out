@@ -1,6 +1,7 @@
 import { ShapeOptions } from './types';
 import { PIOSquareShape } from './shapes/square';
 import { PointItOutShape } from './shapes/core';
+import { PIORoundShape } from './shapes/round';
 
 const created: PointItOutShape[] = []
 const onResize = () => created.forEach(s => s.onResize())
@@ -18,6 +19,8 @@ export function create<ShapeName extends keyof ShapeOptions>(
 
     if (shape == 'square') {
         createdShape = new PIOSquareShape(options)
+    } else if (shape == 'round') {
+        createdShape = new PIORoundShape(options)
     }
 
     created.push(createdShape)
