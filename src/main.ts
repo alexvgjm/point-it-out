@@ -1,4 +1,4 @@
-import { ShapeOptions } from './types';
+import { ShapeOptions, SystemOptions } from './types';
 import { PIOSquareShape } from './shapes/square';
 import { PointItOutShape } from './shapes/core';
 import { PIORoundShape } from './shapes/round';
@@ -6,15 +6,28 @@ import { PIORoundShape } from './shapes/round';
 const created: PointItOutShape[] = []
 const onResize = () => created.forEach(s => s.onResize())
 
+let systemOptions: SystemOptions = {
+    updateOnResize: true
+}
+
 function addOrReadGeneralResizeListener() {
     window.removeEventListener('resize', onResize)
     window.addEventListener('resize', onResize)
 }
 
+export function config(newOptions: Partial<SystemOptions>) {
+    systemOptions = {...systemOptions, ...newOptions}
+    if (newOptions.updateOnResize == false) {
+        window.removeEventListener('resize', onResize)
+    }
+}
+
 export function create<ShapeName extends keyof ShapeOptions>(
     shape: ShapeName, options: ShapeOptions[ShapeName]) {
     
-    addOrReadGeneralResizeListener()
+    if (systemOptions.updateOnResize) {
+        addOrReadGeneralResizeListener()
+    }
     let createdShape!: PointItOutShape
 
     if (shape == 'square') {

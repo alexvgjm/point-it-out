@@ -1,3 +1,7 @@
+export type SystemOptions = {
+    updateOnResize: boolean
+}
+
 export type CommonOptions = {
     target: string | HTMLElement,
     className?: string,

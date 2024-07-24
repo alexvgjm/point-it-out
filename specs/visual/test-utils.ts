@@ -10,6 +10,7 @@ type TestPagesParams = {
     action?: () => Promise<unknown>
     pwPage: Page,
     pwTestInfo: TestInfo,
+    not?: boolean
 }
 
 let generated = new Set<string>()
@@ -39,5 +40,11 @@ export async function visualComparisonBetweenPages(params: TestPagesParams) {
     if (params.beforeAction) { await params.beforeAction() }
     await params.action()
     if (params.beforeActionScreenshot) { await params.beforeActionScreenshot() }
-    await expect(page).toHaveScreenshot([`${id}.png`])
+
+    if (params.not) {
+        await expect(page).not.toHaveScreenshot([`${id}.png`])
+    } else {
+        await expect(page).toHaveScreenshot([`${id}.png`])
+    }
+    
 }
