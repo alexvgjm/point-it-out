@@ -30,15 +30,17 @@ export class PIORoundShape extends PointItOutShape {
         const aspect = w / h
         const max = Math.max(w, h)
         const diam = Math.round(Math.sqrt(max*max + max*max))
+        const targetTop  = rect.top + scrollY
+        const targetLeft = rect.left + scrollX
 
-        let rLeft     = rect.left + (max - diam)/2           -sw/2   -pad
-        let rTop      = rect.top  + (max - diam)/2/ aspect   -sw/2   -pad
+        let rTop      = targetTop  + (max - diam)/2/ aspect   -sw/2   -pad
+        let rLeft     = targetLeft + (max - diam)/2           -sw/2   -pad
         let svgHeight = Math.ceil(diam/aspect + sw) + pad*2
         let svgWidth  = Math.ceil(diam        + sw) + pad*2
 
         if (aspect < 1) {
-            rLeft = rect.left + (max - diam)/2 * aspect  -sw/2
-            rTop =  rect.top  + (max - diam)/2           -sw/2
+            rTop =  targetTop  + (max - diam)/2           -sw/2
+            rLeft = targetLeft + (max - diam)/2 * aspect  -sw/2
             svgHeight = Math.ceil(diam + sw)
             svgWidth  = Math.ceil(diam*aspect + sw)
         }

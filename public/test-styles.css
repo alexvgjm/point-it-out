@@ -86,3 +86,7 @@
 .visual-test a {
     color: whitesmoke;
 }
+
+.visual-test {
+    min-height: 110vh;
+}

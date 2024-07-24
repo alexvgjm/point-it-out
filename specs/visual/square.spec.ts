@@ -32,8 +32,11 @@ test.describe("create('square')", () => {
             await page.waitForLoadState('load')
             const selector = `.test-box--${xW}x${xH}`
 
+            
             const [targetRect, createdSVGRect] = await page.evaluate(
                 ({ selector, idx }) => {
+                    // Should be unaffected by scroll
+                    window.scrollBy({ top: 100,  behavior: 'instant' })
                     pio.create('square', { target: selector, className: `result${idx}` })
                     const tgt = document.querySelector(selector)
                     const elm = document.querySelector(`.result${idx}`)
