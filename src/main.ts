@@ -37,6 +37,7 @@ export function create<ShapeName extends keyof ShapeOptions>(
     }
 
     created.push(createdShape)
+    return createdShape
 }
 
 /**
@@ -48,4 +49,13 @@ export function clear() {
     window.removeEventListener('resize', onResize)
     created.forEach(s => s.svg.remove())
     created.length = 0
+}
+
+/**
+ * Update all shapes. Call this if the targets elements can change its position
+ * or size. If the change is due viewport resize all shapes will be updated
+ * except if updateOnResize config option has been set to false.
+ */
+export function update() {
+    created.forEach(s => s.update())
 }
