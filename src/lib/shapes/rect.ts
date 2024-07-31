@@ -41,8 +41,4 @@ export class PIORectShape extends PointItOutShape {
             this.rectElm.setAttribute('rx', `${this.round}`)
         }
     }
-    
-    onResize(): void {
-        this.update()
-    }
 }

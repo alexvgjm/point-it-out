@@ -1,6 +1,18 @@
 {
-	"name": "pointitoutsv",
-	"version": "0.0.1",
+	"name": "pointitout",
+	"version": "0.1.0",
+	"type": "module",
+	"description": "A tiny library to mark/point out DOM elements using another absolutely positioned elements or procedurally generated SVGs",
+	"homepage": "https://github.com/alexvgjm/point-it-out",
+	"author": {
+		"name": "Alexander Vega",
+		"email": "contacto@alexvega.net",
+		"url": "https://alexvega.net"
+	},
+	"keywords": ["point out", "mark out", "svg", "dom"],
+	"license": "MIT",
+	"types": "./dist/index.d.ts",
+
 	"scripts": {
 		"dev": "vite dev",
 		"preview": "vite preview",
@@ -11,8 +23,7 @@
 		"test:unit": "vitest",
 		"build": "vite build && npm run package",
 		"package": "svelte-kit sync && svelte-package && publint",
-
-		"build:package": "tsc && vite build --config vite-build.config.ts"
+		"build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js"
 	},
 	"exports": {
 		".": {
@@ -51,8 +62,6 @@
 		"vitest": "^2.0.0"
 	},
 	"svelte": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"type": "module",
 	"dependencies": {
 		"@types/node": "^22.0.0",
 		"vite-plugin-dts": "4.0.0-beta.2"

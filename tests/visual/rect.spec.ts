@@ -152,7 +152,7 @@ test.describe("create('rect')", () => {
             })
         })
 
-        test.describe.only('round', ()=> {
+        test.describe('round', ()=> {
             testsTargets.forEach(({xW, xH}) => {
                 test(`rounded rect with rect with the specified pixels round (${xW}x${xH})`, async ({ page }, testInfo) => {
                     await visualComparisonBetweenPages({
@@ -194,10 +194,7 @@ test.describe("create('rect')", () => {
                             return page.evaluate(({ xW, xH }) => pio.create('rect', {
                                 target: `.test-box--${xW}x${xH}`,
                                 className: `result`,
-                                round: {
-                                    rx: 128,
-                                    ry: 64
-                                }
+                                round: { rx: 128, ry: 64 }
                             }), { xW, xH })
                         },
                         pwPage: page,

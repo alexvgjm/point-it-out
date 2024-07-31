@@ -60,14 +60,17 @@ export abstract class PointItOutShape {
     }
 
     /**
-     * Updates the shape to fit its target element. onResize calls it by 
+     * Updates the shape to fit its target element. onResize shoud call it by 
      * default, but must be called manually if the position or size of the 
      * target element changes for some other reason.
      */
     abstract update(): void
 
     /**
-     * 
+     * if updateOnResize: true, this overridable method will be called and 
+     * should call to update.
      */
-    abstract onResize(): void
+    onResize(): void {
+        this.update()
+    }
 }

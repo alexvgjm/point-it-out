@@ -39,7 +39,7 @@ export function create<ShapeName extends keyof ShapeOptions>(
 
 /**
  * Destroy all SVG and associated listeners.
- * This function is designed to avoid memory leaks or other problems, specially
+ * This function is designed to avoid memory leaks or other problems, especially
  * when used in SPA or while testing.
  */
 export function clear() {
@@ -49,8 +49,8 @@ export function clear() {
 }
 
 /**
- * Update all shapes. Call this if the targets elements can change its position
- * or size. If the change is due viewport resize all shapes will be updated
+ * Updates all shapes. Call this if the target elements can change its position
+ * or size. If the change is due viewport resize you do not need to call this,
  * except if updateOnResize config option has been set to false.
  */
 export function update() {
