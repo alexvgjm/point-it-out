@@ -12,7 +12,7 @@ const npmPackageJSON = {}
 npmFields.forEach(f => npmPackageJSON[f] = packageJSON[f])
 
 npmPackageJSON.types = './index.d.ts'
-npmPackageJSON.main = './pointout.js'
+npmPackageJSON.main = './pointitout.js'
 
 const path = './dist/package.json'
 writeFileSync(path, JSON.stringify(npmPackageJSON, null, 4), 'utf8');
