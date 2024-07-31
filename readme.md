@@ -3,10 +3,12 @@
 A tiny library to mark/point out DOM elements using another absolutely positioned elements or procedurally generated SVGs.
 
 ## How to use
-`npm install pointitout`
+```sh
+$ npm install pointitout
+```
 
 ## Roadmap
-- v0.1.0 (Work in progress. Planned for August 1st, 2024)
+- v0.1 (Work in progress. Planned for August 1st-2nd, 2024)
     - Common options for all future SVG pure shapes:
         - strokeWidth and strokeColor
         - className: specifies class for result SVG
@@ -16,7 +18,7 @@ A tiny library to mark/point out DOM elements using another absolutely positione
     - References control, healthy resize listeners management and cleaning functions.
     - Docs
 
-- v0.2.0
+- v0.2
     - Custom elements:
         - A way to use another elements (like images), not only procedurally generated SVG rects.
 
