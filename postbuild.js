@@ -1,5 +1,5 @@
 import packageJSON from "./package.json" with { type: "json" };
-import { writeFileSync } from "fs";
+import { writeFileSync, copyFileSync } from "fs";
 
 console.log('generating the npm package.json')
 
@@ -16,5 +16,10 @@ npmPackageJSON.main = './pointitout.js'
 
 const path = './dist/package.json'
 writeFileSync(path, JSON.stringify(npmPackageJSON, null, 4), 'utf8');
+
+
+console.log('copying readme.md')
+copyFileSync('./readme.md', './dist/readme.md')
+
 
 console.log('Done!')

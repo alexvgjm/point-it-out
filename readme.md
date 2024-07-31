@@ -1,11 +1,9 @@
-# Point it out! (pointitout.js)
+# Point it out! (pointitout)
 
-A tiny library to point it out DOM elements using another absolutely positioned 
-elements or procedurally generated SVGs.
+A tiny library to mark/point out DOM elements using another absolutely positioned elements or procedurally generated SVGs.
 
 ## How to use
-In a very early development stage. The npm package has not been published yet. To obtain a build clone this repo and `pnpm i` + `pnpm run build:package`.
-Should generate a simple .js file and its index.d.ts.
+`npm install pointitout`
 
 ## Roadmap
 - v0.1.0 (Work in progress. Planned for August 1st, 2024)
