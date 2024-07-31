@@ -1,26 +1,39 @@
 # Point it out! (pointitout.js)
 
-A tiny library to point it out DOM elements by procedurally generated and 
-absolutely positioned SVG elements.
+A tiny library to point it out DOM elements using another absolutely positioned 
+elements or procedurally generated SVGs.
 
 ## How to use
 In a very early development stage. The npm package has not been published yet. To obtain a build clone this repo and `pnpm i` + `pnpm run build:package`.
 Should generate a simple .js file and its index.d.ts.
 
-First release and docs planned for August 1st, 2024.
+## Roadmap
+- v0.1.0 (Work in progress. Planned for August 1st, 2024)
+    - Common options for all future SVG pure shapes:
+        - strokeWidth and strokeColor
+        - className: specifies class for result SVG
+    - The 'rect' shape with options:
+        - padding: same behavior of CSS padding
+        - round: using SVG rect round. Not the same behavior of CSS border-radius
+    - References control, healthy resize listeners management and cleaning functions.
+    - Docs
+
+- v0.2.0
+    - Custom elements:
+        - A way to use another elements (like images), not only procedurally generated SVG rects.
 
 ## Want to contribute? You should know:
 - specs folder
     - unit
-        - contains not visual specs (throws, DOM structure, etc).
-        - using vitest (`npm run test`).
+        - contains non-visual specs (throws, DOM structure, etc).
+        - using vitest (`npm run test:unit`).
 
     - visual
         - contains visual specs by a custom "visual specification design".
         - there is an expected for each spec. See with `npm run dev` the index page and explore yourself.
         - using playwright with a custom pages comparison function hacking the visual regresion tools (`npm run test:visual`).
 
-- architecture
+- Architecture
     - All new shapes should extend PointItOutShape, have a .spec.ts file in unit & visual and an entry in ShapeOptions type and availableShapes array.
     - Use the 'rect' shape (implemented as PIORectShape class) as example.
     - Create a specification/test folder in pages/expected as the other shapes.
