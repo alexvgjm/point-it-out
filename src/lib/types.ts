@@ -15,7 +15,7 @@ export type CommonOptions = {
 }
 
 export type ShapeOptions = {
-    'rect': {} & CommonOptions, // No options beside commons ATM
+    'rect': {round?: number | string | {rx: number|string, ry: number|string}} & CommonOptions,
     'image': {} & CommonOptions // No options beside commons ATM
 }
 

@@ -4,11 +4,14 @@ import type { ShapeOptions } from "../types"
 export class PIORectShape extends PointItOutShape {
     rectElm: SVGRectElement
 
+    round: number | string | {rx: number|string, ry: number|string} = 0
+
     constructor(options: ShapeOptions['rect']) {
         super(options)
         this.rectElm = createSVG('rect')
         this.svg.appendChild(this.rectElm)
         document.body.appendChild(this.svg)
+        this.round = options.round || 0
         this.update()
     }
 
@@ -30,6 +33,13 @@ export class PIORectShape extends PointItOutShape {
         this.rectElm.setAttribute('y',      `${offset}`)
         this.rectElm.setAttribute('width',  `${width - strW}`)
         this.rectElm.setAttribute('height', `${height - strW}`)
+        
+        if (typeof this.round == 'object') {
+            this.rectElm.setAttribute('rx', `${this.round.rx}`)
+            this.rectElm.setAttribute('ry', `${this.round.ry}`)
+        } else {
+            this.rectElm.setAttribute('rx', `${this.round}`)
+        }
     }
     
     onResize(): void {

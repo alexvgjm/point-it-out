@@ -152,12 +152,59 @@ test.describe("create('rect')", () => {
             })
         })
 
-       /* test.describe('round', ()=> {
+        test.describe.only('round', ()=> {
             testsTargets.forEach(({xW, xH}) => {
-                it(`can be a number (pixels)`, async ({ page }, testInfo) => {
-                    
+                test(`rounded rect with rect with the specified pixels round (${xW}x${xH})`, async ({ page }, testInfo) => {
+                    await visualComparisonBetweenPages({
+                        testingURL: `/rect/${xW}x${xH}`,
+                        expectedURL: `/rect/${xW}x${xH}/round-option/pixels`,
+                        action: () => {
+                            return page.evaluate(({ xW, xH }) => pio.create('rect', {
+                                target: `.test-box--${xW}x${xH}`,
+                                className: `result`,
+                                round: 32
+                            }), { xW, xH })
+                        },
+                        pwPage: page,
+                        pwTestInfo: testInfo,
+                    })
+                })
+
+                test(`rounded rect with the specified percent round (${xW}x${xH})`, async ({ page }, testInfo) => {
+                    await visualComparisonBetweenPages({
+                        testingURL: `/rect/${xW}x${xH}`,
+                        expectedURL: `/rect/${xW}x${xH}/round-option/percent`,
+                        action: () => {
+                            return page.evaluate(({ xW, xH }) => pio.create('rect', {
+                                target: `.test-box--${xW}x${xH}`,
+                                className: `result`,
+                                round: '20%'
+                            }), { xW, xH })
+                        },
+                        pwPage: page,
+                        pwTestInfo: testInfo,
+                    })
+                })
+
+                test(`rounded rect with different hozirontal and vertical round (${xW}x${xH})`, async ({ page }, testInfo) => {
+                    await visualComparisonBetweenPages({
+                        testingURL: `/rect/${xW}x${xH}`,
+                        expectedURL: `/rect/${xW}x${xH}/round-option/x-and-y`,
+                        action: () => {
+                            return page.evaluate(({ xW, xH }) => pio.create('rect', {
+                                target: `.test-box--${xW}x${xH}`,
+                                className: `result`,
+                                round: {
+                                    rx: 128,
+                                    ry: 64
+                                }
+                            }), { xW, xH })
+                        },
+                        pwPage: page,
+                        pwTestInfo: testInfo,
+                    })
                 })
             })
-        })*/
+        })
     })
 })
