@@ -4,14 +4,13 @@ A tiny library to point it out DOM elements by procedurally generated and
 absolutely positioned SVG elements.
 
 ## How to use
-In a very early development stage. The npm package has not been published yet. To obtain a build clone this repo and `pnpm i` + `pnpm build`.
+In a very early development stage. The npm package has not been published yet. To obtain a build clone this repo and `pnpm i` + `pnpm run build:package`.
 Should generate a simple .js file and its index.d.ts.
 
 First release and docs planned for August 1st, 2024.
 
 ## Want to contribute? You should know:
 - specs folder
-
     - unit
         - contains not visual specs (throws, DOM structure, etc).
         - using vitest (`npm run test`).

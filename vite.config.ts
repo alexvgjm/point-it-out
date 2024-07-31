@@ -1,26 +1,11 @@
-import vituum from 'vituum'
-import nunjucks from '@vituum/vite-plugin-nunjucks'
-import { defineConfig } from "vitest/config";
-import { resolve } from 'path';
-import dts from 'vite-plugin-dts';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-    build: { 
-        lib: { 
-            entry: resolve(__dirname, 'src/main.ts'), 
-            formats: ['es'],
-        },
-        copyPublicDir: false,
-        rollupOptions: {
-            input: 'src/main.ts',
-        }
-    },
-    plugins: [vituum(), nunjucks({
-        root: './src'
-    }), dts({rollupTypes: true})],
+	plugins: [sveltekit()],
 	test: {
-        setupFiles: ['./specs/unit/setup.ts'],
-		include: ['./specs/unit/*.{test,spec}.{js,ts}'],
+        setupFiles: ['./tests/unit/setup.ts'],
+		include: ['./tests/unit/*.{test,spec}.{js,ts}'],
         environment: 'happy-dom'
 	}
-})
+});
