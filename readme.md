@@ -2,9 +2,18 @@
 
 A tiny library to mark/point out DOM elements using another absolutely positioned elements or procedurally generated SVGs.
 
-## How to use
+NOTE: in a very early stage of development
+
 ```sh
 $ npm install pointitout
+```
+
+## Basic usage
+```ts
+import { create } from 'pointitout'
+
+// only rect shape at the moment
+create('rect', {target: '.a-css-selector'})
 ```
 
 ## Roadmap
@@ -21,19 +30,3 @@ $ npm install pointitout
 - v0.2
     - Custom elements:
         - A way to use another elements (like images), not only procedurally generated SVG rects.
-
-## Want to contribute? You should know:
-- specs folder
-    - unit
-        - contains non-visual specs (throws, DOM structure, etc).
-        - using vitest (`npm run test:unit`).
-
-    - visual
-        - contains visual specs by a custom "visual specification design".
-        - there is an expected for each spec. See with `npm run dev` the index page and explore yourself.
-        - using playwright with a custom pages comparison function hacking the visual regresion tools (`npm run test:visual`).
-
-- Architecture
-    - All new shapes should extend PointItOutShape, have a .spec.ts file in unit & visual and an entry in ShapeOptions type and availableShapes array.
-    - Use the 'rect' shape (implemented as PIORectShape class) as example.
-    - Create a specification/test folder in pages/expected as the other shapes.
