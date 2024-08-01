@@ -6,7 +6,7 @@
 	import { browser } from '$app/environment';
 
 	if (browser) {
-		(window as any).pio = pio;
+		(window as unknown as {pio: typeof pio}).pio = pio;
 	}
 </script>
 

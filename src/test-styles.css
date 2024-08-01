@@ -1,99 +1,98 @@
 .test-box {
-    box-sizing: content-box;
-    background: #333;
-    position: absolute;
+	box-sizing: content-box;
+	background: #333;
+	position: absolute;
 }
 
 .test-box--300x300 {
-    width: 300px;
-    height: 300px;
+	width: 300px;
+	height: 300px;
 }
 
 .test-box--400x250 {
-    width: 400px;
-    height: 250px;
+	width: 400px;
+	height: 250px;
 }
 
 .test-box--1000x1000 {
-    width: 1000px;
-    height: 1000px;
+	width: 1000px;
+	height: 1000px;
 }
 
 .expected-index {
-    display: flex;
-    flex-wrap: wrap;
-    border: 1px solid #444a;
-    border-radius: 1rem;
-    padding: 1rem;
-    margin-top: 1rem;
-    width: 100%;
-    max-width: 800px;
-    position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	border: 1px solid #444a;
+	border-radius: 1rem;
+	padding: 1rem;
+	margin-top: 1rem;
+	width: 100%;
+	max-width: 800px;
+	position: relative;
 }
 
 .visual-test ul {
-    list-style: none;
+	list-style: none;
 }
 
-
 .visual-test ul li {
-    margin-top: 0.2rem;
-    display: flex;
+	margin-top: 0.2rem;
+	display: flex;
 }
 
 .visual-test h2 {
-    margin: 0;
+	margin: 0;
 }
 .expected-index h2 {
-    margin: 0;
-    position: absolute;
-    left: -1em;
-    top: -1em;
-    border: 1px solid #444a;
-    border-radius: 1rem;
-    padding: 0.5rem 1rem;
-    background: var(--color-bg);
+	margin: 0;
+	position: absolute;
+	left: -1em;
+	top: -1em;
+	border: 1px solid #444a;
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
+	background: var(--color-bg);
 }
 
 .expected-index h3 {
-    margin-top: 0;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-font-highlight);
+	margin-top: 0;
+	text-align: center;
+	margin-bottom: 0.5rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid var(--color-font-highlight);
 }
 
 .visual-test .size {
-    font-size: 0.8rem;
-    background: #10354f;
-    display: inline-block;
-    padding: 0.1rem 0.3rem;
-    border-radius: 0.3rem;
-    margin-right: 0.2rem;
+	font-size: 0.8rem;
+	background: #10354f;
+	display: inline-block;
+	padding: 0.1rem 0.3rem;
+	border-radius: 0.3rem;
+	margin-right: 0.2rem;
 }
 
 .visual-test .category {
-    margin: 1rem;
-    width: 45%;
+	margin: 1rem;
+	width: 45%;
 }
 
 .test-pages-links {
-    display: flex;
-    max-width: 720px;
-    width: 100%;
-    justify-content: center;
-    margin-top: 0.25rem;
-    margin-bottom: 2rem;
+	display: flex;
+	max-width: 720px;
+	width: 100%;
+	justify-content: center;
+	margin-top: 0.25rem;
+	margin-bottom: 2rem;
 }
 
 .test-pages-links li {
-    margin: 0.25rem;
+	margin: 0.25rem;
 }
 
 .visual-test a {
-    color: whitesmoke;
+	color: whitesmoke;
 }
 
 .visual-test {
-    min-height: 110vh;
+	min-height: 110vh;
 }

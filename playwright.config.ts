@@ -9,13 +9,13 @@ const config: PlaywrightTestConfig = {
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/,
 	projects: [
 		{
-		  name: 'chromium',
-		  use: { ...devices['Desktop Chrome'] },
+			name: 'chromium',
+			use: { ...devices['Desktop Chrome'] }
 		}
 	],
 	fullyParallel: true,
-	
-  	globalSetup: './tests/visual/setup.ts'
+
+	globalSetup: './tests/visual/setup.ts'
 };
 
 export default config;
