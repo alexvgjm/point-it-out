@@ -18,6 +18,7 @@ export default defineConfig({
         copyPublicDir: false,
         rollupOptions: {
             input: 'src/lib/main.ts',
-        }
+        },
+        outDir: 'dist-npm'
     },
 });
