@@ -17,7 +17,7 @@ create('rect', {target: '.a-css-selector'})
 ```
 
 ## Roadmap
-- v0.1 (Work in progress. Planned for August 1st-2nd, 2024)
+- v0.1
     - Common options for all future SVG pure shapes:
         - strokeWidth and strokeColor
         - className: specifies class for result SVG
@@ -25,8 +25,8 @@ create('rect', {target: '.a-css-selector'})
         - padding: same behavior of CSS padding
         - round: using SVG rect round. Not the same behavior of CSS border-radius
     - References control, healthy resize listeners management and cleaning functions.
-    - Docs
 
-- v0.2
+- v0.2 (Work in progress)
+    - Docs
     - Custom elements:
         - A way to use another elements (like images), not only procedurally generated SVG rects.
