@@ -9,9 +9,13 @@
 		"email": "contacto@alexvega.net",
 		"url": "https://alexvega.net"
 	},
-	"keywords": ["pointout", "markout", "svg", "dom"],
+	"keywords": [
+		"pointout",
+		"markout",
+		"svg",
+		"dom"
+	],
 	"license": "MIT",
-
 	"scripts": {
 		"dev": "vite dev",
 		"preview": "vite preview",
@@ -22,7 +26,8 @@
 		"test:unit": "vitest",
 		"build": "vite build && npm run package",
 		"package": "svelte-kit sync && svelte-package && publint",
-		"build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js"
+		"build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js",
+		"prepare": "husky"
 	},
 	"files": [
 		"dist",
@@ -44,6 +49,7 @@
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
 		"happy-dom": "^14.12.3",
+		"husky": "^9.1.4",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
 		"publint": "^0.1.9",

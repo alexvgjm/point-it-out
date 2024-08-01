@@ -1,132 +1,135 @@
 :root {
-  --color-primary-lightest: hsl(0, 0%, 97%);
-  --color-primary-lighter:  hsl(0, 0%, 85%);
-  --color-primary-light:    hsl(0, 0%, 80%);
-  --color-primary-lighty:   hsl(0, 0%, 68%);
-  --color-primary:          hsl(0, 0%, 59%);
-  --color-primary-darky:    hsl(0, 0%, 45%);
-  --color-primary-dark:     hsl(0, 0%, 30%);
-  --color-primary-darker:   hsl(0, 0%, 11%);
-  --color-primary-darkest:  hsl(0, 0%, 08%);
+	--color-primary-lightest: hsl(0, 0%, 97%);
+	--color-primary-lighter: hsl(0, 0%, 85%);
+	--color-primary-light: hsl(0, 0%, 80%);
+	--color-primary-lighty: hsl(0, 0%, 68%);
+	--color-primary: hsl(0, 0%, 59%);
+	--color-primary-darky: hsl(0, 0%, 45%);
+	--color-primary-dark: hsl(0, 0%, 30%);
+	--color-primary-darker: hsl(0, 0%, 11%);
+	--color-primary-darkest: hsl(0, 0%, 08%);
 
-  --color-second-lightest: hsl(15, 100%, 97%);
-  --color-second-lighter:  hsl(15, 100%, 85%);
-  --color-second-light:    hsl(15, 100%, 80%);
-  --color-second-lighty:   hsl(15, 98%, 68%);
-  --color-second:          hsl(15, 90%, 59%);
-  --color-second-darky:    hsl(15, 85%, 45%);
-  --color-second-dark:     hsl(15, 80%, 30%);
-  --color-second-darker:   hsl(15, 80%, 20%);
-  --color-second-darkest:  hsl(15, 80%, 8%);
+	--color-second-lightest: hsl(15, 100%, 97%);
+	--color-second-lighter: hsl(15, 100%, 85%);
+	--color-second-light: hsl(15, 100%, 80%);
+	--color-second-lighty: hsl(15, 98%, 68%);
+	--color-second: hsl(15, 90%, 59%);
+	--color-second-darky: hsl(15, 85%, 45%);
+	--color-second-dark: hsl(15, 80%, 30%);
+	--color-second-darker: hsl(15, 80%, 20%);
+	--color-second-darkest: hsl(15, 80%, 8%);
 
-  --color-font-primary: var(--color-primary-lightest);
-  --color-blog-font-primary: var(--color-primary-light);
-  --color-font-highlight: var(--color-second-lighty);
+	--color-font-primary: var(--color-primary-lightest);
+	--color-blog-font-primary: var(--color-primary-light);
+	--color-font-highlight: var(--color-second-lighty);
 
-  --color-bg: var(--color-primary-darkest);
-  --color-bg-2: var(--color-primary-darker);
+	--color-bg: var(--color-primary-darkest);
+	--color-bg-2: var(--color-primary-darker);
 
-  --color-bg-semi: color-mix(in srgb, var(--color-bg) 90%, transparent 10%);
-  --color-link: var(--color-font-highlight);
+	--color-bg-semi: color-mix(in srgb, var(--color-bg) 90%, transparent 10%);
+	--color-link: var(--color-font-highlight);
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+	overflow-x: hidden;
+	scroll-behavior: smooth;
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
-  color: var(--color-font-primary);
-  background: var(--color-bg);
-  overflow-x: hidden;
-  position: relative;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	font-family: Helvetica, Arial, sans-serif;
+	color: var(--color-font-primary);
+	background: var(--color-bg);
+	overflow-x: hidden;
+	position: relative;
+	min-height: 100svh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 p {
-  margin-top: 1rem;
-  line-height: 1.5em;
-  text-wrap: pretty;
+	margin-top: 1rem;
+	line-height: 1.5em;
+	text-wrap: pretty;
 }
 a {
-  color: var(--color-link);
-  text-decoration: none;
+	color: var(--color-link);
+	text-decoration: none;
 }
 
 strong {
-  color: var(--color-font-highlight);
+	color: var(--color-font-highlight);
 }
 
-h1,h2,h3,h4 {
-  margin: 0.5em 0;
+h1,
+h2,
+h3,
+h4 {
+	margin: 0.5em 0;
 }
 
-h1 { 
-  font-size: 1.5rem;
-  color: var(--color-font-highlight);
+h1 {
+	font-size: 1.5rem;
+	color: var(--color-font-highlight);
 }
 
-h2,h3,h4 {
-  font-size: 1.25rem;
-  margin-top: 1.75rem;
-  color: var(--color-font-highlight);
+h2,
+h3,
+h4 {
+	font-size: 1.25rem;
+	margin-top: 1.75rem;
+	color: var(--color-font-highlight);
 }
 
 blockquote {
-  font-style: italic;
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-  max-width: 480px;
-  margin: 0 auto;
-  line-height: 1.1rem;
+	font-style: italic;
+	font-size: 0.9rem;
+	padding: 0.5rem 1rem;
+	max-width: 480px;
+	margin: 0 auto;
+	line-height: 1.1rem;
 }
 
 blockquote::before,
 blockquote::after {
-  content: "\"";
-  color: var(--color-font-highlight);
-  font-size: 1.1rem;
-  margin: 0 0.1rem;
-  line-height: 0;
+	content: '"';
+	color: var(--color-font-highlight);
+	font-size: 1.1rem;
+	margin: 0 0.1rem;
+	line-height: 0;
 }
-
 
 path {
-  transition: 0.25s linear stroke-dashoffset;
-  fill: none;
-  stroke: var(--color-second);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: none;
-  stroke-opacity: 1;
+	transition: 0.25s linear stroke-dashoffset;
+	fill: none;
+	stroke: var(--color-second);
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-dasharray: none;
+	stroke-opacity: 1;
 }
 
-
 .hl {
-  color:var(--color-font-highlight);
+	color: var(--color-font-highlight);
 }
 
 main {
-  max-width: 1024px;
-  padding: 2rem;
+	max-width: 1024px;
+	padding: 2rem;
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  margin-top: 0;
+	font-size: 1.2rem;
+	margin-top: 0;
 }
 h1 {
-  margin-bottom: 0.25rem;
+	margin-bottom: 0.25rem;
 }
