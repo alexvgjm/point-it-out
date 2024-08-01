@@ -13,7 +13,7 @@ type TestPagesParams = {
 	not?: boolean;
 };
 
-let generated = new Set<string>();
+const generated = new Set<string>();
 
 export async function visualComparisonBetweenPages(params: TestPagesParams) {
 	const page = params.pwPage;

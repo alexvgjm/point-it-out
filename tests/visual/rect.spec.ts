@@ -81,7 +81,7 @@ test.describe("create('rect')", () => {
 		});
 		test(`created SVG should ignore pointer events and let pass through it (${xW}x${xH})`, async ({
 			page
-		}, testInfo) => {
+		}) => {
 			await page.goto(`/rect/${xW}x${xH}`, { waitUntil: 'networkidle' });
 			const selector = `.test-box--${xW}x${xH}`;
 
@@ -106,7 +106,7 @@ test.describe("create('rect')", () => {
 	});
 
 	test.describe('Default behavior (no options)', () => {
-		testsTargets.forEach(({ xW, xH }, idx) => {
+		testsTargets.forEach(({ xW, xH }) => {
 			it(`creates an orange rect with a width of 4px around target (${xW}x${xH})`, async ({
 				page
 			}, testInfo) => {
