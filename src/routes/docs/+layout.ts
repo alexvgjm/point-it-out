@@ -7,12 +7,12 @@ import css from 'highlight.js/lib/languages/css';
 import bash from 'highlight.js/lib/languages/bash';
 
 export const load = (async () => {
-    if (browser) {
-        hljs.registerLanguage('typescript', typescript)
-        hljs.registerLanguage('html', xml)
-        hljs.registerLanguage('css', css)
-        hljs.registerLanguage('bash', bash)
-    }
+	if (browser) {
+		hljs.registerLanguage('typescript', typescript);
+		hljs.registerLanguage('html', xml);
+		hljs.registerLanguage('css', css);
+		hljs.registerLanguage('bash', bash);
+	}
 
-    return { hljs };
+	return { hljs };
 }) satisfies LayoutLoad;

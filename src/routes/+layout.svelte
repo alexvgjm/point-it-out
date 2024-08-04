@@ -19,7 +19,7 @@
 		border-bottom: 0.15rem solid var(--color-third);
 	}
 
-	:global(.doc-section:not(:first-of-type)){
+	:global(.doc-section:not(:first-of-type)) {
 		margin-top: 4rem;
 	}
 	:global(.doc-section:last-of-type) {

@@ -9,15 +9,14 @@
 	if (browser) {
 		(window as unknown as { pio: typeof pio }).pio = pio;
 
-		onMount(()=>{
-			document.body.classList.add('visual-test')
-		})
+		onMount(() => {
+			document.body.classList.add('visual-test');
+		});
 
-		onDestroy(()=>{
-			document.body.classList.remove('visual-test')
-		})
+		onDestroy(() => {
+			document.body.classList.remove('visual-test');
+		});
 	}
-	
 </script>
 
 <slot></slot>
