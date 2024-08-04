@@ -10,19 +10,27 @@ export class PIORectShape extends PointItOutShape {
 		super(options);
 		this.rectElm = createSVG('rect');
 		this.svg.appendChild(this.rectElm);
-		document.body.appendChild(this.svg);
+		this.container.appendChild(this.svg);
 		this.round = options.round || 0;
+		console.log('---------------------');
+		console.log(this.container);
+		console.log('---------------------');
 		this.update();
 	}
 
 	update(): void {
 		const htmlRect = this.target.getBoundingClientRect();
+		const parentRect = this.container.getBoundingClientRect();
 		const strW = this.strokeWidth;
 		const width = htmlRect.width + strW * 2 + this.padding * 2;
 		const height = htmlRect.height + strW * 2 + this.padding * 2;
 		const offset = Math.round(strW / 2);
-		const targetTop = htmlRect.top + scrollY;
-		const targetLeft = htmlRect.left + scrollX;
+
+		const relativeTop = htmlRect.top - parentRect.top;
+		const relativeLeft = htmlRect.left - parentRect.left;
+
+		const targetTop = relativeTop + this.container.scrollTop;
+		const targetLeft = relativeLeft + this.container.scrollLeft;
 
 		this.svg.style.top = targetTop - strW - this.padding + 'px';
 		this.svg.style.left = targetLeft - strW - this.padding + 'px';
