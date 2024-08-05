@@ -2,25 +2,22 @@
   import { browser } from '$app/environment'
   import { page } from '$app/stores'
   import { onMount } from 'svelte'
-  import { generalStore } from '../stores/general.svelte'
-  import { afterNavigate } from '$app/navigation'
+  import { useStore } from '../stores/general.svelte'
+  import { afterNavigate, replaceState } from '$app/navigation'
 
   let menuOpen = $state(false)
   let navElm: HTMLElement
 
   if (browser) {
-    $effect(() => {
-      window.history.replaceState(
-        history.state,
-        '',
-        $page.url.pathname + '#' + generalStore.headerId
-      )
+    afterNavigate(() => {
+      useStore().headerId = $page.url.hash.replace('#', '')
+      if (useStore().headerId != '') {
+        replaceState($page.url.pathname + '#' + useStore().headerId, $page.state)
+      }
+      menuOpen = false
     })
 
-    afterNavigate(() => (menuOpen = false))
-
     onMount(() => {
-      generalStore.headerId = $page.url.hash.replace('#', '')
       window.addEventListener('pointerdown', closeMenu)
       return () => {
         window.removeEventListener('pointerdown', closeMenu)
@@ -42,8 +39,8 @@
     'create(...)': {
       'Creating pointers': '/docs/create#creating-pointers',
       Rect: '/docs/create#rect',
-      'Pointer references': '/docs/create#pointer-references',
-      Examples: '/docs/create#examples'
+      'Rect examples': '/docs/create#examples',
+      'Pointer references': '/docs/create#pointer-references'
     },
     'update()': {
       'Update all pointers': '/docs/update',
@@ -84,8 +81,7 @@
           <a
             class="main-nav__link"
             href={url}
-            class:current={$page.url.pathname + '#' + generalStore.headerId == url}
-            >{subsectTitle}</a
+            class:current={$page.url.pathname + '#' + useStore().headerId == url}>{subsectTitle}</a
           >
         {/each}
       </nav>

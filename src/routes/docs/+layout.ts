@@ -6,6 +6,7 @@ import xml from 'highlight.js/lib/languages/xml'
 import css from 'highlight.js/lib/languages/css'
 import bash from 'highlight.js/lib/languages/bash'
 import javascript from 'highlight.js/lib/languages/javascript'
+import { useStore } from '../../stores/general.svelte'
 
 export const load = (async () => {
   if (browser) {
@@ -15,6 +16,8 @@ export const load = (async () => {
     hljs.registerLanguage('javascript', javascript)
     hljs.registerLanguage('bash', bash)
   }
+
+  useStore(hljs)
 
   return { hljs }
 }) satisfies LayoutLoad

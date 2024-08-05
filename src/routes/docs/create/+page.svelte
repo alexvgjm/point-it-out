@@ -157,6 +157,69 @@ create('rect', {"{ target: '#target-css-selector' }"})
 </section>
 
 <section class="doc-section">
+  <h1 id="examples">Examples</h1>
+
+  <p style="margin-bottom: 2rem;">
+    Notice the use of "container" option to create the SVG inside the &lt;main&gt; element instead
+    body, avoiding issues with the scrollable main.
+  </p>
+
+  <ColumnsContainer>
+    <!-- prettier-ignore -->
+    <Code slot="left"
+            language="TypeScript" 
+            showLanguage={false} noTop>
+create('rect', {`{
+    target: '#box-1', 
+    container: 'main',
+    padding: 8
+}`})
+        </Code>
+
+    <div slot="right" class="result-panel">
+      <div class="test-box" id="box-1">#box-1</div>
+    </div>
+  </ColumnsContainer>
+
+  <ColumnsContainer even>
+    <!-- prettier-ignore -->
+    <Code slot="left"  noTop
+            language="TypeScript" 
+            showLanguage={false}>
+create('rect', {`{
+    target: '#box-2', 
+    container: 'main',
+    strokeWidth: 8,
+    strokeColor: '#68c'
+}`})
+        </Code>
+
+    <div slot="right" class="result-panel">
+      <div class="test-box" id="box-2">#box-2</div>
+    </div>
+  </ColumnsContainer>
+
+  <ColumnsContainer>
+    <!-- prettier-ignore -->
+    <Code slot="left"  noTop
+            language="TypeScript" 
+            showLanguage={false}>
+create('rect', {`{
+    target: '#box-3', 
+    container: 'main',
+    strokeColor: '#f8c',
+    round: '30%',
+    padding: 12
+}`})
+        </Code>
+
+    <div slot="right" class="result-panel">
+      <div class="test-box" id="box-3">#box-3</div>
+    </div>
+  </ColumnsContainer>
+</section>
+
+<section class="doc-section">
   <h1 id="pointer-references">Pointer references</h1>
 
   <p>
@@ -178,66 +241,4 @@ console.log(pointer.htmlElement) // or some methods. More of this later.
 
 pointer.destroy() // Destroy the HTMLElement and listeners
     </Code>
-</section>
-
-<section class="doc-section">
-  <h1 id="examples">Examples</h1>
-
-  <p style="margin-bottom: 2rem;">
-    Note: using the "container" option to create the SVG inside the &lt;main&gt; element
-  </p>
-
-  <ColumnsContainer>
-    <!-- prettier-ignore -->
-    <Code slot="left" 
-            language="TypeScript" 
-            showLanguage={false} noTop>
-create('rect', {`{
-    target: '#box-1', 
-    container: 'main',
-    padding: 8
-}`})
-        </Code>
-
-    <div slot="right" class="result-panel">
-      <div class="test-box" id="box-1">Box 1</div>
-    </div>
-  </ColumnsContainer>
-
-  <ColumnsContainer even>
-    <!-- prettier-ignore -->
-    <Code slot="left"  noTop
-            language="TypeScript" 
-            showLanguage={false}>
-create('rect', {`{
-    target: '#box-2', 
-    container: 'main',
-    strokeWidth: 8,
-    strokeColor: '#68c'
-}`})
-        </Code>
-
-    <div slot="right" class="result-panel">
-      <div class="test-box" id="box-2">Box 2</div>
-    </div>
-  </ColumnsContainer>
-
-  <ColumnsContainer>
-    <!-- prettier-ignore -->
-    <Code slot="left"  noTop
-            language="TypeScript" 
-            showLanguage={false}>
-create('rect', {`{
-    target: '#box-3', 
-    container: 'main',
-    strokeColor: '#f8c',
-    round: '30%',
-    padding: 12
-}`})
-        </Code>
-
-    <div slot="right" class="result-panel">
-      <div class="test-box" id="box-3">Box 3</div>
-    </div>
-  </ColumnsContainer>
 </section>

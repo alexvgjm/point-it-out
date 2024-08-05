@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
+  import { useStore } from '../stores/general.svelte'
+
   type Language = 'HTML' | 'TypeScript' | 'JavaScript' | 'CSS' | 'Bash'
   export let language: Language
   export let showLineWrapButton = false
@@ -6,6 +9,8 @@
   export let showCopyButton = false
   export let showSelectAllButton = false
   export let noTop = false
+
+  const hljs = useStore().hljs
 
   const colors: { [lang in Language]: string } = {
     CSS: '#2965f1',
@@ -39,6 +44,8 @@
 
     sel.selectAllChildren(codeElm)
   }
+
+  onMount(() => hljs.highlightElement(codeElm))
 </script>
 
 <div
