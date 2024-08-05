@@ -144,6 +144,7 @@ main {
   max-width: 1024px;
   padding: 2rem;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .subtitle {

@@ -1,4 +1,6 @@
-function createStore() {
+import type { HLJSApi } from 'highlight.js'
+
+function createStore(hljsInstance: HLJSApi) {
   let inTestPage = $state(false)
   let headerId = $state<string>('')
 
@@ -14,8 +16,23 @@ function createStore() {
     },
     set headerId(val) {
       headerId = val
+    },
+    get hljs() {
+      return hljsInstance
     }
   }
 }
 
-export const generalStore = createStore()
+let storeInstance: ReturnType<typeof createStore>
+
+export const useStore = (hljs?: HLJSApi) => {
+  if (storeInstance) {
+    return storeInstance
+  }
+  if (!hljs) {
+    throw new Error('hljs required to init general store')
+  }
+
+  storeInstance = createStore(hljs)
+  return storeInstance
+}
