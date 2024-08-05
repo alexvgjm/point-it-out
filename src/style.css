@@ -1,169 +1,169 @@
 :root {
-	--color-primary-lightest: hsl(0, 0%, 97%);
-	--color-primary-lighter: hsl(0, 0%, 85%);
-	--color-primary-light: hsl(0, 0%, 80%);
-	--color-primary-lighty: hsl(0, 0%, 68%);
-	--color-primary: hsl(0, 0%, 59%);
-	--color-primary-darky: hsl(0, 0%, 45%);
-	--color-primary-dark: hsl(0, 0%, 20%);
-	--color-primary-darker: hsl(0, 0%, 11%);
-	--color-primary-darkest: hsl(0, 0%, 08%);
+  --color-primary-lightest: hsl(0, 0%, 97%);
+  --color-primary-lighter: hsl(0, 0%, 85%);
+  --color-primary-light: hsl(0, 0%, 80%);
+  --color-primary-lighty: hsl(0, 0%, 68%);
+  --color-primary: hsl(0, 0%, 59%);
+  --color-primary-darky: hsl(0, 0%, 45%);
+  --color-primary-dark: hsl(0, 0%, 20%);
+  --color-primary-darker: hsl(0, 0%, 11%);
+  --color-primary-darkest: hsl(0, 0%, 08%);
 
-	--color-second-lightest: hsl(345, 70%, 97%);
-	--color-second-lighter: hsl(345, 70%, 85%);
-	--color-second-light: hsl(345, 70%, 80%);
-	--color-second-lighty: hsl(345, 68%, 68%);
-	--color-second: hsl(345, 60%, 59%);
-	--color-second-darky: hsl(345, 55%, 45%);
-	--color-second-dark: hsl(345, 50%, 30%);
-	--color-second-darker: hsl(345, 50%, 20%);
-	--color-second-darkest: hsl(345, 50%, 8%);
+  --color-second-lightest: hsl(345, 70%, 97%);
+  --color-second-lighter: hsl(345, 70%, 85%);
+  --color-second-light: hsl(345, 70%, 80%);
+  --color-second-lighty: hsl(345, 68%, 68%);
+  --color-second: hsl(345, 60%, 59%);
+  --color-second-darky: hsl(345, 55%, 45%);
+  --color-second-dark: hsl(345, 50%, 30%);
+  --color-second-darker: hsl(345, 50%, 20%);
+  --color-second-darkest: hsl(345, 50%, 8%);
 
-	--color-third-lightest: hsl(210, 70%, 97%);
-	--color-third-lighter: hsl(210, 70%, 85%);
-	--color-third-light: hsl(210, 70%, 80%);
-	--color-third-lighty: hsl(210, 68%, 68%);
-	--color-third: hsl(210, 60%, 59%);
-	--color-third-darky: hsl(210, 55%, 45%);
-	--color-third-dark: hsl(210, 50%, 30%);
-	--color-third-darker: hsl(210, 50%, 20%);
-	--color-third-darkest: hsl(210, 50%, 8%);
+  --color-third-lightest: hsl(210, 70%, 97%);
+  --color-third-lighter: hsl(210, 70%, 85%);
+  --color-third-light: hsl(210, 70%, 80%);
+  --color-third-lighty: hsl(210, 68%, 68%);
+  --color-third: hsl(210, 60%, 59%);
+  --color-third-darky: hsl(210, 55%, 45%);
+  --color-third-dark: hsl(210, 50%, 30%);
+  --color-third-darker: hsl(210, 50%, 20%);
+  --color-third-darkest: hsl(210, 50%, 8%);
 
-	--color-font-primary: var(--color-primary-lightest);
-	--color-blog-font-primary: var(--color-primary-light);
-	--color-font-highlight: var(--color-second-lighty);
+  --color-font-primary: var(--color-primary-lightest);
+  --color-blog-font-primary: var(--color-primary-light);
+  --color-font-highlight: var(--color-second-lighty);
 
-	--color-bg: var(--color-primary-darkest);
-	--color-bg-2: var(--color-primary-darker);
+  --color-bg: var(--color-primary-darkest);
+  --color-bg-2: var(--color-primary-darker);
 
-	--color-bg-semi: color-mix(in srgb, var(--color-bg) 90%, transparent 10%);
-	--color-link: var(--color-font-highlight);
+  --color-bg-semi: color-mix(in srgb, var(--color-bg) 90%, transparent 10%);
+  --color-link: var(--color-font-highlight);
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	scrollbar-width: thin;
-	scrollbar-color: var(--color-second) var(--color-third-darkest);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-second) var(--color-third-darkest);
 }
 
 html {
-	overflow-x: hidden;
-	scroll-behavior: smooth;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 
-	font-size: 18px;
+  font-size: 18px;
 }
 
 body {
-	font-family: Helvetica, Arial, sans-serif;
-	color: var(--color-font-primary);
-	background: var(--color-bg);
-	overflow-x: hidden;
-	position: relative;
-	min-height: 100svh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  font-family: Helvetica, Arial, sans-serif;
+  color: var(--color-font-primary);
+  background: var(--color-bg);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 p {
-	margin-top: 1rem;
-	line-height: 1.5em;
-	text-wrap: pretty;
+  margin-top: 1rem;
+  line-height: 1.5em;
+  text-wrap: pretty;
 }
 a {
-	color: var(--color-link);
-	text-decoration: none;
+  color: var(--color-link);
+  text-decoration: none;
 }
 
 strong {
-	color: var(--color-font-highlight);
+  color: var(--color-font-highlight);
 }
 
 h1,
 h2,
 h3,
 h4 {
-	margin: 0.5em 0;
+  margin: 0.5em 0;
 }
 
 h1 {
-	font-size: 1.6rem;
-	color: var(--color-font-highlight);
+  font-size: 1.6rem;
+  color: var(--color-font-highlight);
 }
 
 h2 {
-	margin-top: 1.5rem;
-	font-size: 1.4rem;
-	color: var(--color-font-highlight);
+  margin-top: 1.5rem;
+  font-size: 1.4rem;
+  color: var(--color-font-highlight);
 }
 
 h3,
 h4 {
-	font-size: 1.2rem;
-	margin-top: 1.25rem;
-	color: var(--color-font-highlight);
+  font-size: 1.2rem;
+  margin-top: 1.25rem;
+  color: var(--color-font-highlight);
 }
 
 blockquote {
-	font-style: italic;
-	font-size: 0.9rem;
-	padding: 0.5rem 1rem;
-	max-width: 480px;
-	margin: 0 auto;
-	line-height: 1.1rem;
+  font-style: italic;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.1rem;
 }
 
 blockquote::before,
 blockquote::after {
-	content: '"';
-	color: var(--color-font-highlight);
-	font-size: 1.1rem;
-	margin: 0 0.1rem;
-	line-height: 0;
+  content: '"';
+  color: var(--color-font-highlight);
+  font-size: 1.1rem;
+  margin: 0 0.1rem;
+  line-height: 0;
 }
 
 path {
-	transition: 0.25s linear stroke-dashoffset;
-	fill: none;
-	stroke: var(--color-second);
-	stroke-width: 2;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-dasharray: none;
-	stroke-opacity: 1;
+  transition: 0.25s linear stroke-dashoffset;
+  fill: none;
+  stroke: var(--color-second);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: none;
+  stroke-opacity: 1;
 }
 
 .hl {
-	color: var(--color-font-highlight);
+  color: var(--color-font-highlight);
 }
 
 main {
-	max-width: 1024px;
-	padding: 2rem;
+  max-width: 1024px;
+  padding: 2rem;
 }
 
 .subtitle {
-	font-size: 1.2rem;
-	margin-top: 0;
+  font-size: 1.2rem;
+  margin-top: 0;
 }
 h1 {
-	margin-bottom: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 button {
-	color: var(--color-second-lighter);
-	background: var(--color-bg-2);
-	border-radius: 0.25rem;
-	padding: 0.25rem 0.5rem;
-	border: 0.1rem solid var(--color-second-lighty);
-	font-size: 0.95rem;
+  color: var(--color-second-lighter);
+  background: var(--color-bg-2);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 0.1rem solid var(--color-second-lighty);
+  font-size: 0.95rem;
 }
 button:hover {
-	background: var(--color-bg);
-	box-shadow: 0 0 0.25rem var(--color-second-lighty);
+  background: var(--color-bg);
+  box-shadow: 0 0 0.25rem var(--color-second-lighty);
 }
 h1 + p,
 h2 + p,
@@ -172,10 +172,10 @@ h4 + p,
 h5 + p,
 h6 + p,
 section:first-of-type p {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 .hljs {
-	background-color: var(--color-bg) !important;
-	line-height: 1.2rem;
+  background-color: var(--color-bg) !important;
+  line-height: 1.2rem;
 }

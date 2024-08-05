@@ -1,154 +1,154 @@
 <script lang="ts">
-	import { create } from '$lib/main'
-	import { onMount } from 'svelte'
-	import Code from '../../../doc-components/Code.svelte'
-	import PropertiesTable, { type PropEntry } from '../../../doc-components/PropertiesTable.svelte'
+  import { create } from '$lib/main'
+  import { onMount } from 'svelte'
+  import Code from '../../../doc-components/Code.svelte'
+  import PropertiesTable, { type PropEntry } from '../../../doc-components/PropertiesTable.svelte'
 
-	const params: PropEntry[] = [
-		{
-			property: 'pointerType',
-			types: ['PointerType'],
-			description: `A string that actually (version 0.1.4) can only 
+  const params: PropEntry[] = [
+    {
+      property: 'pointerType',
+      types: ['PointerType'],
+      description: `A string that actually (version 0.1.4) can only 
         be <strong>'rect'</strong>, but <strong>'arrow'</strong> and <strong>'image'</strong> will be included soon.`
-		},
-		{
-			property: 'options',
-			types: ['<strong>CreateOptions</strong>'],
-			description: `An object whose properties depend on  
+    },
+    {
+      property: 'options',
+      types: ['<strong>CreateOptions</strong>'],
+      description: `An object whose properties depend on  
         pointerType. Only the common ones for all pointers are described below.`,
-			props: [
-				{
-					property: 'target',
-					types: ['HTMLElement', 'string'],
-					description: `The element to point out. Can be a direct reference 
+      props: [
+        {
+          property: 'target',
+          types: ['HTMLElement', 'string'],
+          description: `The element to point out. Can be a direct reference 
                 (HTMLElement) or any kind of CSS selector (string).`
-				},
-				{
-					property: 'container',
-					default: 'document.body',
-					types: ['HTMLElement', 'string'],
-					description:
-						`Container where append the pointer. A reference ` +
-						`or CSS selector string. NOTE: The ` +
-						`container <strong>should have the position property ` +
-						`set to a value different to the default static.</strong>`
-				},
-				{
-					property: 'className',
-					default: 'undefined',
-					types: ['string', 'string[]'],
-					description: `Class/classes to add to the new pointer element.`
-				}
-			]
-		}
-	]
+        },
+        {
+          property: 'container',
+          default: 'document.body',
+          types: ['HTMLElement', 'string'],
+          description:
+            `Container where append the pointer. A reference ` +
+            `or CSS selector string. NOTE: The ` +
+            `container <strong>should have the position property ` +
+            `set to a value different to the default static.</strong>`
+        },
+        {
+          property: 'className',
+          default: 'undefined',
+          types: ['string', 'string[]'],
+          description: `Class/classes to add to the new pointer element.`
+        }
+      ]
+    }
+  ]
 
-	const rectOptions: PropEntry[] = [
-		{
-			property: 'strokeWidth',
-			default: '4',
-			types: ['number'],
-			description: 'Stroke width in pixels.'
-		},
-		{
-			property: 'strokeColor',
-			default: "'orange'",
-			types: ['string'],
-			description:
-				"Stroke color. A SVG/CSS valid color string i.e <strong>'#aa23c8'</strong> or <strong>'rgba(211, 17, 32, 0.5)'</strong>."
-		},
-		{
-			property: 'round',
-			default: '0',
-			types: ['number', 'string', '<strong>object</strong>'],
-			description:
-				"Round borders as number (pixel), a string with any valid SVG value (i.e '20%') or an object with rx and ry properties explained below.",
-			props: [
-				{
-					property: 'rx',
-					default: '0',
-					types: ['number', 'string'],
-					description: 'Round applied to horizontal axis.'
-				},
-				{
-					property: 'ry',
-					default: '0',
-					types: ['number', 'string'],
-					description: 'Round applied to vertical axis.'
-				}
-			]
-		},
-		{
-			property: 'padding',
-			default: '0',
-			types: ['number'],
-			description:
-				"How separated (in pixels) from the target content is the rect. Can be negative. By default (0 padding) the rect surrounds perfectly the target's bounding rect."
-		}
-	]
+  const rectOptions: PropEntry[] = [
+    {
+      property: 'strokeWidth',
+      default: '4',
+      types: ['number'],
+      description: 'Stroke width in pixels.'
+    },
+    {
+      property: 'strokeColor',
+      default: "'orange'",
+      types: ['string'],
+      description:
+        "Stroke color. A SVG/CSS valid color string i.e <strong>'#aa23c8'</strong> or <strong>'rgba(211, 17, 32, 0.5)'</strong>."
+    },
+    {
+      property: 'round',
+      default: '0',
+      types: ['number', 'string', '<strong>object</strong>'],
+      description:
+        "Round borders as number (pixel), a string with any valid SVG value (i.e '20%') or an object with rx and ry properties explained below.",
+      props: [
+        {
+          property: 'rx',
+          default: '0',
+          types: ['number', 'string'],
+          description: 'Round applied to horizontal axis.'
+        },
+        {
+          property: 'ry',
+          default: '0',
+          types: ['number', 'string'],
+          description: 'Round applied to vertical axis.'
+        }
+      ]
+    },
+    {
+      property: 'padding',
+      default: '0',
+      types: ['number'],
+      description:
+        "How separated (in pixels) from the target content is the rect. Can be negative. By default (0 padding) the rect surrounds perfectly the target's bounding rect."
+    }
+  ]
 
-	onMount(() => {
-		create('rect', {
-			target: '#options-in-title',
-			strokeColor: 'hsla(345, 60%, 59%, 0.6)',
-			strokeWidth: 8,
-			padding: 8,
-			round: '20%',
-			container: 'main'
-		})
-	})
+  onMount(() => {
+    create('rect', {
+      target: '#options-in-title',
+      strokeColor: 'hsla(345, 60%, 59%, 0.6)',
+      strokeWidth: 8,
+      padding: 8,
+      round: '20%',
+      container: 'main'
+    })
+  })
 </script>
 
 <h1>Creating pointers</h1>
 
 <section class="doc-section">
-	<p>
-		In Point it out, we call "pointer" to created and absolutely positioned elements via the
-		create() function.
-	</p>
+  <p>
+    In Point it out, we call "pointer" to created and absolutely positioned elements via the
+    create() function.
+  </p>
 
-	<!-- prettier-ignore -->
-	<Code showLanguage={false} showSelectAllButton language="TypeScript">
+  <!-- prettier-ignore -->
+  <Code showLanguage={false} showSelectAllButton language="TypeScript">
 import {'{ create }'} from 'pointitout' 
 
 create('rect', {"{ target: '#target-css-selector' }"})
 	</Code>
 
-	<section class="doc-section">
-		<h2>Common params and options for all pointers</h2>
+  <section class="doc-section">
+    <h2>Common params and options for all pointers</h2>
 
-		<PropertiesTable
-			title="create ( pointerType, <span id='options-in-title'>options</span> )"
-			pioOptionsList={params}
-		/>
-	</section>
+    <PropertiesTable
+      title="create ( pointerType, <span id='options-in-title'>options</span> )"
+      pioOptionsList={params}
+    />
+  </section>
 </section>
 
 <section class="doc-section">
-	<h1 id="rect">Rect</h1>
+  <h1 id="rect">Rect</h1>
 
-	<p>
-		The first and most basic pointer. In addition to the options described above, this pointer has
-		the following specific options:
-	</p>
+  <p>
+    The first and most basic pointer. In addition to the options described above, this pointer has
+    the following specific options:
+  </p>
 
-	<PropertiesTable
-		title="create ( <strong>'rect'</strong>, options )"
-		pioOptionsList={rectOptions}
-	/>
+  <PropertiesTable
+    title="create ( <strong>'rect'</strong>, options )"
+    pioOptionsList={rectOptions}
+  />
 </section>
 
 <section class="doc-section">
-	<h1>Pointer references</h1>
+  <h1>Pointer references</h1>
 
-	<p>
-		The create function returns a reference to a Pointer instance, an object with some useful
-		methods to manipulate it. Also contains a reference to the target element and the created raw
-		HTMLElement.
-	</p>
+  <p>
+    The create function returns a reference to a Pointer instance, an object with some useful
+    methods to manipulate it. Also contains a reference to the target element and the created raw
+    HTMLElement.
+  </p>
 
-	<!-- prettier-ignore -->
-	<Code showLanguage={false} showSelectAllButton language="TypeScript">
+  <!-- prettier-ignore -->
+  <Code showLanguage={false} showSelectAllButton language="TypeScript">
 import {'{ create }'} from 'pointitout' 
 
 const pointer = create('rect', {"{ target: '#target-element-id' }"})

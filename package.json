@@ -1,69 +1,69 @@
 {
-	"name": "pointitout",
-	"version": "0.1.4",
-	"type": "module",
-	"description": "A tiny library to mark/point out DOM elements using another absolutely positioned elements or procedurally generated SVGs",
-	"homepage": "https://github.com/alexvgjm/point-it-out",
-	"author": {
-		"name": "Alexander Vega",
-		"email": "contacto@alexvega.net",
-		"url": "https://alexvega.net"
-	},
-	"keywords": [
-		"pointout",
-		"markout",
-		"svg",
-		"dom"
-	],
-	"license": "MIT",
-	"scripts": {
-		"dev": "vite dev",
-		"preview": "vite preview",
-		"test": "npm run test:visual && npm run test:unit",
-		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write .",
-		"test:visual": "playwright test",
-		"test:unit": "vitest",
-		"build": "vite build && npm run package",
-		"package": "svelte-kit sync && svelte-package && publint",
-		"build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js",
-		"prepare": "husky"
-	},
-	"files": [
-		"dist",
-		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
-	],
-	"peerDependencies": {
-		"svelte": "^5.0.0-next.1"
-	},
-	"devDependencies": {
-		"@playwright/test": "^1.28.1",
-		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/package": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^3.0.0",
-		"@types/eslint": "^9.6.0",
-		"eslint": "^9.0.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.36.0",
-		"globals": "^15.0.0",
-		"happy-dom": "^14.12.3",
-		"husky": "^9.1.4",
-		"prettier": "^3.1.1",
-		"prettier-plugin-svelte": "^3.1.2",
-		"publint": "^0.1.9",
-		"svelte": "^5.0.0-next.1",
-		"svelte-check": "^3.6.0",
-		"typescript": "^5.0.0",
-		"typescript-eslint": "^8.0.0-alpha.20",
-		"vite": "^5.0.11",
-		"vitest": "^2.0.0"
-	},
-	"svelte": "./dist/index.js",
-	"dependencies": {
-		"@types/node": "^22.0.0",
-		"highlight.js": "^11.10.0",
-		"vite-plugin-dts": "4.0.0-beta.2"
-	}
+  "name": "pointitout",
+  "version": "0.1.4",
+  "type": "module",
+  "description": "A tiny library to mark/point out DOM elements using another absolutely positioned elements or procedurally generated SVGs",
+  "homepage": "https://github.com/alexvgjm/point-it-out",
+  "author": {
+    "name": "Alexander Vega",
+    "email": "contacto@alexvega.net",
+    "url": "https://alexvega.net"
+  },
+  "keywords": [
+    "pointout",
+    "markout",
+    "svg",
+    "dom"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite dev",
+    "preview": "vite preview",
+    "test": "npm run test:visual && npm run test:unit",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write .",
+    "test:visual": "playwright test",
+    "test:unit": "vitest",
+    "build": "vite build && npm run package",
+    "package": "svelte-kit sync && svelte-package && publint",
+    "build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js",
+    "prepare": "husky"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*"
+  ],
+  "peerDependencies": {
+    "svelte": "^5.0.0-next.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.28.1",
+    "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/package": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "@types/eslint": "^9.6.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-svelte": "^2.36.0",
+    "globals": "^15.0.0",
+    "happy-dom": "^14.12.3",
+    "husky": "^9.1.4",
+    "prettier": "^3.1.1",
+    "prettier-plugin-svelte": "^3.1.2",
+    "publint": "^0.1.9",
+    "svelte": "^5.0.0-next.1",
+    "svelte-check": "^3.6.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.0.0-alpha.20",
+    "vite": "^5.0.11",
+    "vitest": "^2.0.0"
+  },
+  "svelte": "./dist/index.js",
+  "dependencies": {
+    "@types/node": "^22.0.0",
+    "highlight.js": "^11.10.0",
+    "vite-plugin-dts": "4.0.0-beta.2"
+  }
 }

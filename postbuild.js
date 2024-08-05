@@ -5,15 +5,15 @@ console.log('generating the npm package.json')
 
 /** @type {keyof packageJSON} */
 const npmFields = [
-	'name',
-	'version',
-	'type',
-	'description',
-	'homepage',
-	'author',
-	'keywords',
-	'license',
-	'repository'
+  'name',
+  'version',
+  'type',
+  'description',
+  'homepage',
+  'author',
+  'keywords',
+  'license',
+  'repository'
 ]
 
 const npmPackageJSON = {}
