@@ -1,6 +1,6 @@
-import { test, test as it } from '@playwright/test';
-import { visualComparisonBetweenPages } from './test-utils';
-import * as pio from '../../src/lib/main';
+import { test, test as it } from '@playwright/test'
+import { visualComparisonBetweenPages } from './test-utils'
+import * as pio from '../../src/lib/main'
 
 test.describe('System options', () => {
 	test.describe('updateOnResize', () => {
@@ -19,23 +19,23 @@ test.describe('System options', () => {
 
 				action: async () => {
 					await page.evaluate(() => {
-						pio.config({ updateOnResize: false });
+						pio.config({ updateOnResize: false })
 
 						pio.create('rect', {
 							target: `.test-box`,
 							className: `result`
-						});
-					});
+						})
+					})
 				},
 
 				beforeActionScreenshot: async () => await page.setViewportSize({ width: 600, height: 600 }),
 
 				pwPage: page,
 				pwTestInfo: testInfo
-			});
-		});
-	});
-});
+			})
+		})
+	})
+})
 
 test.describe('Common options', () => {
 	test.describe('container option', () => {
@@ -46,19 +46,19 @@ test.describe('Common options', () => {
 
 				action: async () => {
 					await page.evaluate(() => {
-						pio.config({ updateOnResize: false });
+						pio.config({ updateOnResize: false })
 
 						pio.create('rect', {
 							target: `.test-box`,
 							className: `result`,
 							container: '.test-box'
-						});
-					});
+						})
+					})
 				},
 
 				pwPage: page,
 				pwTestInfo: testInfo
-			});
-		});
-	});
-});
+			})
+		})
+	})
+})

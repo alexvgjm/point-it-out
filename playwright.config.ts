@@ -1,4 +1,4 @@
-import { devices, type PlaywrightTestConfig } from '@playwright/test';
+import { devices, type PlaywrightTestConfig } from '@playwright/test'
 
 const config: PlaywrightTestConfig = {
 	webServer: {
@@ -16,6 +16,6 @@ const config: PlaywrightTestConfig = {
 	fullyParallel: true,
 
 	globalSetup: './tests/visual/setup.ts'
-};
+}
 
-export default config;
+export default config

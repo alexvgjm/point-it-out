@@ -11,10 +11,10 @@ $ npm install pointitout
 ## Basic usage
 
 ```ts
-import { create } from 'pointitout';
+import { create } from 'pointitout'
 
 // only rect shape at the moment
-create('rect', { target: '.a-css-selector' });
+create('rect', { target: '.a-css-selector' })
 ```
 
 ## Roadmap

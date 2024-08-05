@@ -1,12 +1,8 @@
 <script lang="ts">
-	import { create, clear } from '$lib/main';
-	import { onMount } from 'svelte';
-	import Code from '../../../doc-components/Code.svelte';
-	import PropertiesTable, { type PropEntry } from '../../../doc-components/PropertiesTable.svelte';
-
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	import { create } from '$lib/main'
+	import { onMount } from 'svelte'
+	import Code from '../../../doc-components/Code.svelte'
+	import PropertiesTable, { type PropEntry } from '../../../doc-components/PropertiesTable.svelte'
 
 	const params: PropEntry[] = [
 		{
@@ -31,10 +27,11 @@
 					property: 'container',
 					default: 'document.body',
 					types: ['HTMLElement', 'string'],
-					description: `Container where append the pointer. A reference `
-					+ `or CSS selector string. NOTE: The ` 
-					+ `container <strong>should have the position property `
-					+ `set to a value different to the default static.</strong>`
+					description:
+						`Container where append the pointer. A reference ` +
+						`or CSS selector string. NOTE: The ` +
+						`container <strong>should have the position property ` +
+						`set to a value different to the default static.</strong>`
 				},
 				{
 					property: 'className',
@@ -44,7 +41,7 @@
 				}
 			]
 		}
-	];
+	]
 
 	const rectOptions: PropEntry[] = [
 		{
@@ -88,7 +85,7 @@
 			description:
 				"How separated (in pixels) from the target content is the rect. Can be negative. By default (0 padding) the rect surrounds perfectly the target's bounding rect."
 		}
-	];
+	]
 
 	onMount(() => {
 		create('rect', {
@@ -98,8 +95,8 @@
 			padding: 8,
 			round: '20%',
 			container: 'main'
-		});
-	});
+		})
+	})
 </script>
 
 <h1>Creating pointers</h1>

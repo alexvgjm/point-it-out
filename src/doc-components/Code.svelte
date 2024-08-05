@@ -1,10 +1,10 @@
 <script lang="ts">
-	type Language = 'HTML' | 'TypeScript' | 'JavaScript' | 'CSS' | 'Bash';
-	export let language: Language;
-	export let showLineWrapButton = false;
-	export let showLanguage = true;
-	export let showCopyButton = false;
-	export let showSelectAllButton = false;
+	type Language = 'HTML' | 'TypeScript' | 'JavaScript' | 'CSS' | 'Bash'
+	export let language: Language
+	export let showLineWrapButton = false
+	export let showLanguage = true
+	export let showCopyButton = false
+	export let showSelectAllButton = false
 
 	const colors: { [lang in Language]: string } = {
 		CSS: '#2965f1',
@@ -12,31 +12,31 @@
 		TypeScript: '#3178c6',
 		JavaScript: '#f1dd35',
 		Bash: '#4eaa25'
-	};
+	}
 
-	let lineWrap = false;
-	let codeElm: HTMLElement;
+	let lineWrap = false
+	let codeElm: HTMLElement
 
-	let copyText = '📃 Copy';
-	let timeOutID: NodeJS.Timeout | number = -1;
+	let copyText = '📃 Copy'
+	let timeOutID: NodeJS.Timeout | number = -1
 	function copyContent() {
-		navigator.clipboard.writeText(codeElm.textContent!);
-		copyText = 'Copied to clipboard!';
-		clearTimeout(timeOutID);
-		timeOutID = setTimeout(() => (copyText = '📃 Copy'), 2000);
+		navigator.clipboard.writeText(codeElm.textContent!)
+		copyText = 'Copied to clipboard!'
+		clearTimeout(timeOutID)
+		timeOutID = setTimeout(() => (copyText = '📃 Copy'), 2000)
 	}
 
 	function selectAll() {
 		if (window.getSelection === undefined) {
-			return;
+			return
 		}
 
-		const sel = getSelection();
+		const sel = getSelection()
 		if (!sel) {
-			return;
+			return
 		}
 
-		sel.selectAllChildren(codeElm);
+		sel.selectAllChildren(codeElm)
 	}
 </script>
 
@@ -55,7 +55,7 @@
 			<button
 				class="code-wrapper__button"
 				on:click={() => {
-					lineWrap = !lineWrap;
+					lineWrap = !lineWrap
 				}}
 			>
 				Text wrap: {lineWrap ? 'on' : 'off'}

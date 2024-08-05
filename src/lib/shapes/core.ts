@@ -1,4 +1,4 @@
-import type { CommonOptions, ShapeName } from '../types';
+import type { CommonOptions, ShapeName } from '../types'
 
 export const commonOptionsDefaults: Partial<CommonOptions> = {
 	strokeColor: 'orange',
@@ -8,65 +8,65 @@ export const commonOptionsDefaults: Partial<CommonOptions> = {
 	// FIXME: container default initialization to avoid PlayWright environmnet
 	//		  without document init. Maybe should use a init function?
 	//container: document.body
-};
+}
 
 function createParentSVG(options: CommonOptions) {
-	const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>;
+	const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+	const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>
 
-	svg.style.zIndex = '9999';
-	svg.style.position = 'absolute';
-	svg.style.stroke = opts.strokeColor;
-	svg.style.fill = 'none';
-	svg.style.pointerEvents = 'none';
+	svg.style.zIndex = '9999'
+	svg.style.position = 'absolute'
+	svg.style.stroke = opts.strokeColor
+	svg.style.fill = 'none'
+	svg.style.pointerEvents = 'none'
 
 	if (opts.className) {
-		svg.classList.add(opts.className);
+		svg.classList.add(opts.className)
 	}
 
-	svg.style.strokeWidth = opts.strokeWidth + 'px';
-	return svg;
+	svg.style.strokeWidth = opts.strokeWidth + 'px'
+	return svg
 }
 
 export function createSVG<T = SVGElement>(tag: string) {
-	return document.createElementNS('http://www.w3.org/2000/svg', tag) as T;
+	return document.createElementNS('http://www.w3.org/2000/svg', tag) as T
 }
 
 function getTarget(selectorOrTarget: HTMLElement | string | null) {
 	if (typeof selectorOrTarget == 'string') {
-		return document.querySelector(selectorOrTarget) as HTMLElement;
+		return document.querySelector(selectorOrTarget) as HTMLElement
 	}
 
-	return selectorOrTarget;
+	return selectorOrTarget
 }
 
-export const availableShapes: ShapeName[] = ['rect'];
+export const availableShapes: ShapeName[] = ['rect']
 
 export abstract class PointItOutShape {
-	strokeWidth: number;
-	strokeColor: string;
-	padding: number;
-	target: HTMLElement;
-	svg: SVGElement;
-	container: HTMLElement;
+	strokeWidth: number
+	strokeColor: string
+	padding: number
+	target: HTMLElement
+	svg: SVGElement
+	container: HTMLElement
 
 	constructor(options: CommonOptions) {
-		const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>;
-		const container = getTarget(opts.container || document.body);
+		const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>
+		const container = getTarget(opts.container || document.body)
 		if (!container) {
-			throw new Error(`PointItOut: container is ${container}. Check container option.`);
+			throw new Error(`PointItOut: container is ${container}. Check container option.`)
 		}
-		const target = getTarget(options.target);
+		const target = getTarget(options.target)
 		if (!target) {
-			throw new Error(`PointItOut: Target is ${target}. Check target option.`);
+			throw new Error(`PointItOut: Target is ${target}. Check target option.`)
 		}
-		this.container = container;
-		this.strokeWidth = opts.strokeWidth;
-		this.strokeColor = opts.strokeColor;
-		this.padding = opts.padding;
+		this.container = container
+		this.strokeWidth = opts.strokeWidth
+		this.strokeColor = opts.strokeColor
+		this.padding = opts.padding
 
-		this.target = target;
-		this.svg = createParentSVG(options);
+		this.target = target
+		this.svg = createParentSVG(options)
 	}
 
 	/**
@@ -74,13 +74,13 @@ export abstract class PointItOutShape {
 	 * default, but must be called manually if the position or size of the
 	 * target element changes for some other reason.
 	 */
-	abstract update(): void;
+	abstract update(): void
 
 	/**
 	 * if updateOnResize: true, this overridable method will be called and
 	 * should call to update.
 	 */
 	onResize(): void {
-		this.update();
+		this.update()
 	}
 }

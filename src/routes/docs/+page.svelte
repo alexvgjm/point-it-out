@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Code from '../../doc-components/Code.svelte';
+	import Code from '../../doc-components/Code.svelte'
 </script>
 
 <h1>Getting started</h1>

@@ -1,20 +1,20 @@
 <script lang="ts">
-	import '../../style.css';
-	import DocNav from '../../doc-components/DocNav.svelte';
-	import 'highlight.js/styles/atom-one-dark.min.css';
-	import { browser } from '$app/environment';
-	import type { LayoutData } from './$types';
-	import { afterNavigate } from '$app/navigation';
-	import { update } from '$lib/main';
+	import '../../style.css'
+	import DocNav from '../../doc-components/DocNav.svelte'
+	import 'highlight.js/styles/atom-one-dark.min.css'
+	import { browser } from '$app/environment'
+	import type { LayoutData } from './$types'
+	import { afterNavigate } from '$app/navigation'
+	import { update } from '$lib/main'
 
-	export let data: LayoutData;
+	export let data: LayoutData
 
 	afterNavigate(() => {
 		if (browser) {
-			data.hljs.highlightAll();
+			data.hljs.highlightAll()
 			update()
 		}
-	});
+	})
 </script>
 
 <div class="docs-wrapper">

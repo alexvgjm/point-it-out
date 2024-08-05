@@ -9,7 +9,7 @@ declare global {
 		// interface Platform {}
 	}
 
-	declare const PKG: { version: string };
+	declare const PKG: { version: string }
 }
 
-export {};
+export {}

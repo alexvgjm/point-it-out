@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
+	import { browser } from '$app/environment'
+	import { page } from '$app/stores'
 
-	let menuOpen = $state(false);
+	let menuOpen = $state(false)
 
 	if (browser) {
-		console.log($page.url);
+		console.log($page.url)
 	}
 
 	const content = {
@@ -28,14 +28,14 @@
 		'config(options)': {
 			'Configuring global options': '/docs/config'
 		}
-	};
+	}
 </script>
 
 <nav class="main-nav" class:main-nav--open={menuOpen}>
 	<button
 		class="open-nav"
 		onclick={() => {
-			menuOpen = !menuOpen;
+			menuOpen = !menuOpen
 		}}
 	>
 		<span></span>

@@ -1,23 +1,23 @@
 <script lang="ts" context="module">
 	export type PropEntry = {
-		property: string;
-		types: string[];
-		description: string;
-		default?: string;
-		props?: PropEntry[];
-	};
+		property: string
+		types: string[]
+		description: string
+		default?: string
+		props?: PropEntry[]
+	}
 
 	type PropertyListProps = {
-		pioOptionsList: PropEntry[];
-		title?: string;
-		subtable?: boolean;
-		even?: boolean;
-		headers?: boolean;
-	};
+		pioOptionsList: PropEntry[]
+		title?: string
+		subtable?: boolean
+		even?: boolean
+		headers?: boolean
+	}
 </script>
 
 <script lang="ts">
-	let { pioOptionsList, title, subtable, even, headers = true }: PropertyListProps = $props();
+	let { pioOptionsList, title, subtable, even, headers = true }: PropertyListProps = $props()
 </script>
 
 {#snippet table()}
@@ -41,7 +41,7 @@
 			</span>
 		</div>
 		<div class="prop-types">
-			{#each p.types as pType, i}
+			{#each p.types as pType}
 				<span class="prop-type">{@html pType}</span>
 			{/each}
 		</div>
