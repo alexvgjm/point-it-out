@@ -5,6 +5,7 @@
   export let showLanguage = true
   export let showCopyButton = false
   export let showSelectAllButton = false
+  export let noTop = false
 
   const colors: { [lang in Language]: string } = {
     CSS: '#2965f1',
@@ -45,6 +46,7 @@
   style="--lang-color: {showLanguage ? colors[language] : 'transparent'}"
   class:code-wrapper__line-wrap={lineWrap}
   class:code-wrapper--show-lang={showLanguage}
+  class:code-wrapper--no-top={noTop}
 >
   {#if showLanguage}
     <div class="code-wrapper__lang">{language}</div>
@@ -98,6 +100,10 @@
 
   .code-wrapper--no-buttons {
     margin-top: 1rem;
+  }
+
+  .code-wrapper--no-top {
+    margin-top: 0;
   }
 
   .code-wrapper__button {

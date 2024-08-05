@@ -14,6 +14,9 @@ importers:
       highlight.js:
         specifier: ^11.10.0
         version: 11.10.0
+      just-throttle:
+        specifier: ^4.2.0
+        version: 4.2.0
       vite-plugin-dts:
         specifier: 4.0.0-beta.2
         version: 4.0.0-beta.2(@types/node@22.0.0)(rollup@4.19.1)(typescript@5.5.4)(vite@5.3.5(@types/node@22.0.0))
@@ -1116,6 +1119,9 @@ packages:
 
   jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
+
+  just-throttle@4.2.0:
+    resolution: {integrity: sha512-/iAZv1953JcExpvsywaPKjSzfTiCLqeguUTE6+VmK15mOcwxBx7/FHrVvS4WEErMR03TRazH8kcBSHqMagYIYg==}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -2848,6 +2854,8 @@ snapshots:
   jsonfile@4.0.0:
     optionalDependencies:
       graceful-fs: 4.2.11
+
+  just-throttle@4.2.0: {}
 
   keyv@4.5.4:
     dependencies:

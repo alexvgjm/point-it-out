@@ -1,21 +1,49 @@
 <script lang="ts">
   import { browser } from '$app/environment'
   import { page } from '$app/stores'
+  import { onMount } from 'svelte'
+  import { generalStore } from '../stores/general.svelte'
+  import { afterNavigate } from '$app/navigation'
 
   let menuOpen = $state(false)
+  let navElm: HTMLElement
 
   if (browser) {
-    console.log($page.url)
+    $effect(() => {
+      window.history.replaceState(
+        history.state,
+        '',
+        $page.url.pathname + '#' + generalStore.headerId
+      )
+    })
+
+    afterNavigate(() => (menuOpen = false))
+
+    onMount(() => {
+      generalStore.headerId = $page.url.hash.replace('#', '')
+      window.addEventListener('pointerdown', closeMenu)
+      return () => {
+        window.removeEventListener('pointerdown', closeMenu)
+      }
+    })
+
+    function closeMenu(event: PointerEvent) {
+      const target = event.target as HTMLElement
+      if (!navElm.contains(target)) {
+        menuOpen = false
+      }
+    }
   }
 
   const content = {
     General: {
-      'Getting started': '/docs'
+      'Getting started': '/docs#getting-started'
     },
     'create(...)': {
-      'Creating pointers': '/docs/create',
+      'Creating pointers': '/docs/create#creating-pointers',
       Rect: '/docs/create#rect',
-      Image: '/docs/create#image'
+      'Pointer references': '/docs/create#pointer-references',
+      Examples: '/docs/create#examples'
     },
     'update()': {
       'Update all pointers': '/docs/update',
@@ -31,7 +59,7 @@
   }
 </script>
 
-<nav class="main-nav" class:main-nav--open={menuOpen}>
+<nav class="main-nav" bind:this={navElm} class:main-nav--open={menuOpen}>
   <button
     class="open-nav"
     onclick={() => {
@@ -56,7 +84,8 @@
           <a
             class="main-nav__link"
             href={url}
-            class:current={$page.url.pathname + $page.url.hash == url}>{subsectTitle}</a
+            class:current={$page.url.pathname + '#' + generalStore.headerId == url}
+            >{subsectTitle}</a
           >
         {/each}
       </nav>
@@ -99,7 +128,7 @@
 
     /** only mobile */
     position: fixed;
-    z-index: 1000;
+    z-index: 99999;
     background-color: var(--color-bg);
     box-shadow: 0.2rem 0 0.2rem #0004;
 
@@ -109,6 +138,7 @@
 
   .main-nav--open {
     transform: translateX(0%);
+    box-shadow: 5rem 0 2rem 1rem #000a;
   }
 
   .main-nav--open .open-nav {

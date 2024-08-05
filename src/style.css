@@ -143,6 +143,7 @@ path {
 main {
   max-width: 1024px;
   padding: 2rem;
+  overflow-x: hidden;
 }
 
 .subtitle {
@@ -178,4 +179,8 @@ section:first-of-type p {
 .hljs {
   background-color: var(--color-bg) !important;
   line-height: 1.2rem;
+}
+
+.even .hljs {
+  background-color: #0002 !important;
 }

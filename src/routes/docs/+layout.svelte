@@ -1,25 +1,69 @@
 <script lang="ts">
   import '../../style.css'
+  import './docs.css'
   import DocNav from '../../doc-components/DocNav.svelte'
   import 'highlight.js/styles/atom-one-dark.min.css'
   import { browser } from '$app/environment'
   import type { LayoutData } from './$types'
   import { afterNavigate } from '$app/navigation'
   import { update } from '$lib/main'
+  import { onDestroy, onMount } from 'svelte'
+  import { generalStore } from '../../stores/general.svelte'
+  import throttle from 'just-throttle'
 
   export let data: LayoutData
 
-  afterNavigate(() => {
-    if (browser) {
+  let mainElm: HTMLElement
+  let headings: HTMLHeadingElement[]
+  $: headings = []
+
+  if (browser) {
+    afterNavigate(() => {
       data.hljs.highlightAll()
       update()
+      headings = Array.from(document.querySelectorAll('h1[id], h2[id]'))
+    })
+
+    function distanceTo(a: HTMLElement, to: number) {
+      return Math.abs(a.getBoundingClientRect().top - to)
     }
-  })
+
+    const onScroll = throttle(
+      () => {
+        if (headings.length == 0) {
+          return
+        }
+
+        const mainRect = mainElm.getBoundingClientRect()
+        const halfWindow = mainRect.height / 4 + mainRect.top
+
+        const elmAndDist: [HTMLHeadingElement, number][] = headings.map((h) => [
+          h,
+          distanceTo(h, halfWindow)
+        ])
+
+        elmAndDist.sort((a, b) => a[1] - b[1])
+
+        const nearest = elmAndDist[0]
+        generalStore.headerId = nearest[0].id
+      },
+      200,
+      { leading: false, trailing: true }
+    )
+
+    onMount(() => {
+      mainElm.addEventListener('scroll', onScroll)
+    })
+
+    onDestroy(() => {
+      mainElm.removeEventListener('scroll', onScroll)
+    })
+  }
 </script>
 
 <div class="docs-wrapper">
   <DocNav />
-  <main>
+  <main bind:this={mainElm}>
     <slot></slot>
   </main>
 </div>

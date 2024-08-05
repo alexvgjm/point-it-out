@@ -2,7 +2,7 @@
   import Code from '../../doc-components/Code.svelte'
 </script>
 
-<h1>Getting started</h1>
+<h1 id="getting-started">Getting started</h1>
 
 <p>
   Point it out is a tiny library to mark/point out DOM elements using another absolutely positioned

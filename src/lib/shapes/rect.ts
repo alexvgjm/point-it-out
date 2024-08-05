@@ -12,9 +12,6 @@ export class PIORectShape extends PointItOutShape {
     this.svg.appendChild(this.rectElm)
     this.container.appendChild(this.svg)
     this.round = options.round || 0
-    console.log('---------------------')
-    console.log(this.container)
-    console.log('---------------------')
     this.update()
   }
 

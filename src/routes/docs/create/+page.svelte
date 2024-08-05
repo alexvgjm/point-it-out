@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { create } from '$lib/main'
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import Code from '../../../doc-components/Code.svelte'
+  import ColumnsContainer from '../../../doc-components/ColumnsContainer.svelte'
   import PropertiesTable, { type PropEntry } from '../../../doc-components/PropertiesTable.svelte'
+  import { clear, create } from '$lib/main'
+  import { browser } from '$app/environment'
 
   const params: PropEntry[] = [
     {
@@ -87,19 +89,35 @@
     }
   ]
 
-  onMount(() => {
-    create('rect', {
-      target: '#options-in-title',
-      strokeColor: 'hsla(345, 60%, 59%, 0.6)',
-      strokeWidth: 8,
-      padding: 8,
-      round: '20%',
-      container: 'main'
+  if (browser) {
+    onMount(() => {
+      create('rect', {
+        target: '#box-1',
+        container: 'main',
+        padding: 8
+      })
+
+      create('rect', {
+        target: '#box-2',
+        container: 'main',
+        strokeWidth: 8,
+        strokeColor: '#68c'
+      })
+
+      create('rect', {
+        target: '#box-3',
+        container: 'main',
+        strokeColor: '#f8c',
+        round: '30%',
+        padding: 12
+      })
     })
-  })
+
+    onDestroy(clear)
+  }
 </script>
 
-<h1>Creating pointers</h1>
+<h1 id="creating-pointers">Creating pointers</h1>
 
 <section class="doc-section">
   <p>
@@ -112,7 +130,7 @@
 import {'{ create }'} from 'pointitout' 
 
 create('rect', {"{ target: '#target-css-selector' }"})
-	</Code>
+    </Code>
 
   <section class="doc-section">
     <h2>Common params and options for all pointers</h2>
@@ -139,7 +157,7 @@ create('rect', {"{ target: '#target-css-selector' }"})
 </section>
 
 <section class="doc-section">
-  <h1>Pointer references</h1>
+  <h1 id="pointer-references">Pointer references</h1>
 
   <p>
     The create function returns a reference to a Pointer instance, an object with some useful
@@ -159,5 +177,67 @@ console.log(pointer.target)
 console.log(pointer.htmlElement) // or some methods. More of this later. 
 
 pointer.destroy() // Destroy the HTMLElement and listeners
-	</Code>
+    </Code>
+</section>
+
+<section class="doc-section">
+  <h1 id="examples">Examples</h1>
+
+  <p style="margin-bottom: 2rem;">
+    Note: using the "container" option to create the SVG inside the &lt;main&gt; element
+  </p>
+
+  <ColumnsContainer>
+    <!-- prettier-ignore -->
+    <Code slot="left" 
+            language="TypeScript" 
+            showLanguage={false} noTop>
+create('rect', {`{
+    target: '#box-1', 
+    container: 'main',
+    padding: 8
+}`})
+        </Code>
+
+    <div slot="right" class="result-panel">
+      <div class="test-box" id="box-1">Box 1</div>
+    </div>
+  </ColumnsContainer>
+
+  <ColumnsContainer even>
+    <!-- prettier-ignore -->
+    <Code slot="left"  noTop
+            language="TypeScript" 
+            showLanguage={false}>
+create('rect', {`{
+    target: '#box-2', 
+    container: 'main',
+    strokeWidth: 8,
+    strokeColor: '#68c'
+}`})
+        </Code>
+
+    <div slot="right" class="result-panel">
+      <div class="test-box" id="box-2">Box 2</div>
+    </div>
+  </ColumnsContainer>
+
+  <ColumnsContainer>
+    <!-- prettier-ignore -->
+    <Code slot="left"  noTop
+            language="TypeScript" 
+            showLanguage={false}>
+create('rect', {`{
+    target: '#box-3', 
+    container: 'main',
+    strokeColor: '#f8c',
+    round: '30%',
+    padding: 12
+}`})
+        </Code>
+
+    <div slot="right" class="result-panel">
+      <div class="test-box" id="box-3">Box 3</div>
+    </div>
+  </ColumnsContainer>
 </section>
