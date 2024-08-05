@@ -6,6 +6,12 @@ export type CommonOptions = {
 	target: string | HTMLElement;
 	className?: string;
 
+	/**
+	 * Container where append the pointer. NOTE: The container should have
+	 * a relative or absolute position CSS property.
+	 */
+	container?: string | HTMLElement;
+
 	/** Only pixels allowed ATM */
 	strokeWidth?: number;
 	strokeColor?: string;

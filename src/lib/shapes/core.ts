@@ -1,15 +1,18 @@
 import type { CommonOptions, ShapeName } from '../types';
 
-export const commonOpiontsDefaults: Partial<CommonOptions> = {
+export const commonOptionsDefaults: Partial<CommonOptions> = {
 	strokeColor: 'orange',
 	strokeWidth: 4,
 	padding: 0,
 	className: undefined
+	// FIXME: container default initialization to avoid PlayWright environmnet
+	//		  without document init. Maybe should use a init function?
+	//container: document.body
 };
 
 function createParentSVG(options: CommonOptions) {
 	const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	const opts = { ...commonOpiontsDefaults, ...options } as Required<CommonOptions>;
+	const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>;
 
 	svg.style.zIndex = '9999';
 	svg.style.position = 'absolute';
@@ -45,16 +48,23 @@ export abstract class PointItOutShape {
 	padding: number;
 	target: HTMLElement;
 	svg: SVGElement;
+	container: HTMLElement;
 
 	constructor(options: CommonOptions) {
-		const opts = { ...commonOpiontsDefaults, ...options } as Required<CommonOptions>;
-		this.strokeWidth = opts.strokeWidth;
-		this.strokeColor = opts.strokeColor;
-		this.padding = opts.padding;
+		const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>;
+		const container = getTarget(opts.container || document.body);
+		if (!container) {
+			throw new Error(`PointItOut: container is ${container}. Check container option.`);
+		}
 		const target = getTarget(options.target);
 		if (!target) {
 			throw new Error(`PointItOut: Target is ${target}. Check target option.`);
 		}
+		this.container = container;
+		this.strokeWidth = opts.strokeWidth;
+		this.strokeColor = opts.strokeColor;
+		this.padding = opts.padding;
+
 		this.target = target;
 		this.svg = createParentSVG(options);
 	}
