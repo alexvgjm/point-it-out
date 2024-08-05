@@ -5,12 +5,14 @@
 	import { browser } from '$app/environment';
 	import type { LayoutData } from './$types';
 	import { afterNavigate } from '$app/navigation';
+	import { update } from '$lib/main';
 
 	export let data: LayoutData;
 
 	afterNavigate(() => {
 		if (browser) {
 			data.hljs.highlightAll();
+			update()
 		}
 	});
 </script>
@@ -31,6 +33,7 @@
 	}
 
 	main {
+		position: relative;
 		flex-grow: 1;
 		overflow-y: auto;
 		background: var(--color-bg-2);

@@ -33,8 +33,11 @@
 <section class="doc-section">
 	<h2>Basic usage</h2>
 
+	<!-- prettier-ignore -->
 	<Code showLanguage={false} showSelectAllButton language="TypeScript">
-		import {'{ create }'} from 'pointitout' create('rect', {"{ target: '#target-element-id' }"})
+import {'{ create }'} from 'pointitout' 
+
+create('rect', {"{ target: '#target-element-id' }"})
 	</Code>
 
 	<p>See more options for the <a href="/docs/create">create function</a>.</p>

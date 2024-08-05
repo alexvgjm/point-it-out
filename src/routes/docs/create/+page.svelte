@@ -28,6 +28,15 @@
                 (HTMLElement) or any kind of CSS selector (string).`
 				},
 				{
+					property: 'container',
+					default: 'document.body',
+					types: ['HTMLElement', 'string'],
+					description: `Container where append the pointer. A reference `
+					+ `or CSS selector string. NOTE: The ` 
+					+ `container <strong>should have the position property `
+					+ `set to a value different to the default static.</strong>`
+				},
+				{
 					property: 'className',
 					default: 'undefined',
 					types: ['string', 'string[]'],
@@ -84,9 +93,11 @@
 	onMount(() => {
 		create('rect', {
 			target: '#options-in-title',
-			strokeColor: 'hsl(345, 60%, 59%)',
-			strokeWidth: 12,
-			round: '20%'
+			strokeColor: 'hsla(345, 60%, 59%, 0.6)',
+			strokeWidth: 8,
+			padding: 8,
+			round: '20%',
+			container: 'main'
 		});
 	});
 </script>
@@ -99,8 +110,11 @@
 		create() function.
 	</p>
 
+	<!-- prettier-ignore -->
 	<Code showLanguage={false} showSelectAllButton language="TypeScript">
-		import {'{ create }'} from 'pointitout' create('rect', {"{ target: '#target-css-selector' }"})
+import {'{ create }'} from 'pointitout' 
+
+create('rect', {"{ target: '#target-css-selector' }"})
 	</Code>
 
 	<section class="doc-section">
@@ -136,10 +150,17 @@
 		HTMLElement.
 	</p>
 
+	<!-- prettier-ignore -->
 	<Code showLanguage={false} showSelectAllButton language="TypeScript">
-		import {'{ create }'} from 'pointitout' const pointer = create('rect', {"{ target: '#target-element-id' }"})
-		// You can access to the target element and the raw // created HTMLElement from this object if
-		you need console.log(pointer.target) console.log(pointer.htmlElement) // or some methods. More
-		of this later. pointer.destroy() // Destroy the HTMLElement and listeners
+import {'{ create }'} from 'pointitout' 
+
+const pointer = create('rect', {"{ target: '#target-element-id' }"})
+
+// You can access to the target element and the raw 
+// created HTMLElement from this object if you need
+console.log(pointer.target) 
+console.log(pointer.htmlElement) // or some methods. More of this later. 
+
+pointer.destroy() // Destroy the HTMLElement and listeners
 	</Code>
 </section>
