@@ -1,7 +1,7 @@
-import { createSVG, PointItOutShape } from './core'
+import { createSVG, PointItOutPointer } from './core'
 import type { ShapeOptions } from '../types'
 
-export class PIORectShape extends PointItOutShape {
+export class RectPointer extends PointItOutPointer {
   rectElm: SVGRectElement
 
   round: number | string | { rx: number | string; ry: number | string } = 0

@@ -40,9 +40,9 @@ function getTarget(selectorOrTarget: HTMLElement | string | null) {
   return selectorOrTarget
 }
 
-export const availableShapes: ShapeName[] = ['rect']
+export const availableShapes: Readonly<ShapeName[]> = ['rect']
 
-export abstract class PointItOutShape {
+export abstract class PointItOutPointer {
   strokeWidth: number
   strokeColor: string
   padding: number
@@ -75,12 +75,4 @@ export abstract class PointItOutShape {
    * target element changes for some other reason.
    */
   abstract update(): void
-
-  /**
-   * if updateOnResize: true, this overridable method will be called and
-   * should call to update.
-   */
-  onResize(): void {
-    this.update()
-  }
 }

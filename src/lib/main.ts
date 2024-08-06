@@ -1,19 +1,22 @@
-import { PIORectShape } from './shapes/rect'
-import { PointItOutShape } from './shapes/core'
+import { RectPointer } from './shapes/rect'
+import { PointItOutPointer } from './shapes/core'
 import type { ShapeOptions, SystemOptions } from './types'
 
-const created: PointItOutShape[] = []
-const onResize = () => created.forEach((s) => s.onResize())
+const created: PointItOutPointer[] = []
+const onResize = () => created.forEach((s) => s.update())
 
 let systemOptions: SystemOptions = {
   updateOnResize: true
 }
 
-function addOrReadGeneralResizeListener() {
+function addOrReAddGeneralResizeListener() {
   window.removeEventListener('resize', onResize)
   window.addEventListener('resize', onResize)
 }
-
+/**
+ * Modify global options. Only what is specified will be modified.
+ * @param newOptions options to modify.
+ */
 export function config(newOptions: Partial<SystemOptions>) {
   systemOptions = { ...systemOptions, ...newOptions }
   if (newOptions.updateOnResize == false) {
@@ -21,17 +24,21 @@ export function config(newOptions: Partial<SystemOptions>) {
   }
 }
 
+/**
+ * Create a new pointer.
+ * @returns reference to a new PointItOutPointer
+ */
 export function create<ShapeName extends keyof ShapeOptions>(
   shape: ShapeName,
   options: ShapeOptions[ShapeName]
 ) {
   if (systemOptions.updateOnResize) {
-    addOrReadGeneralResizeListener()
+    addOrReAddGeneralResizeListener()
   }
-  let createdShape!: PointItOutShape
+  let createdShape!: PointItOutPointer
 
   if (shape == 'rect') {
-    createdShape = new PIORectShape(options)
+    createdShape = new RectPointer(options)
   }
 
   created.push(createdShape)

@@ -1,6 +1,6 @@
 import type { ShapeName } from '$lib/types'
 import { create, update } from '../../src/lib/main'
-import { availableShapes, PointItOutShape } from '../../src/lib/shapes/core'
+import { availableShapes, PointItOutPointer } from '../../src/lib/shapes/core'
 import { describe, expect, it, vi } from 'vitest'
 
 /**
@@ -15,7 +15,7 @@ const createSpecs = (shapeName: ShapeName) => {
 
   it('creates a PointItOutShape and return its reference', () => {
     const shape = create(shapeName, { target: '.existing' })
-    expect(shape).instanceOf(PointItOutShape)
+    expect(shape).instanceOf(PointItOutPointer)
   })
 
   describe(`Options`, async () => {
