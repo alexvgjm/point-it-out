@@ -18,6 +18,8 @@ export type CommonOptions = {
 
   /* space between shape and content. Can be negative. Default: 0*/
   padding?: number
+
+  zIndex?: number
 }
 
 export type ShapeOptions = {

@@ -4,7 +4,8 @@ export const commonOptionsDefaults: Partial<CommonOptions> = {
   strokeColor: 'orange',
   strokeWidth: 4,
   padding: 0,
-  className: undefined
+  className: undefined,
+  zIndex: 9999
   // FIXME: container default initialization to avoid PlayWright environmnet
   //		  without document init. Maybe should use a init function?
   //container: document.body
@@ -14,7 +15,7 @@ function createParentSVG(options: CommonOptions) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>
 
-  svg.style.zIndex = '9999'
+  svg.style.zIndex = opts.zIndex!.toString()
   svg.style.position = 'absolute'
   svg.style.stroke = opts.strokeColor
   svg.style.fill = 'none'
