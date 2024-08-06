@@ -16,15 +16,15 @@ export type CommonOptions = {
   strokeWidth?: number
   strokeColor?: string
 
-  /* space between shape and content. Can be negative. Default: 0*/
+  /* space between stroke and content. Can be negative. Default: 0*/
   padding?: number
 
   zIndex?: number
 }
 
-export type ShapeOptions = {
+export type PointerOptions = {
   rect: { round?: number | string | { rx: number | string; ry: number | string } } & CommonOptions
   image: {} & CommonOptions // No options beside commons ATM
 }
 
-export type ShapeName = keyof ShapeOptions
+export type PointerName = keyof PointerOptions

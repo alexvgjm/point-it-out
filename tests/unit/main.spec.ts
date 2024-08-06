@@ -1,4 +1,4 @@
-import type { ShapeName } from '$lib/types'
+import type { PointerName } from '$lib/types'
 import { create, update } from '../../src/lib/main'
 import { availableShapes, PointItOutPointer } from '../../src/lib/shapes/core'
 import { describe, expect, it, vi } from 'vitest'
@@ -6,7 +6,7 @@ import { describe, expect, it, vi } from 'vitest'
 /**
  * Create all tests of common behavior for each available shape
  */
-const createSpecs = (shapeName: ShapeName) => {
+const createSpecs = (shapeName: PointerName) => {
   it('creates an SVG and append it to body', async () => {
     expect(document.querySelector('svg')).toBeNull()
     create(shapeName, { target: '.existing' })
