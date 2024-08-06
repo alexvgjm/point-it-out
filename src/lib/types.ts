@@ -16,8 +16,15 @@ export type CommonOptions = {
   strokeWidth?: number
   strokeColor?: string
 
-  /* space between stroke and content. Can be negative. Default: 0*/
-  padding?: number
+  /** Space between stroke and content. Can be negative. Default: 0*/
+  padding?:
+    | number
+    | {
+        /** Horizontal gap (left and right) */
+        x?: number
+        /** Vertical gap (top and bottom) */
+        y?: number
+      }
 
   zIndex?: number
 }

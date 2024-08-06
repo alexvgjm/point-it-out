@@ -3,7 +3,7 @@ import type { CommonOptions, PointerName } from '../types'
 export const commonOptionsDefaults: Partial<CommonOptions> = {
   strokeColor: 'orange',
   strokeWidth: 4,
-  padding: 0,
+  padding: { x: 0, y: 0 },
   className: undefined,
   zIndex: 9999
   // FIXME: container default initialization to avoid PlayWright environmnet
@@ -46,7 +46,7 @@ export const availableShapes: Readonly<PointerName[]> = ['rect']
 export abstract class PointItOutPointer {
   strokeWidth: number
   strokeColor: string
-  padding: number
+  padding: { x: number; y: number }
   target: HTMLElement
   svg: SVGElement
   container: HTMLElement
@@ -64,7 +64,11 @@ export abstract class PointItOutPointer {
     this.container = container
     this.strokeWidth = opts.strokeWidth
     this.strokeColor = opts.strokeColor
-    this.padding = opts.padding
+    if (typeof opts.padding == 'number') {
+      opts.padding = { x: opts.padding, y: opts.padding }
+    }
+
+    this.padding = { x: opts.padding.x ?? 0, y: opts.padding.y ?? 0 }
 
     this.target = target
     this.svg = createParentSVG(options)

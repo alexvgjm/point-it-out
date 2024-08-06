@@ -19,8 +19,8 @@ export class RectPointer extends PointItOutPointer {
     const htmlRect = this.target.getBoundingClientRect()
     const parentRect = this.container.getBoundingClientRect()
     const strW = this.strokeWidth
-    const width = htmlRect.width + strW * 2 + this.padding * 2
-    const height = htmlRect.height + strW * 2 + this.padding * 2
+    const width = htmlRect.width + strW * 2 + this.padding.x * 2
+    const height = htmlRect.height + strW * 2 + this.padding.y * 2
     const offset = Math.round(strW / 2)
 
     const relativeTop = htmlRect.top - parentRect.top
@@ -29,8 +29,8 @@ export class RectPointer extends PointItOutPointer {
     const targetTop = relativeTop + this.container.scrollTop
     const targetLeft = relativeLeft + this.container.scrollLeft
 
-    this.svg.style.top = targetTop - strW - this.padding + 'px'
-    this.svg.style.left = targetLeft - strW - this.padding + 'px'
+    this.svg.style.left = targetLeft - strW - this.padding.x + 'px'
+    this.svg.style.top = targetTop - strW - this.padding.y + 'px'
     this.svg.setAttribute('width', width.toString())
     this.svg.setAttribute('height', height.toString())
 
