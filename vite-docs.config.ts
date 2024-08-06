@@ -15,7 +15,7 @@ writeFileSync(
   './.env',
   `
 PUBLIC_VERSION=${pkg.version}
-PUBLIC_DOCS_ROOT=''
+PUBLIC_DOCS_ROOT='/point-it-out-docs'
 `
 )
 

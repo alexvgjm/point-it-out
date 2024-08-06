@@ -1,7 +1,7 @@
 import adapter from '@sveltejs/adapter-auto'
 import staticAdapter from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
-import { cpSync, renameSync, rmSync } from 'fs'
+import { cpSync, openSync, renameSync, rmSync } from 'fs'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -32,6 +32,11 @@ if (process.env.DOCS) {
   config.kit.adapter = staticAdapter({ pages: 'dist-docs' })
   config.kit.files = { routes: 'buildenvironment/routes' }
   config.kit.prerender = { handleMissingId: 'ignore' }
+  config.kit.paths = {
+    base: '/point-it-out-docs'
+  }
+
+  openSync('./dist-docs/.nojekyll')
 } else {
   config.kit.adapter = adapter()
 }

@@ -69,7 +69,7 @@
     margin-top: 1rem;
     display: grid;
     text-shadow: 0.05em 0.05em black;
-    grid-template-columns: 12rem 1.5fr;
+    grid-template-columns: 1fr 1.5fr;
   }
 
   .subtable {
@@ -171,6 +171,7 @@
   .prop-types {
     color: var(--color-third-lighter);
     align-content: center;
+    padding: 0 0.25rem;
   }
 
   .prop-type:not(:last-child) {
