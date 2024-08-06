@@ -47,6 +47,12 @@
           default: 'undefined',
           types: ['string', 'string[]'],
           description: `Class/classes to add to the new pointer element.`
+        },
+        {
+          property: 'zIndex',
+          default: '9999',
+          types: ['number'],
+          description: `The z-index style property for the new created element`
         }
       ]
     }
@@ -90,9 +96,23 @@
     {
       property: 'padding',
       default: '0',
-      types: ['number'],
+      types: ['number', '<strong>object</strong>'],
       description:
-        "How separated (in pixels) from the target content is the rect. Can be negative. By default (0 padding) the rect surrounds perfectly the target's bounding rect."
+        "How separated (in pixels) from the target content is the rect. Can be negative. By default (0 padding) the rect surrounds perfectly the target's bounding rect.",
+      props: [
+        {
+          property: 'x',
+          default: '0',
+          types: ['number'],
+          description: 'Horizontal gap (left and right)'
+        },
+        {
+          property: 'y',
+          default: '0',
+          types: ['number'],
+          description: 'Vertical gap (top and bottom)'
+        }
+      ]
     }
   ]
 
@@ -246,6 +266,6 @@ const pointer = create('rect', {"{ target: '#target-element-id' }"})
 console.log(pointer.target) 
 console.log(pointer.htmlElement) // or some methods. More of this later. 
 
-pointer.destroy() // Destroy the HTMLElement and listeners
+pointer.destroy() // Destroy the pointer
     </Code>
 </section>

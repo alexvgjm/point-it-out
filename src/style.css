@@ -185,3 +185,12 @@ section:first-of-type p:first-child {
 .even .hljs {
   background-color: #0002 !important;
 }
+
+.doc-section a {
+  color: var(--color-second-lighty);
+}
+
+.doc-section a:hover {
+  color: var(--color-second-light);
+  text-decoration: underline;
+}
