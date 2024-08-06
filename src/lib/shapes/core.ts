@@ -44,12 +44,24 @@ function getTarget(selectorOrTarget: HTMLElement | string | null) {
 export const availableShapes: Readonly<PointerName[]> = ['rect']
 
 export abstract class PointItOutPointer {
+  destroyed: boolean = false
+
   strokeWidth: number
   strokeColor: string
   padding: { x: number; y: number }
   target: HTMLElement
-  svg: SVGElement
+
+  /** The absolutely positioned DOM element */
+  htmlElement: HTMLElement | SVGElement
+
+  /** The htmlElement parent */
   container: HTMLElement
+
+  /**
+   * If this pointer is destroyed, all listeners/callbacks register here
+   * will be called.
+   */
+  onDestroyListeners: ((pointer: PointItOutPointer) => void)[] = []
 
   constructor(options: CommonOptions) {
     const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>
@@ -71,7 +83,7 @@ export abstract class PointItOutPointer {
     this.padding = { x: opts.padding.x ?? 0, y: opts.padding.y ?? 0 }
 
     this.target = target
-    this.svg = createParentSVG(options)
+    this.htmlElement = createParentSVG(options)
   }
 
   /**
@@ -80,4 +92,25 @@ export abstract class PointItOutPointer {
    * target element changes for some other reason.
    */
   abstract update(): void
+
+  /**
+   * Destroy the current Pointer and created elements.
+   */
+  destroy() {
+    if (this.destroyed) {
+      throw new Error('Pointer already destroyed')
+    }
+
+    this.destroyed = true
+    this.htmlElement.remove()
+    this.onDestroyListeners.forEach((cb) => cb(this))
+  }
+
+  /**
+   * Register a listener/callback to notify when this Pointer is destroyed
+   * @param cb a function to call when this pointer is destroyed
+   */
+  onDestroy(cb: (pointer: PointItOutPointer) => void) {
+    this.onDestroyListeners.push(cb)
+  }
 }
