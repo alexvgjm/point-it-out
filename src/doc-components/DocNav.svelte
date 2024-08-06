@@ -2,16 +2,15 @@
   import { browser } from '$app/environment'
   import { page } from '$app/stores'
   import { onMount } from 'svelte'
-  import { useStore } from '../stores/general.svelte'
+  import { useStore } from '$stores/general.svelte'
   import { afterNavigate, replaceState } from '$app/navigation'
   import * as env from '$env/static/public'
 
   /**
    * FIXME: static adapter requires $env/static and not $env/dynamic. Need to
-   * investigate how to add version programmatically without produces .env
-   * file.
+   * investigate how to add version programmatically without .env file
    */
-  const { PUBLIC_VERSION } = env as unknown as { PUBLIC_VERSION: string }
+  const { PUBLIC_VERSION, PUBLIC_DOCS_ROOT } = env as ForcedEnv
 
   let menuOpen = $state(false)
   let navElm: HTMLElement
@@ -42,23 +41,23 @@
 
   const content = {
     General: {
-      'Getting started': '/docs#getting-started'
+      'Getting started': `${PUBLIC_DOCS_ROOT}/#getting-started`
     },
     'create(...)': {
-      'Creating pointers': '/docs/create#creating-pointers',
-      Rect: '/docs/create#rect',
-      'Pointer references': '/docs/create#pointer-references'
+      'Creating pointers': `${PUBLIC_DOCS_ROOT}/create#creating-pointers`,
+      Rect: `${PUBLIC_DOCS_ROOT}/create#rect`,
+      'Pointer references': `${PUBLIC_DOCS_ROOT}/create#pointer-references`
     },
     'update()': {
-      'Update all pointers': '/docs/update#update-all',
-      'Update a pointer': '/docs/update#update-specific-pointer'
+      'Update all pointers': `${PUBLIC_DOCS_ROOT}/update#update-all`,
+      'Update a pointer': `${PUBLIC_DOCS_ROOT}/update#update-specific-pointer`
     },
     'clear()': {
-      'Clear all pointers': '/docs/clear#clear-all-pointers',
-      'Destroy a pointer': '/docs/clear#destroy-specific-pointer'
+      'Clear all pointers': `${PUBLIC_DOCS_ROOT}/clear#clear-all-pointers`,
+      'Destroy a pointer': `${PUBLIC_DOCS_ROOT}/clear#destroy-specific-pointer`
     },
     'config(options)': {
-      'Configuring global options': '/docs/config'
+      'Configuring global options': `${PUBLIC_DOCS_ROOT}/config`
     }
   }
 </script>
