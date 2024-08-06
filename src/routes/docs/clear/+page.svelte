@@ -6,8 +6,8 @@
   <h1 id="clear-all-pointers">Clear all pointers</h1>
 
   <p>
-    This section is under construction. For now, it's enough to know that the "clear" function
-    deletes ALL currently created pointers.
+    To clear all pointers simply call the clear function. This function is an easy way to call the
+    destroy() method on every created pointer.
   </p>
 
   <!-- prettier-ignore -->
@@ -21,8 +21,6 @@ clear() // Destroy all pointers. That's all.
 <section class="doc-section">
   <h1 id="destroy-specific-pointer">Destroy a specific pointer</h1>
 
-  <p>WORK IN PROGRESS. This doesn't work yet, will be added in 1.5.</p>
-
   <!-- prettier-ignore -->
   <Code showLanguage={false} showSelectAllButton language="TypeScript">
 import {'{ create }'} from 'pointitout' 
@@ -31,4 +29,25 @@ const pointer = create('rect', {"{ target: '#target-element-id' }"})
 
 pointer.destroy() // Destroy the pointer
     </Code>
+
+  <section class="doc-section">
+    <h2 id="destroy-specific-pointer">Pointer onDestroy hook</h2>
+
+    <p>You can register functions to be called when pointer is destroyed.</p>
+
+    <!-- prettier-ignore -->
+    <Code showLanguage={false} showSelectAllButton language="TypeScript">
+import {'{ create }'} from 'pointitout' 
+
+const pointer = create('rect', {"{ target: '#target-element-id' }"})
+
+pointer.onDestroy( p =&gt; {`{
+    console.log('A pointer was destroyed. 🪦 R.I.P')
+    console.log('Pointer object: ', p)
+}`})
+
+pointer.destroy() // Destroy the pointer
+// The function containing the console.logs will be called.
+    </Code>
+  </section>
 </section>

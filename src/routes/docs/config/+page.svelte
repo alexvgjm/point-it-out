@@ -16,7 +16,7 @@
 </script>
 
 <section class="doc-section">
-  <h1 id="clear-all-pointers">Configuring global options</h1>
+  <h1 id="configuring-global-options">Configuring global options</h1>
 
   <p>
     The config function receives a SystemOptions object and will update only the global options

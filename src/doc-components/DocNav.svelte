@@ -57,7 +57,7 @@
       'Destroy a pointer': `${PUBLIC_DOCS_ROOT}/clear#destroy-specific-pointer`
     },
     'config(options)': {
-      'Configuring global options': `${PUBLIC_DOCS_ROOT}/config`
+      'Configuring global options': `${PUBLIC_DOCS_ROOT}/config#configuring-global-options`
     }
   }
 </script>
@@ -87,7 +87,8 @@
           <a
             class="main-nav__link"
             href={url}
-            class:current={$page.url.pathname + '#' + useStore().headerId == url}>{subsectTitle}</a
+            class:current={$page.url.pathname + '#' + useStore().headerId == url.replace('/#', '#')}
+            >{subsectTitle}</a
           >
         {/each}
       </nav>

@@ -4,6 +4,8 @@ A tiny library to mark/point out DOM elements using another absolutely positione
 
 NOTE: in a very early stage of development
 
+Read the full docs at https://alexvgjm.github.io/point-it-out-docs/
+
 ```sh
 $ npm install pointitout
 ```
