@@ -9,8 +9,8 @@ export class RectPointer extends PointItOutPointer {
   constructor(options: PointerOptions['rect']) {
     super(options)
     this.rectElm = createSVG('rect')
-    this.svg.appendChild(this.rectElm)
-    this.container.appendChild(this.svg)
+    this.htmlElement.appendChild(this.rectElm)
+    this.container.appendChild(this.htmlElement)
     this.round = options.round || 0
     this.update()
   }
@@ -29,10 +29,10 @@ export class RectPointer extends PointItOutPointer {
     const targetTop = relativeTop + this.container.scrollTop
     const targetLeft = relativeLeft + this.container.scrollLeft
 
-    this.svg.style.left = targetLeft - strW - this.padding.x + 'px'
-    this.svg.style.top = targetTop - strW - this.padding.y + 'px'
-    this.svg.setAttribute('width', width.toString())
-    this.svg.setAttribute('height', height.toString())
+    this.htmlElement.style.left = targetLeft - strW - this.padding.x + 'px'
+    this.htmlElement.style.top = targetTop - strW - this.padding.y + 'px'
+    this.htmlElement.setAttribute('width', width.toString())
+    this.htmlElement.setAttribute('height', height.toString())
 
     this.rectElm.setAttribute('x', `${offset}`)
     this.rectElm.setAttribute('y', `${offset}`)

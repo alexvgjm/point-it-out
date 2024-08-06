@@ -36,10 +36,37 @@ const createSpecs = (shapeName: PointerName) => {
 
     describe('zIndex', () => {
       it(`sets de zIndex property`, async () => {
-        document.querySelector<HTMLElement>('.existing')!
         create(shapeName, { target: '.existing', zIndex: 1000 })
         const created = document.querySelector('svg')!
         expect(created.style.zIndex).equal('1000')
+      })
+    })
+  })
+
+  describe('Methods', async () => {
+    describe('destroy', () => {
+      it('removes the created htmlElement from DOM', () => {
+        const pointer = create(shapeName, { target: '.existing' })
+        let htmlElement = document.querySelector('svg')
+
+        pointer.destroy()
+
+        htmlElement = document.querySelector('svg')
+        expect(htmlElement).toBeNull()
+      })
+
+      it('throws if try to redestroy', () => {
+        const pointer = create(shapeName, { target: '.existing' })
+        pointer.destroy()
+        expect(() => pointer.destroy()).toThrow()
+      })
+
+      it('will cause the pointer to be excluded from updates', () => {
+        const pointer = create(shapeName, { target: '.existing' })
+        const spy = vi.spyOn(pointer, 'update')
+        pointer.destroy()
+        update()
+        expect(spy).not.toHaveBeenCalled()
       })
     })
   })
