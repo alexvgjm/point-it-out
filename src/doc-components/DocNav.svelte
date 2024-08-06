@@ -4,6 +4,14 @@
   import { onMount } from 'svelte'
   import { useStore } from '../stores/general.svelte'
   import { afterNavigate, replaceState } from '$app/navigation'
+  import * as env from '$env/static/public'
+
+  /**
+   * FIXME: static adapter requires $env/static and not $env/dynamic. Need to
+   * investigate how to add version programmatically without produces .env
+   * file.
+   */
+  const { PUBLIC_VERSION } = env as unknown as { PUBLIC_VERSION: string }
 
   let menuOpen = $state(false)
   let navElm: HTMLElement
@@ -39,16 +47,15 @@
     'create(...)': {
       'Creating pointers': '/docs/create#creating-pointers',
       Rect: '/docs/create#rect',
-      'Rect examples': '/docs/create#examples',
       'Pointer references': '/docs/create#pointer-references'
     },
     'update()': {
-      'Update all pointers': '/docs/update',
-      'Update a pointer': '/docs/update#single-pointer'
+      'Update all pointers': '/docs/update#update-all',
+      'Update a pointer': '/docs/update#update-specific-pointer'
     },
     'clear()': {
-      'Destroy all pointers': '/docs/clear',
-      'Destroy a pointer': '/docs/clear#single-pointer'
+      'Clear all pointers': '/docs/clear#clear-all-pointers',
+      'Destroy a pointer': '/docs/clear#destroy-specific-pointer'
     },
     'config(options)': {
       'Configuring global options': '/docs/config'
@@ -71,7 +78,7 @@
   <div class="main-nav__wrapper">
     <header>
       <h1>Point it out docs</h1>
-      <div class="version">v.{PKG.version}</div>
+      <div class="version">v.{PUBLIC_VERSION}</div>
     </header>
 
     {#each Object.entries(content) as [section, subsectObj]}

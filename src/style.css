@@ -173,7 +173,7 @@ h3 + p,
 h4 + p,
 h5 + p,
 h6 + p,
-section:first-of-type p {
+section:first-of-type p:first-child {
   margin-top: 0;
 }
 
