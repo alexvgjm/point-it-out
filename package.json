@@ -27,7 +27,8 @@
     "build": "vite build && npm run package",
     "package": "svelte-kit sync && svelte-package && publint",
     "build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build:docs": "cross-env DOCS=true vite build --config vite-docs.config.ts"
   },
   "files": [
     "dist",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@playwright/test": "^1.28.1",
     "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/adapter-static": "^3.0.2",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/package": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
@@ -63,6 +65,8 @@
   "svelte": "./dist/index.js",
   "dependencies": {
     "@types/node": "^22.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
     "highlight.js": "^11.10.0",
     "just-throttle": "^4.2.0",
     "vite-plugin-dts": "4.0.0-beta.2"

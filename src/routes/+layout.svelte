@@ -4,12 +4,16 @@
 
   import * as pio from '../lib/main'
   import { browser } from '$app/environment'
+  import { page } from '$app/stores'
 
   if (browser) {
     ;(window as unknown as { pio: typeof pio }).pio = pio
   }
 </script>
 
+{#if $page.error}
+  <h2>errrorrrorroro</h2>
+{/if}
 <slot></slot>
 
 <style>
@@ -22,7 +26,10 @@
   :global(.doc-section:not(:first-of-type)) {
     margin-top: 4rem;
   }
-  :global(.doc-section:last-of-type) {
+  :global(.doc-section > .doc-section) {
+    margin-top: 2rem;
+  }
+  :global(:not(.doc-section) > .doc-section:last-of-type) {
     margin-bottom: 6rem;
   }
   :global(.doc-section h2) {

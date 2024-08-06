@@ -5,12 +5,20 @@
   import PropertiesTable, { type PropEntry } from '../../../doc-components/PropertiesTable.svelte'
   import { clear, create } from '$lib/main'
   import { browser } from '$app/environment'
+  import * as env from '$env/static/public'
+
+  /**
+   * FIXME: static adapter requires $env/static and not $env/dynamic. Need to
+   * investigate how to add version programmatically without produces .env
+   * file.
+   */
+  const { PUBLIC_VERSION } = env as unknown as { PUBLIC_VERSION: string }
 
   const params: PropEntry[] = [
     {
       property: 'pointerType',
       types: ['PointerType'],
-      description: `A string that actually (version 0.1.4) can only 
+      description: `A string that actually (${PUBLIC_VERSION}) can only 
         be <strong>'rect'</strong>, but <strong>'arrow'</strong> and <strong>'image'</strong> will be included soon.`
     },
     {
@@ -154,69 +162,69 @@ create('rect', {"{ target: '#target-css-selector' }"})
     title="create ( <strong>'rect'</strong>, options )"
     pioOptionsList={rectOptions}
   />
-</section>
 
-<section class="doc-section">
-  <h1 id="examples">Examples</h1>
+  <section class="doc-section">
+    <h2>Examples</h2>
 
-  <p style="margin-bottom: 2rem;">
-    Notice the use of "container" option to create the SVG inside the &lt;main&gt; element instead
-    body, avoiding issues with the scrollable main.
-  </p>
+    <p style="margin-bottom: 2rem;">
+      Notice the use of "container" option to create the SVG inside the &lt;main&gt; element instead
+      body, avoiding issues with the scrollable main.
+    </p>
 
-  <ColumnsContainer>
-    <!-- prettier-ignore -->
-    <Code slot="left"
-            language="TypeScript" 
-            showLanguage={false} noTop>
-create('rect', {`{
-    target: '#box-1', 
-    container: 'main',
-    padding: 8
-}`})
-        </Code>
+    <ColumnsContainer>
+      <!-- prettier-ignore -->
+      <Code slot="left"
+              language="TypeScript" 
+              showLanguage={false} noTop>
+  create('rect', {`{
+      target: '#box-1', 
+      container: 'main',
+      padding: 8
+  }`})
+          </Code>
 
-    <div slot="right" class="result-panel">
-      <div class="test-box" id="box-1">#box-1</div>
-    </div>
-  </ColumnsContainer>
+      <div slot="right" class="result-panel">
+        <div class="test-box" id="box-1">#box-1</div>
+      </div>
+    </ColumnsContainer>
 
-  <ColumnsContainer even>
-    <!-- prettier-ignore -->
-    <Code slot="left"  noTop
-            language="TypeScript" 
-            showLanguage={false}>
-create('rect', {`{
-    target: '#box-2', 
-    container: 'main',
-    strokeWidth: 8,
-    strokeColor: '#68c'
-}`})
-        </Code>
+    <ColumnsContainer even>
+      <!-- prettier-ignore -->
+      <Code slot="left"  noTop
+              language="TypeScript" 
+              showLanguage={false}>
+  create('rect', {`{
+      target: '#box-2', 
+      container: 'main',
+      strokeWidth: 8,
+      strokeColor: '#68c'
+  }`})
+          </Code>
 
-    <div slot="right" class="result-panel">
-      <div class="test-box" id="box-2">#box-2</div>
-    </div>
-  </ColumnsContainer>
+      <div slot="right" class="result-panel">
+        <div class="test-box" id="box-2">#box-2</div>
+      </div>
+    </ColumnsContainer>
 
-  <ColumnsContainer>
-    <!-- prettier-ignore -->
-    <Code slot="left"  noTop
-            language="TypeScript" 
-            showLanguage={false}>
-create('rect', {`{
-    target: '#box-3', 
-    container: 'main',
-    strokeColor: '#f8c',
-    round: '30%',
-    padding: 12
-}`})
-        </Code>
+    <ColumnsContainer>
+      <!-- prettier-ignore -->
+      <Code slot="left"  noTop
+              language="TypeScript" 
+              showLanguage={false}>
+  create('rect', {`{
+      target: '#box-3', 
+      container: 'main',
+      strokeColor: '#f8c',
+      round: '30%',
+      padding: 12
+  }`})
+          </Code>
 
-    <div slot="right" class="result-panel">
-      <div class="test-box" id="box-3">#box-3</div>
-    </div>
-  </ColumnsContainer>
+      <div slot="right" class="result-panel">
+        <div class="test-box" id="box-3">#box-3</div>
+      </div>
+    </ColumnsContainer>
+  </section>
 </section>
 
 <section class="doc-section">

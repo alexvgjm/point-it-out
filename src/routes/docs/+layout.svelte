@@ -32,7 +32,7 @@
         }
 
         const mainRect = mainElm.getBoundingClientRect()
-        const halfWindow = mainRect.height / 4 + mainRect.top
+        const halfWindow = mainRect.height / 5 + mainRect.top
 
         const elmAndDist: [HTMLHeadingElement, number][] = headings.map((h) => [
           h,

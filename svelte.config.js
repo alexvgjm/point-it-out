@@ -1,17 +1,35 @@
 import adapter from '@sveltejs/adapter-auto'
+import staticAdapter from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import { cpSync, rmSync } from 'fs'
+import dotenv from 'dotenv'
+dotenv.config()
 
 /** @type {import('@sveltejs/kit').Config} */
-const config = {
-  // Consult https://kit.svelte.dev/docs/integrations#preprocessors
-  // for more information about preprocessors
-  preprocess: vitePreprocess(),
+let config
 
-  kit: {
-    // adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
-    // If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-    // See https://kit.svelte.dev/docs/adapters for more information about adapters.
-    adapter: adapter()
+if (process.env.DOCS) {
+  rmSync('./buildenvironment', { recursive: true, force: true })
+  cpSync('./src', './buildenvironment', { recursive: true })
+  rmSync('./buildenvironment/routes/(tests)', { recursive: true, force: true })
+  rmSync('./buildenvironment/routes/[shape]', { recursive: true, force: true })
+
+  config = {
+    preprocess: [vitePreprocess()],
+    kit: {
+      adapter: staticAdapter({
+        pages: 'dist-docs'
+      }),
+      files: {
+        routes: 'buildenvironment/routes'
+      }
+    },
+    extensions: ['.svelte']
+  }
+} else {
+  config = {
+    preprocess: vitePreprocess(),
+    kit: { adapter: adapter() }
   }
 }
 
