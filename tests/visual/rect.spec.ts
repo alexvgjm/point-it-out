@@ -154,23 +154,49 @@ test.describe("create('rect')", () => {
         })
       })
 
-      test(`padding (${xW}x${xH})`, async ({ page }, testInfo) => {
-        await visualComparisonBetweenPages({
-          testingURL: `/rect/${xW}x${xH}`,
-          expectedURL: `/rect/${xW}x${xH}/padding-option`,
-          action: () => {
-            return page.evaluate(
-              ({ xW, xH }) =>
-                pio.create('rect', {
-                  target: `.test-box--${xW}x${xH}`,
-                  className: `result`,
-                  padding: 16
-                }),
-              { xW, xH }
-            )
-          },
-          pwPage: page,
-          pwTestInfo: testInfo
+      test.describe(`padding (${xW}x${xH})`, () => {
+        it(`creates a gap between stroke and target in both axis if number`, async ({
+          page
+        }, testInfo) => {
+          await visualComparisonBetweenPages({
+            testingURL: `/rect/${xW}x${xH}`,
+            expectedURL: `/rect/${xW}x${xH}/padding-option`,
+            action: () => {
+              return page.evaluate(
+                ({ xW, xH }) =>
+                  pio.create('rect', {
+                    target: `.test-box--${xW}x${xH}`,
+                    className: `result`,
+                    padding: 16
+                  }),
+                { xW, xH }
+              )
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
+        })
+
+        it(`creates a different gap for horizontal and vertical if object`, async ({
+          page
+        }, testInfo) => {
+          await visualComparisonBetweenPages({
+            testingURL: `/rect/${xW}x${xH}`,
+            expectedURL: `/rect/${xW}x${xH}/padding-option/axis`,
+            action: () => {
+              return page.evaluate(
+                ({ xW, xH }) =>
+                  pio.create('rect', {
+                    target: `.test-box--${xW}x${xH}`,
+                    className: `result`,
+                    padding: { y: 16, x: 50 }
+                  }),
+                { xW, xH }
+              )
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
         })
       })
     })
