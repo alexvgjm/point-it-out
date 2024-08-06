@@ -33,6 +33,15 @@ const createSpecs = (shapeName: ShapeName) => {
         }).toThrow()
       })
     })
+
+    describe('zIndex', () => {
+      it(`sets de zIndex property`, async () => {
+        document.querySelector<HTMLElement>('.existing')!
+        create(shapeName, { target: '.existing', zIndex: 1000 })
+        const created = document.querySelector('svg')!
+        expect(created.style.zIndex).equal('1000')
+      })
+    })
   })
 }
 
