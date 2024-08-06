@@ -1,4 +1,4 @@
-import type { CommonOptions, ShapeName } from '../types'
+import type { CommonOptions, PointerName } from '../types'
 
 export const commonOptionsDefaults: Partial<CommonOptions> = {
   strokeColor: 'orange',
@@ -41,7 +41,7 @@ function getTarget(selectorOrTarget: HTMLElement | string | null) {
   return selectorOrTarget
 }
 
-export const availableShapes: Readonly<ShapeName[]> = ['rect']
+export const availableShapes: Readonly<PointerName[]> = ['rect']
 
 export abstract class PointItOutPointer {
   strokeWidth: number

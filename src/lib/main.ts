@@ -1,6 +1,6 @@
 import { RectPointer } from './shapes/rect'
 import { PointItOutPointer } from './shapes/core'
-import type { ShapeOptions, SystemOptions } from './types'
+import type { PointerOptions, SystemOptions } from './types'
 
 const created: PointItOutPointer[] = []
 const onResize = () => created.forEach((s) => s.update())
@@ -28,21 +28,21 @@ export function config(newOptions: Partial<SystemOptions>) {
  * Create a new pointer.
  * @returns reference to a new PointItOutPointer
  */
-export function create<ShapeName extends keyof ShapeOptions>(
-  shape: ShapeName,
-  options: ShapeOptions[ShapeName]
+export function create<PointerName extends keyof PointerOptions>(
+  pointerName: PointerName,
+  options: PointerOptions[PointerName]
 ) {
   if (systemOptions.updateOnResize) {
     addOrReAddGeneralResizeListener()
   }
-  let createdShape!: PointItOutPointer
+  let createdPointer!: PointItOutPointer
 
-  if (shape == 'rect') {
-    createdShape = new RectPointer(options)
+  if (pointerName == 'rect') {
+    createdPointer = new RectPointer(options)
   }
 
-  created.push(createdShape)
-  return createdShape
+  created.push(createdPointer)
+  return createdPointer
 }
 
 /**

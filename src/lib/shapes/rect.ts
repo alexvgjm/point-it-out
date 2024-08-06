@@ -1,12 +1,12 @@
 import { createSVG, PointItOutPointer } from './core'
-import type { ShapeOptions } from '../types'
+import type { PointerOptions } from '../types'
 
 export class RectPointer extends PointItOutPointer {
   rectElm: SVGRectElement
 
   round: number | string | { rx: number | string; ry: number | string } = 0
 
-  constructor(options: ShapeOptions['rect']) {
+  constructor(options: PointerOptions['rect']) {
     super(options)
     this.rectElm = createSVG('rect')
     this.svg.appendChild(this.rectElm)
