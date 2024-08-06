@@ -1,16 +1,15 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
-  import Code from '../../../doc-components/Code.svelte'
-  import ColumnsContainer from '../../../doc-components/ColumnsContainer.svelte'
-  import PropertiesTable, { type PropEntry } from '../../../doc-components/PropertiesTable.svelte'
+  import Code from '$comps/Code.svelte'
+  import ColumnsContainer from '$comps/ColumnsContainer.svelte'
+  import PropertiesTable, { type PropEntry } from '$comps/PropertiesTable.svelte'
   import { clear, create } from '$lib/main'
   import { browser } from '$app/environment'
   import * as env from '$env/static/public'
 
   /**
    * FIXME: static adapter requires $env/static and not $env/dynamic. Need to
-   * investigate how to add version programmatically without produces .env
-   * file.
+   * investigate how to add version programmatically without .env
    */
   const { PUBLIC_VERSION } = env as unknown as { PUBLIC_VERSION: string }
 
@@ -176,12 +175,12 @@ create('rect', {"{ target: '#target-css-selector' }"})
       <Code slot="left"
               language="TypeScript" 
               showLanguage={false} noTop>
-  create('rect', {`{
-      target: '#box-1', 
-      container: 'main',
-      padding: 8
-  }`})
-          </Code>
+create('rect', {`{
+    target: '#box-1', 
+    container: 'main',
+    padding: 8
+}`})
+      </Code>
 
       <div slot="right" class="result-panel">
         <div class="test-box" id="box-1">#box-1</div>
@@ -193,13 +192,13 @@ create('rect', {"{ target: '#target-css-selector' }"})
       <Code slot="left"  noTop
               language="TypeScript" 
               showLanguage={false}>
-  create('rect', {`{
-      target: '#box-2', 
-      container: 'main',
-      strokeWidth: 8,
-      strokeColor: '#68c'
-  }`})
-          </Code>
+create('rect', {`{
+    target: '#box-2', 
+    container: 'main',
+    strokeWidth: 8,
+    strokeColor: '#68c'
+}`})
+      </Code>
 
       <div slot="right" class="result-panel">
         <div class="test-box" id="box-2">#box-2</div>
@@ -211,14 +210,14 @@ create('rect', {"{ target: '#target-css-selector' }"})
       <Code slot="left"  noTop
               language="TypeScript" 
               showLanguage={false}>
-  create('rect', {`{
-      target: '#box-3', 
-      container: 'main',
-      strokeColor: '#f8c',
-      round: '30%',
-      padding: 12
-  }`})
-          </Code>
+create('rect', {`{
+    target: '#box-3', 
+    container: 'main',
+    strokeColor: '#f8c',
+    round: '30%',
+    padding: 12
+}`})
+      </Code>
 
       <div slot="right" class="result-panel">
         <div class="test-box" id="box-3">#box-3</div>

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import '../style.css'
-  import '../test-styles.css'
+  import '$src/style.css'
+  import '$src/test-styles.css'
 
-  import * as pio from '../lib/main'
+  import * as pio from '$lib/main'
   import { browser } from '$app/environment'
   import { page } from '$app/stores'
 
@@ -12,28 +12,6 @@
 </script>
 
 {#if $page.error}
-  <h2>errrorrrorroro</h2>
+  <h2>Errrorrrorrororr</h2>
 {/if}
 <slot></slot>
-
-<style>
-  :global(main h1:first-child) {
-    padding-bottom: 0.25em;
-    margin-bottom: 0.25em;
-    border-bottom: 0.15rem solid var(--color-third);
-  }
-
-  :global(.doc-section:not(:first-of-type)) {
-    margin-top: 4rem;
-  }
-  :global(.doc-section > .doc-section) {
-    margin-top: 2rem;
-  }
-  :global(:not(.doc-section) > .doc-section:last-of-type) {
-    margin-bottom: 6rem;
-  }
-  :global(.doc-section h2) {
-    padding: 0.4em 0;
-    border-bottom: 0.25rem solid #0002;
-  }
-</style>

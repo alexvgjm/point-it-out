@@ -11,7 +11,13 @@ const pkg = JSON.parse(json)
  * investigate how to add version programmatically without .env file.
  */
 process.env.PUBLIC_VERSION = pkg.version
-writeFileSync('./.env', 'PUBLIC_VERSION=' + pkg.version)
+writeFileSync(
+  './.env',
+  `
+PUBLIC_VERSION=${pkg.version}
+PUBLIC_DOCS_ROOT=''
+`
+)
 
 export default defineConfig({
   plugins: [sveltekit()]

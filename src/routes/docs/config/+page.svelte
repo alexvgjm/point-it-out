@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Code from '../../../doc-components/Code.svelte'
-  import type { PropEntry } from '../../../doc-components/PropertiesTable.svelte'
-  import PropertiesTable from '../../../doc-components/PropertiesTable.svelte'
+  import Code from '$comps/Code.svelte'
+  import type { PropEntry } from '$comps/PropertiesTable.svelte'
+  import PropertiesTable from '$comps/PropertiesTable.svelte'
 
   const systemOptionsProps: PropEntry[] = [
     {

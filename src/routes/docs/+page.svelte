@@ -1,5 +1,13 @@
 <script lang="ts">
-  import Code from '../../doc-components/Code.svelte'
+  import Code from '$comps/Code.svelte'
+
+  import * as env from '$env/static/public'
+
+  /**
+   * FIXME: static adapter requires $env/static and not $env/dynamic. Need to
+   * investigate how to add vars programmatically without .env file
+   */
+  const { PUBLIC_DOCS_ROOT } = env as ForcedEnv
 </script>
 
 <h1 id="getting-started">Getting started</h1>
@@ -40,5 +48,5 @@ import {'{ create }'} from 'pointitout'
 create('rect', {"{ target: '#target-element-id' }"})
 	</Code>
 
-  <p>See more options for the <a href="/docs/create">create function</a>.</p>
+  <p>See more options for the <a href={PUBLIC_DOCS_ROOT + '/create'}>create function</a>.</p>
 </section>

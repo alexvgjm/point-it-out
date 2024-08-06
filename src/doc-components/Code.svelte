@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { useStore } from '../stores/general.svelte'
+  import { useStore } from '$stores/general.svelte'
 
   type Language = 'HTML' | 'TypeScript' | 'JavaScript' | 'CSS' | 'Bash'
   export let language: Language

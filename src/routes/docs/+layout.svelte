@@ -1,13 +1,14 @@
 <script lang="ts">
-  import '../../style.css'
+  import '$src/style.css'
+  import '$src/test-styles.css'
   import './docs.css'
-  import DocNav from '../../doc-components/DocNav.svelte'
+  import DocNav from '$comps/DocNav.svelte'
   import 'highlight.js/styles/atom-one-dark.min.css'
   import { browser } from '$app/environment'
   import { afterNavigate } from '$app/navigation'
   import { update } from '$lib/main'
   import { onDestroy, onMount } from 'svelte'
-  import { useStore } from '../../stores/general.svelte'
+  import { useStore } from '$stores/general.svelte'
   import throttle from 'just-throttle'
 
   let mainElm: HTMLElement
@@ -85,5 +86,25 @@
     main {
       padding: 3rem 2rem 2rem 2rem;
     }
+  }
+
+  :global(main h1:first-child) {
+    padding-bottom: 0.25em;
+    margin-bottom: 0.25em;
+    border-bottom: 0.15rem solid var(--color-third);
+  }
+
+  :global(.doc-section:not(:first-of-type)) {
+    margin-top: 4rem;
+  }
+  :global(.doc-section > .doc-section) {
+    margin-top: 2rem;
+  }
+  :global(:not(.doc-section) > .doc-section:last-of-type) {
+    margin-bottom: 6rem;
+  }
+  :global(.doc-section h2) {
+    padding: 0.4em 0;
+    border-bottom: 0.25rem solid #0002;
   }
 </style>
