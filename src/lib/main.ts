@@ -3,15 +3,20 @@ import { PointItOutPointer } from './shapes/core'
 import type { PointerOptions, SystemOptions } from './types'
 
 const created: Set<PointItOutPointer> = new Set()
-const onResize = () => created.forEach((s) => s.update())
-
-let systemOptions: SystemOptions = {
-  updateOnResize: true
+const onResize = () => {
+  update()
+}
+const onLoad = () => {
+  update()
 }
 
-function addOrReAddGeneralResizeListener() {
-  window.removeEventListener('resize', onResize)
-  window.addEventListener('resize', onResize)
+let systemOptions: SystemOptions = {
+  updateOnResize: true,
+  updateAfterLoad: false
+}
+
+if (typeof window !== 'undefined') {
+  config(systemOptions)
 }
 
 function removePointerFromCreated(pointer: PointItOutPointer) {
@@ -24,8 +29,14 @@ function removePointerFromCreated(pointer: PointItOutPointer) {
  */
 export function config(newOptions: Partial<SystemOptions>) {
   systemOptions = { ...systemOptions, ...newOptions }
-  if (newOptions.updateOnResize == false) {
-    window.removeEventListener('resize', onResize)
+  // Clear old listeners
+  window.removeEventListener('resize', onResize)
+  window.removeEventListener('load', onLoad)
+  if (newOptions.updateOnResize) {
+    window.addEventListener('resize', onResize)
+  }
+  if (newOptions.updateAfterLoad) {
+    window.addEventListener('load', onLoad)
   }
 }
 
@@ -37,9 +48,6 @@ export function create<PointerName extends keyof PointerOptions>(
   pointerName: PointerName,
   options: PointerOptions[PointerName]
 ) {
-  if (systemOptions.updateOnResize) {
-    addOrReAddGeneralResizeListener()
-  }
   let createdPointer!: PointItOutPointer
 
   if (pointerName == 'rect') {
