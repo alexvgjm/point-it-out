@@ -1,5 +1,6 @@
 export type SystemOptions = {
   updateOnResize: boolean
+  updateAfterLoad: boolean
 }
 
 export type CommonOptions = {
