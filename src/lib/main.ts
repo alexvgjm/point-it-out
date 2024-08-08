@@ -32,12 +32,14 @@ export function config(newOptions: Partial<SystemOptions>) {
   // Clear old listeners
   window.removeEventListener('resize', onResize)
   window.removeEventListener('load', onLoad)
-  if (newOptions.updateOnResize) {
+  if (systemOptions.updateOnResize) {
     window.addEventListener('resize', onResize)
   }
-  if (newOptions.updateAfterLoad) {
+  if (systemOptions.updateAfterLoad) {
     window.addEventListener('load', onLoad)
   }
+
+  return structuredClone(systemOptions)
 }
 
 /**
