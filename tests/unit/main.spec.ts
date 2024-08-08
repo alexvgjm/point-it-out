@@ -1,5 +1,5 @@
 import type { PointerName } from '$lib/types'
-import { create, update } from '../../src/lib/main'
+import { config, create, update } from '../../src/lib/main'
 import { availableShapes, PointItOutPointer } from '../../src/lib/shapes/core'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -91,5 +91,48 @@ describe('update()', () => {
     expect(spy1).toHaveBeenCalled() // THEN
     expect(spy2).toHaveBeenCalled()
     expect(spy3).toHaveBeenCalled()
+  })
+})
+
+describe('System options', () => {
+  describe('config()', () => {
+    /**
+     * This test will be deliberately broken every time a new option is added
+     * or its default value changed, just to remember that specs/tests must be
+     * included ;)
+     */
+    it('returns a copy of the current global options', () => {
+      const options = config({ updateAfterLoad: true })
+      expect(options).eql({
+        updateAfterLoad: true,
+        updateOnResize: true
+      })
+    })
+
+    it('only alters the specified options', () => {
+      let options = config({ updateAfterLoad: true, updateOnResize: false })
+      options = config({ updateOnResize: false })
+      expect(options).eql({
+        updateAfterLoad: true,
+        updateOnResize: false
+      })
+
+      // ensure updateAfterLoad still active (fixing a bug)
+      const pointer = create('rect', { target: '.existing' })
+      const spy = vi.spyOn(pointer, 'update')
+      window.dispatchEvent(new Event('load'))
+      expect(spy).toHaveBeenCalled()
+    })
+  })
+
+  describe('updateAfterLoad', () => {
+    it("calls update after window's load event", () => {
+      const pointer = create('rect', { target: '.existing' })
+      const spy = vi.spyOn(pointer, 'update')
+      config({ updateAfterLoad: true })
+      expect(spy).not.toHaveBeenCalled() // sanity check
+      window.dispatchEvent(new Event('load'))
+      expect(spy).toHaveBeenCalled()
+    })
   })
 })
