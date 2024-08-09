@@ -1,6 +1,6 @@
 {
   "name": "pointitout",
-  "version": "0.1.5f",
+  "version": "0.1.7",
   "type": "module",
   "description": "A tiny library to mark/point out DOM elements using another absolutely positioned elements or procedurally generated SVGs",
   "homepage": "https://github.com/alexvgjm/point-it-out",
@@ -52,6 +52,7 @@
     "globals": "^15.0.0",
     "happy-dom": "^14.12.3",
     "husky": "^9.1.4",
+    "lint-staged": "^15.2.8",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
     "publint": "^0.1.9",
