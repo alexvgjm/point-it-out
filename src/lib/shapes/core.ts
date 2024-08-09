@@ -41,7 +41,7 @@ function getTarget(selectorOrTarget: HTMLElement | string | null) {
   return selectorOrTarget
 }
 
-export const availableShapes: Readonly<PointerName[]> = ['rect']
+export const availablePointers: Readonly<PointerName[]> = ['rect', 'arrow']
 
 export abstract class PointItOutPointer {
   destroyed: boolean = false

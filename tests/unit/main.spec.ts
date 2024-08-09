@@ -1,6 +1,6 @@
 import type { PointerName } from '$lib/types'
 import { config, create, update } from '../../src/lib/main'
-import { availableShapes, PointItOutPointer } from '../../src/lib/shapes/core'
+import { availablePointers, PointItOutPointer } from '../../src/lib/shapes/core'
 import { describe, expect, it, vi } from 'vitest'
 
 /**
@@ -72,7 +72,7 @@ const createSpecs = (shapeName: PointerName) => {
   })
 }
 
-describe.each(availableShapes)(`create('$shapeName')`, createSpecs)
+describe.each(availablePointers)(`create('$shapeName')`, createSpecs)
 
 describe('update()', () => {
   it('should call update of each created shape', () => {

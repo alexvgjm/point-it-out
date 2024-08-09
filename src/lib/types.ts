@@ -32,7 +32,7 @@ export type CommonOptions = {
 
 export type PointerOptions = {
   rect: { round?: number | string | { rx: number | string; ry: number | string } } & CommonOptions
-  image: {} & CommonOptions // No options beside commons ATM
+  arrow: {} & CommonOptions // No options beside commons ATM
 }
 
 export type PointerName = keyof PointerOptions
