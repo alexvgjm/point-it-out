@@ -8,8 +8,8 @@ test.describe('System options', () => {
       page
     }, testInfo) => {
       await visualComparisonBetweenPages({
-        testingURL: `/rect/300x300`,
-        expectedURL: `/rect/300x300/default`,
+        testingURL: `/300x300`,
+        expectedURL: `/300x300/rect/default`,
         not: true,
 
         beforeExpectedScreenshot: async () =>
@@ -41,8 +41,8 @@ test.describe('Common options', () => {
   test.describe('container option', () => {
     it('creates the pointer inside the container', async ({ page }, testInfo) => {
       await visualComparisonBetweenPages({
-        testingURL: `/rect/300x300/scroll`,
-        expectedURL: `/rect/300x300/scroll/container-option`,
+        testingURL: `/300x300/rect/scroll`,
+        expectedURL: `/300x300/rect/scroll/container-option`,
 
         action: async () => {
           await page.evaluate(() => {

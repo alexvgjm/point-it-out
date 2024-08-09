@@ -12,7 +12,7 @@ test.describe("create('rect')", () => {
     it(
       "creates an SVG of approximately same width and height of target's" + ` rect (${xW}x${xH})`,
       async ({ page }) => {
-        await page.goto(`/rect/${xW}x${xH}`, { waitUntil: 'networkidle' })
+        await page.goto(`/${xW}x${xH}`, { waitUntil: 'networkidle' })
 
         const createdSVGRect = await page.evaluate(
           ({ xW, xH, idx }) => {
@@ -31,7 +31,7 @@ test.describe("create('rect')", () => {
     )
 
     it(`creates an SVG absolutely positioned over target (${xW}x${xH})`, async ({ page }) => {
-      await page.goto(`/rect/${xW}x${xH}`, { waitUntil: 'networkidle' })
+      await page.goto(`/${xW}x${xH}`, { waitUntil: 'networkidle' })
       const selector = `.test-box--${xW}x${xH}`
 
       const [targetRect, createdSVGRect] = await page.evaluate(
@@ -54,8 +54,8 @@ test.describe("create('rect')", () => {
       page
     }, testInfo) => {
       await visualComparisonBetweenPages({
-        testingURL: `/rect/${xW}x${xH}`,
-        expectedURL: `/rect/${xW}x${xH}/default`,
+        testingURL: `/${xW}x${xH}`,
+        expectedURL: `/${xW}x${xH}/rect/default`,
 
         beforeExpectedScreenshot: async () =>
           await page.setViewportSize({ width: 600, height: 600 }),
@@ -82,7 +82,7 @@ test.describe("create('rect')", () => {
     test(`created SVG should ignore pointer events and let pass through it (${xW}x${xH})`, async ({
       page
     }) => {
-      await page.goto(`/rect/${xW}x${xH}`, { waitUntil: 'networkidle' })
+      await page.goto(`/${xW}x${xH}`, { waitUntil: 'networkidle' })
       const selector = `.test-box--${xW}x${xH}`
 
       const targetRect = (await page.evaluate(
@@ -111,8 +111,8 @@ test.describe("create('rect')", () => {
         page
       }, testInfo) => {
         await visualComparisonBetweenPages({
-          testingURL: `/rect/${xW}x${xH}`,
-          expectedURL: `/rect/${xW}x${xH}/default`,
+          testingURL: `/${xW}x${xH}`,
+          expectedURL: `/${xW}x${xH}/rect/default`,
           action: () => {
             return page.evaluate(
               ({ xW, xH }) => {
@@ -135,8 +135,8 @@ test.describe("create('rect')", () => {
     testsTargets.forEach(({ xW, xH }) => {
       test(`strokeWidth & color (${xW}x${xH})`, async ({ page }, testInfo) => {
         await visualComparisonBetweenPages({
-          testingURL: `/rect/${xW}x${xH}`,
-          expectedURL: `/rect/${xW}x${xH}/stroke-width-color-options`,
+          testingURL: `/${xW}x${xH}`,
+          expectedURL: `/${xW}x${xH}/rect/stroke-width-color-options`,
           action: () => {
             return page.evaluate(
               ({ xW, xH }) =>
@@ -159,8 +159,8 @@ test.describe("create('rect')", () => {
           page
         }, testInfo) => {
           await visualComparisonBetweenPages({
-            testingURL: `/rect/${xW}x${xH}`,
-            expectedURL: `/rect/${xW}x${xH}/padding-option`,
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/rect/padding-option`,
             action: () => {
               return page.evaluate(
                 ({ xW, xH }) =>
@@ -181,8 +181,8 @@ test.describe("create('rect')", () => {
           page
         }, testInfo) => {
           await visualComparisonBetweenPages({
-            testingURL: `/rect/${xW}x${xH}`,
-            expectedURL: `/rect/${xW}x${xH}/padding-option/axis`,
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/rect/padding-option/axis`,
             action: () => {
               return page.evaluate(
                 ({ xW, xH }) =>
@@ -207,8 +207,8 @@ test.describe("create('rect')", () => {
           page
         }, testInfo) => {
           await visualComparisonBetweenPages({
-            testingURL: `/rect/${xW}x${xH}`,
-            expectedURL: `/rect/${xW}x${xH}/round-option/pixels`,
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/rect/round-option/pixels`,
             action: () => {
               return page.evaluate(
                 ({ xW, xH }) =>
@@ -229,8 +229,8 @@ test.describe("create('rect')", () => {
           page
         }, testInfo) => {
           await visualComparisonBetweenPages({
-            testingURL: `/rect/${xW}x${xH}`,
-            expectedURL: `/rect/${xW}x${xH}/round-option/percent`,
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/rect/round-option/percent`,
             action: () => {
               return page.evaluate(
                 ({ xW, xH }) =>
@@ -251,8 +251,8 @@ test.describe("create('rect')", () => {
           page
         }, testInfo) => {
           await visualComparisonBetweenPages({
-            testingURL: `/rect/${xW}x${xH}`,
-            expectedURL: `/rect/${xW}x${xH}/round-option/x-and-y`,
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/rect/round-option/x-and-y`,
             action: () => {
               return page.evaluate(
                 ({ xW, xH }) =>
