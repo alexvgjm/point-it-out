@@ -12,7 +12,7 @@ const onLoad = () => {
 
 let systemOptions: SystemOptions = {
   updateOnResize: true,
-  updateAfterLoad: false
+  updateAfterLoad: true
 }
 
 if (typeof window !== 'undefined') {
