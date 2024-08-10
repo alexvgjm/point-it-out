@@ -25,7 +25,8 @@ function createParentSVG(options: CommonOptions & SVGOptions) {
   svg.style.zIndex = opts.zIndex!.toString()
   svg.style.position = 'absolute'
   svg.style.stroke = opts.strokeColor
-  svg.style.fill = 'none'
+  svg.style.fill = opts.fillColor
+  svg.style.strokeWidth = `${opts.strokeWidth}`
   svg.style.pointerEvents = 'none'
 
   if (opts.className) {
