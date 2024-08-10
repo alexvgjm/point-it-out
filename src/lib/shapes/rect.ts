@@ -1,5 +1,6 @@
 import { createSVG, PointItOutPointer } from './core'
 import type { PointerOptions } from '../types'
+import { getRectsInfo } from './utils'
 
 export class RectPointer extends PointItOutPointer {
   rectElm: SVGRectElement
@@ -16,18 +17,12 @@ export class RectPointer extends PointItOutPointer {
   }
 
   update(): void {
-    const htmlRect = this.target.getBoundingClientRect()
-    const parentRect = this.container.getBoundingClientRect()
+    const { targetRect, targetTop, targetLeft } = getRectsInfo(this.target, this.container)
+
     const strW = this.strokeWidth
-    const width = htmlRect.width + strW * 2 + this.padding.x * 2
-    const height = htmlRect.height + strW * 2 + this.padding.y * 2
+    const width = targetRect.width + strW * 2 + this.padding.x * 2
+    const height = targetRect.height + strW * 2 + this.padding.y * 2
     const offset = Math.round(strW / 2)
-
-    const relativeTop = htmlRect.top - parentRect.top
-    const relativeLeft = htmlRect.left - parentRect.left
-
-    const targetTop = relativeTop + this.container.scrollTop
-    const targetLeft = relativeLeft + this.container.scrollLeft
 
     this.htmlElement.style.left = targetLeft - strW - this.padding.x + 'px'
     this.htmlElement.style.top = targetTop - strW - this.padding.y + 'px'
