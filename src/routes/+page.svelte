@@ -22,6 +22,12 @@
       </li>
 
       <li>
+        <a href="/300x300/rect/scroll/container-option"><span class="size">300x300</span></a>
+        <a href="/400x250/rect/scroll/container-option"><span class="size">400x250</span></a>
+        scroll/container option
+      </li>
+
+      <li>
         <a href="/300x300/rect/stroke-width-color-options"><span class="size">300x300</span></a>
         <a href="/400x250/rect/stroke-width-color-options"><span class="size">400x250</span></a>
         strokeWidth & color options
