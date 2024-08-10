@@ -17,7 +17,8 @@ let systemOptions: SystemOptions = {
 }
 
 if (typeof window !== 'undefined') {
-  config(systemOptions)
+  console.log('Point it out init config')
+  console.log(config(systemOptions))
 }
 
 function removePointerFromCreated(pointer: PointItOutPointer) {
@@ -71,7 +72,6 @@ export function create<PointerName extends keyof PointerOptions>(
  * when used in SPA or while testing.
  */
 export function clear() {
-  window.removeEventListener('resize', onResize)
   created.forEach((p) => p.destroy())
 }
 

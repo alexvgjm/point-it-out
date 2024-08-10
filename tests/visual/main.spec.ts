@@ -1,37 +1,73 @@
 import { test, test as it } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
+import type { PointerOptions } from '$lib/types'
 
 test.describe('System options', () => {
-  test.describe('updateOnResize', () => {
-    it("created SVG doesn't follow target when resize if updateOnResize is false", async ({
-      page
-    }, testInfo) => {
-      await visualComparisonBetweenPages({
-        testingURL: `/300x300`,
-        expectedURL: `/300x300/rect/default`,
-        not: true,
+  const pointers = ['arrow', 'rect'] as (keyof PointerOptions)[]
 
-        beforeExpectedScreenshot: async () =>
-          await page.setViewportSize({ width: 600, height: 600 }),
+  pointers.forEach((p) => {
+    test.describe(`[${p}] updateOnResize`, () => {
+      it("created SVG doesn't follow target when resize if updateOnResize is false", async ({
+        page
+      }, testInfo) => {
+        await visualComparisonBetweenPages({
+          testingURL: `/300x300`,
+          expectedURL: `/300x300/${p}/default`,
+          not: true,
 
-        beforeAction: async () => await page.setViewportSize({ width: 1280, height: 768 }),
+          beforeExpectedScreenshot: async () =>
+            await page.setViewportSize({ width: 600, height: 600 }),
 
-        action: async () => {
-          await page.evaluate(() => {
-            pio.config({ updateOnResize: false })
+          beforeAction: async () => await page.setViewportSize({ width: 1280, height: 768 }),
 
-            pio.create('rect', {
-              target: `.test-box`,
-              className: `result`
-            })
-          })
-        },
+          action: async () => {
+            await page.evaluate((p) => {
+              pio.config({ updateOnResize: false })
 
-        beforeActionScreenshot: async () => await page.setViewportSize({ width: 600, height: 600 }),
+              pio.create(p, {
+                target: `.test-box`,
+                className: `result`
+              })
+            }, p)
+          },
 
-        pwPage: page,
-        pwTestInfo: testInfo
+          beforeActionScreenshot: async () =>
+            await page.setViewportSize({ width: 600, height: 600 }),
+
+          pwPage: page,
+          pwTestInfo: testInfo
+        })
+      })
+
+      it('created SVG follows target when resize if updateOnResize is true', async ({
+        page
+      }, testInfo) => {
+        await visualComparisonBetweenPages({
+          testingURL: `/300x300`,
+          expectedURL: `/300x300/${p}/default`,
+
+          beforeExpectedScreenshot: async () =>
+            await page.setViewportSize({ width: 600, height: 600 }),
+
+          beforeAction: async () => await page.setViewportSize({ width: 1280, height: 768 }),
+
+          action: async () => {
+            await page.evaluate((p) => {
+              pio.config({ updateOnResize: true })
+              pio.create(p, {
+                target: `.test-box`,
+                className: `result`
+              })
+            }, p)
+          },
+
+          beforeActionScreenshot: async () =>
+            await page.setViewportSize({ width: 600, height: 600 }),
+
+          pwPage: page,
+          pwTestInfo: testInfo
+        })
       })
     })
   })
