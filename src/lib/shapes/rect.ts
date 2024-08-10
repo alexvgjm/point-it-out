@@ -1,11 +1,12 @@
-import { createSVG, PointItOutPointer } from './core'
+import { createSVG, PointItOutSVGPointer } from './core'
 import type { PointerOptions } from '../types'
 import { getRectsInfo } from './utils'
 
-export class RectPointer extends PointItOutPointer {
+export class RectPointer extends PointItOutSVGPointer {
   rectElm: SVGRectElement
 
   round: number | string | { rx: number | string; ry: number | string } = 0
+  padding: { x: number; y: number }
 
   constructor(options: PointerOptions['rect']) {
     super(options)
@@ -13,6 +14,18 @@ export class RectPointer extends PointItOutPointer {
     this.htmlElement.appendChild(this.rectElm)
     this.container.appendChild(this.htmlElement)
     this.round = options.round || 0
+
+    if (options.padding === undefined) {
+      options.padding = { x: 0, y: 0 }
+    } else if (typeof options.padding == 'number') {
+      options.padding = { x: options.padding, y: options.padding }
+    }
+
+    this.padding = {
+      x: options.padding.x ?? 0,
+      y: options.padding.y ?? 0
+    }
+
     this.update()
   }
 

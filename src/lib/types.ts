@@ -12,11 +12,17 @@ export type CommonOptions = {
    * a relative or absolute position CSS property.
    */
   container?: string | HTMLElement
+  zIndex?: number
+}
 
+export type SVGOptions = {
   /** Only pixels allowed ATM */
   strokeWidth?: number
   strokeColor?: string
+  fillColor?: string
+}
 
+export type RectOptions = {
   /** Space between stroke and content. Can be negative. Default: 0*/
   padding?:
     | number
@@ -26,13 +32,33 @@ export type CommonOptions = {
         /** Vertical gap (top and bottom) */
         y?: number
       }
+  round?:
+    | number
+    | string
+    | {
+        rx: number | string
+        ry: number | string
+      }
+}
 
-  zIndex?: number
+export type Origin =
+  | number
+  | 'right'
+  | 'top-right'
+  | 'top'
+  | 'top-left'
+  | 'left'
+  | 'bottom-left'
+  | 'bottom'
+  | 'bottom-right'
+
+export type ArrowOptions = {
+  from?: number | Origin
 }
 
 export type PointerOptions = {
-  rect: { round?: number | string | { rx: number | string; ry: number | string } } & CommonOptions
-  arrow: {} & CommonOptions // No options beside commons ATM
+  rect: CommonOptions & SVGOptions & RectOptions
+  arrow: CommonOptions & SVGOptions & ArrowOptions
 }
 
 export type PointerName = keyof PointerOptions
