@@ -53,7 +53,7 @@ export type Origin =
   | 'bottom-right'
 
 export type ArrowOptions = {
-  from?: number | Origin
+  fromAngle?: number | Origin
 }
 
 export type PointerOptions = {
