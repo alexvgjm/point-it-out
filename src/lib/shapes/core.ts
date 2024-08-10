@@ -1,9 +1,6 @@
-import type { CommonOptions, PointerName } from '../types'
+import type { CommonOptions, PointerName, SVGOptions } from '../types'
 
 export const commonOptionsDefaults: Partial<CommonOptions> = {
-  strokeColor: 'orange',
-  strokeWidth: 4,
-  padding: { x: 0, y: 0 },
   className: undefined,
   zIndex: 9999
   // FIXME: container default initialization to avoid PlayWright environmnet
@@ -11,9 +8,19 @@ export const commonOptionsDefaults: Partial<CommonOptions> = {
   //container: document.body
 }
 
-function createParentSVG(options: CommonOptions) {
+export const commonSVGOptionsDefaults: Partial<SVGOptions> = {
+  strokeColor: 'orange',
+  fillColor: 'orange',
+  strokeWidth: 4
+}
+
+function createParentSVG(options: CommonOptions & SVGOptions) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>
+  const opts = {
+    ...commonOptionsDefaults,
+    ...commonSVGOptionsDefaults,
+    ...options
+  } as Required<CommonOptions & SVGOptions>
 
   svg.style.zIndex = opts.zIndex!.toString()
   svg.style.position = 'absolute'
@@ -41,14 +48,11 @@ function getTarget(selectorOrTarget: HTMLElement | string | null) {
   return selectorOrTarget
 }
 
-export const availableShapes: Readonly<PointerName[]> = ['rect']
+export const availablePointers: Readonly<PointerName[]> = ['rect', 'arrow']
 
 export abstract class PointItOutPointer {
   destroyed: boolean = false
 
-  strokeWidth: number
-  strokeColor: string
-  padding: { x: number; y: number }
   target: HTMLElement
 
   /** The absolutely positioned DOM element */
@@ -74,13 +78,6 @@ export abstract class PointItOutPointer {
       throw new Error(`PointItOut: Target is ${target}. Check target option.`)
     }
     this.container = container
-    this.strokeWidth = opts.strokeWidth
-    this.strokeColor = opts.strokeColor
-    if (typeof opts.padding == 'number') {
-      opts.padding = { x: opts.padding, y: opts.padding }
-    }
-
-    this.padding = { x: opts.padding.x ?? 0, y: opts.padding.y ?? 0 }
 
     this.target = target
     this.htmlElement = createParentSVG(options)
@@ -112,5 +109,17 @@ export abstract class PointItOutPointer {
    */
   onDestroy(cb: (pointer: PointItOutPointer) => void) {
     this.onDestroyListeners.push(cb)
+  }
+}
+
+export abstract class PointItOutSVGPointer extends PointItOutPointer {
+  strokeWidth: number
+  strokeColor: string
+
+  constructor(options: CommonOptions & SVGOptions) {
+    super(options)
+    const opts = { ...commonSVGOptionsDefaults, ...options } as Required<SVGOptions>
+    this.strokeWidth = opts.strokeWidth
+    this.strokeColor = opts.strokeColor
   }
 }

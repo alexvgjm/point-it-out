@@ -1,6 +1,7 @@
 import { RectPointer } from './shapes/rect'
 import { PointItOutPointer } from './shapes/core'
 import type { PointerOptions, SystemOptions } from './types'
+import { ArrowPointer } from './shapes/arrow'
 
 const created: Set<PointItOutPointer> = new Set()
 const onResize = () => {
@@ -52,8 +53,11 @@ export function create<PointerName extends keyof PointerOptions>(
 ) {
   let createdPointer!: PointItOutPointer
 
+  // Deliberately using explicit if-casing instead mappings
   if (pointerName == 'rect') {
     createdPointer = new RectPointer(options)
+  } else if (pointerName == 'arrow') {
+    createdPointer = new ArrowPointer(options)
   }
 
   createdPointer.onDestroyListeners.push(removePointerFromCreated)

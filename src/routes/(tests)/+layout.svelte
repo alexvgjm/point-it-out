@@ -1,5 +1,4 @@
 <script lang="ts">
-  import '../../style.css'
   import '../../test-styles.css'
 
   import * as pio from '../../lib/main'

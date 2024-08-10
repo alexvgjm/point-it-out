@@ -194,3 +194,12 @@ section:first-of-type p:first-child {
   color: var(--color-second-light);
   text-decoration: underline;
 }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
