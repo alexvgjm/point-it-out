@@ -98,6 +98,25 @@ test.describe("create('arrow')", () => {
             pwTestInfo: testInfo
           })
         })
+
+        test('all options', async ({ page }, testInfo) => {
+          await visualComparisonBetweenPages({
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/arrow/stroke-fill-strokewidth-options`,
+            action: () => {
+              return page.evaluate(() => {
+                pio.create('arrow', {
+                  target: `.test-box`,
+                  strokeWidth: 8,
+                  strokeColor: 'darkgreen',
+                  fillColor: 'limegreen'
+                })
+              })
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
+        })
       })
     })
   })

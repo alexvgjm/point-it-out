@@ -36,6 +36,11 @@
     top: 50%;
     left: 50%;
     transform: translateY(-50%) rotate(45deg);
+    fill: limegreen;
+    stroke: darkgreen;
+    stroke-width: 8px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
     /* animation: 3s orbit infinite linear; */
   }
 
@@ -46,11 +51,5 @@
     100% {
       transform: translate(100%, -50%) rotate(360deg);
     }
-  }
-
-  path {
-    fill: limegreen;
-    stroke: darkgreen;
-    stroke-width: 8px;
   }
 </style>

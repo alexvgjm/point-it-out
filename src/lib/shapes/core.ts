@@ -28,6 +28,8 @@ function createParentSVG(options: CommonOptions & SVGOptions) {
   svg.style.fill = opts.fillColor
   svg.style.strokeWidth = `${opts.strokeWidth}`
   svg.style.pointerEvents = 'none'
+  svg.style.strokeLinejoin = 'round'
+  svg.style.strokeLinecap = 'round'
 
   if (opts.className) {
     svg.classList.add(opts.className)
