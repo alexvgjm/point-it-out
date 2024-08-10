@@ -1,6 +1,13 @@
-import { createSVG, PointItOutSVGPointer } from './core'
-import type { PointerOptions } from '../types'
+import { commonSVGOptionsDefaults, createSVG, PointItOutSVGPointer } from './core'
+import type { PointerOptions, RectOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
+
+const rectDefaults: Readonly<Required<SVGOptions & RectOptions>> = Object.freeze({
+  ...commonSVGOptionsDefaults,
+  fillColor: 'none',
+  round: 0,
+  padding: { x: 0, y: 0 }
+})
 
 export class RectPointer extends PointItOutSVGPointer {
   rectElm: SVGRectElement
@@ -9,21 +16,21 @@ export class RectPointer extends PointItOutSVGPointer {
   padding: { x: number; y: number }
 
   constructor(options: PointerOptions['rect']) {
-    super(options)
+    const opts = Object.freeze({ ...rectDefaults, ...options })
+    super(opts)
+
     this.rectElm = createSVG('rect')
     this.htmlElement.appendChild(this.rectElm)
     this.container.appendChild(this.htmlElement)
-    this.round = options.round || 0
+    this.round = options.round ?? rectDefaults.round
 
-    if (options.padding === undefined) {
-      options.padding = { x: 0, y: 0 }
-    } else if (typeof options.padding == 'number') {
-      options.padding = { x: options.padding, y: options.padding }
-    }
-
-    this.padding = {
-      x: options.padding.x ?? 0,
-      y: options.padding.y ?? 0
+    if (typeof opts.padding == 'number') {
+      this.padding = { x: opts.padding, y: opts.padding }
+    } else {
+      this.padding = {
+        x: opts.padding.x ?? 0,
+        y: opts.padding.y ?? 0
+      }
     }
 
     this.update()
