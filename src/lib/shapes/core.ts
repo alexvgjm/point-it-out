@@ -8,8 +8,8 @@ export const commonOptionsDefaults: Partial<CommonOptions> = {
   //container: document.body
 }
 
-export const commonSVGOptionsDefaults: Partial<SVGOptions> = {
-  strokeColor: 'orange',
+export const commonSVGOptionsDefaults: Required<SVGOptions> = {
+  strokeColor: 'darkorange',
   fillColor: 'orange',
   strokeWidth: 4
 }
@@ -115,11 +115,13 @@ export abstract class PointItOutPointer {
 export abstract class PointItOutSVGPointer extends PointItOutPointer {
   strokeWidth: number
   strokeColor: string
+  fillColor: string
 
   constructor(options: CommonOptions & SVGOptions) {
     super(options)
     const opts = { ...commonSVGOptionsDefaults, ...options } as Required<SVGOptions>
     this.strokeWidth = opts.strokeWidth
     this.strokeColor = opts.strokeColor
+    this.fillColor = opts.fillColor
   }
 }

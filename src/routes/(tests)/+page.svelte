@@ -59,6 +59,13 @@
         <a href="/300x300/arrow/from-option/328"><span class="size">328º</span></a>
         fromAngle
       </li>
+
+      <li>
+        <a href="/300x300/arrow/stroke-fill-strokewidth-options/only-strokewidth">
+          <span class="size">300x300</span>
+        </a>
+        strokeWidth only
+      </li>
     </ul>
   </div>
 </section>

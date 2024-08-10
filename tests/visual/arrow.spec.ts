@@ -78,6 +78,27 @@ test.describe("create('arrow')", () => {
           })
         })
       })
+
+      test.describe(`strokeWidth, strokeColor & fill (${xW}x${xH})`, () => {
+        it('renders a darkorange stroke color by default if only strokeWidth', async ({
+          page
+        }, testInfo) => {
+          await visualComparisonBetweenPages({
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/arrow/stroke-fill-strokewidth-options/only-strokewidth`,
+            action: () => {
+              return page.evaluate(() => {
+                pio.create('arrow', {
+                  target: `.test-box`,
+                  strokeWidth: 8
+                })
+              })
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
+        })
+      })
     })
   })
 })

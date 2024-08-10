@@ -1,28 +1,33 @@
-import { createSVG, PointItOutPointer } from './core'
-import type { PointerOptions } from '../types'
+import { commonSVGOptionsDefaults, createSVG, PointItOutSVGPointer } from './core'
+import type { PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo, originStringToAngle } from './utils'
 
-function createArrowDPathAttribute(w: number, len: number) {
+function createArrowDPathAttribute(w: number, len: number, strw: number) {
   // pretier-ignore
-  const atr = `M 0,          ${w / 2}
-   L ${len / 2},   ${w}
-   l 0,         -${w / 3}
-   l ${len / 2},   0
-   l 0,         -${w / 3}
-   l -${len / 2},  0
-   l 0,         -${w / 3}
+  const atr = `M ${strw / 2},             ${w / 2 + strw / 2}
+   L ${len / 2 + strw / 2},     ${w + strw / 2}
+   l 0,                    -${w / 3}
+   l ${len / 2},              0
+   l 0,                    -${w / 3}
+   l -${len / 2},             0
+   l 0,                    -${w / 3}
    Z`
 
   return atr
 }
 
-export class ArrowPointer extends PointItOutPointer {
+const arrowDefaults: Readonly<Required<SVGOptions>> = Object.freeze({
+  ...commonSVGOptionsDefaults,
+  strokeWidth: 0
+})
+
+export class ArrowPointer extends PointItOutSVGPointer {
   path: SVGPathElement
 
   fromAngle: number
 
   constructor(options: PointerOptions['arrow']) {
-    super(options)
+    super({ ...arrowDefaults, ...options })
     const g = createSVG<SVGGElement>('g')
     this.path = createSVG<SVGPathElement>('path')
     g.appendChild(this.path)
@@ -35,13 +40,16 @@ export class ArrowPointer extends PointItOutPointer {
       this.fromAngle = options.fromAngle ?? 45
     }
 
-    this.path.setAttribute('d', createArrowDPathAttribute(96, 128))
-    this.path.style.fill = 'orange'
-    this.path.style.stroke = 'none'
+    this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth))
+
+    this.htmlElement.style.fill = this.fillColor
+    this.htmlElement.style.stroke = this.strokeColor
+    this.htmlElement.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`
+
     this.htmlElement.style.transformOrigin = 'center left'
     this.htmlElement.style.transform = `translateY(-50%) rotate(${this.fromAngle}deg)`
-    this.htmlElement.setAttribute('width', '128')
-    this.htmlElement.setAttribute('height', '96')
+    this.htmlElement.setAttribute('width', `${128 + this.strokeWidth}`)
+    this.htmlElement.setAttribute('height', `${96 + this.strokeWidth}`)
 
     this.update()
   }
