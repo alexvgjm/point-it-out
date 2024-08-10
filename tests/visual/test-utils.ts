@@ -50,8 +50,8 @@ export async function visualComparisonBetweenPages(params: TestPagesParams) {
   }
 
   if (params.not) {
-    await expect(page).not.toHaveScreenshot([`${id}.png`])
+    await expect(page).not.toHaveScreenshot([`${id}.png`], { threshold: 0.1 })
   } else {
-    await expect(page).toHaveScreenshot([`${id}.png`])
+    await expect(page).toHaveScreenshot([`${id}.png`], { threshold: 0.1 })
   }
 }
