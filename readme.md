@@ -1,7 +1,7 @@
 # Point it out! (pointitout)
 
 A tiny (~1.3 Kb), zero-dependencies JavaScript library to mark/point out DOM elements
-using another absolutely positioned elements or procedurally generated SVGs.
+using absolutely positioned elements or procedurally generated SVGs.
 
 NOTE: in a very early stage of development
 
