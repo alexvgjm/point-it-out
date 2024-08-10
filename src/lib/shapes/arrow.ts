@@ -1,5 +1,6 @@
 import { createSVG, PointItOutPointer } from './core'
 import type { PointerOptions } from '../types'
+import { getRectsInfo } from './utils'
 
 function createArrowDPathAttribute(w: number, len: number) {
   // pretier-ignore
@@ -25,10 +26,20 @@ export class ArrowPointer extends PointItOutPointer {
     g.appendChild(this.path)
     this.htmlElement.appendChild(g)
     this.container.appendChild(this.htmlElement)
+    this.path.setAttribute('d', createArrowDPathAttribute(96, 128))
+    this.path.style.fill = 'orange'
+    this.path.style.stroke = 'none'
+    this.htmlElement.style.transformOrigin = 'center left'
+    this.htmlElement.style.transform = 'translateY(-50%) rotate(45deg)'
+    this.htmlElement.setAttribute('width', '128')
+    this.htmlElement.setAttribute('height', '96')
     this.update()
   }
 
   update(): void {
-    this.path.setAttribute('d', createArrowDPathAttribute(128, 96))
+    const { targetRect, targetTop, targetLeft } = getRectsInfo(this.target, this.container)
+
+    this.htmlElement.style.left = targetLeft + targetRect.width / 2 + 'px'
+    this.htmlElement.style.top = targetTop + targetRect.height / 2 + 'px'
   }
 }

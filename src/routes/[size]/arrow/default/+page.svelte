@@ -13,7 +13,7 @@
   class="test-box test-box--{data.w}x{data.h} test-box--expected"
   style="width: {data.w}px; height: {data.h}px"
 >
-  <svg class="expected-svg" xmlns="http://www.w3.org/2000/svg" width={len + 12} height={w + 6}>
+  <svg class="expected-svg" xmlns="http://www.w3.org/2000/svg" width={len} height={w}>
     <defs>
       <filter id="shadow" height="150%" width="150%" y="-25%" x="-25%">
         <feDropShadow dx="0" dy="0" stdDeviation={shadow} />
@@ -31,28 +31,6 @@
       l -{len / 2},0
       l 0,-{w / 3}
       Z"
-        style={showShadow ? 'filter:url(#shadow)' : ''}
-      />
-    </g>
-  </svg>
-  <svg class="expected-svg" xmlns="http://www.w3.org/2000/svg" width={len + 12} height={w + 6}>
-    <defs>
-      <filter id="shadow" height="150%" width="150%" y="-25%" x="-25%">
-        <feDropShadow dx="0" dy="0" stdDeviation={shadow} />
-      </filter>
-    </defs>
-
-    <g>
-      <path
-        d="
-    M 0, {w / 2}
-    L {len / 2}, {w}
-    l 0,-{w / 3}
-    l {len / 2}, 0
-    l 0,-{w / 3}
-    l -{len / 2},0
-    l 0,-{w / 3}
-    Z"
         style={showShadow ? 'filter:url(#shadow)' : ''}
       />
     </g>
