@@ -1,20 +1,20 @@
 import type { PointerName } from '$lib/types'
 import { config, create, update } from '../../src/lib/main'
-import { availablePointers, PointItOutPointer } from '../../src/lib/shapes/core'
+import { availablePointers, PointItOutPointer } from '../../src/lib/pointers/core'
 import { describe, expect, it, vi } from 'vitest'
 
 /**
  * Create all tests of common behavior for each available shape
  */
-const createSpecs = (shapeName: PointerName) => {
+const createSpecs = (pointerName: PointerName) => {
   it('creates an SVG and append it to body', async () => {
     expect(document.querySelector('svg')).toBeNull()
-    create(shapeName, { target: '.existing' })
+    create(pointerName, { target: '.existing' })
     expect(document.querySelector('svg')).toBeDefined()
   })
 
   it('creates a PointItOutShape and return its reference', () => {
-    const shape = create(shapeName, { target: '.existing' })
+    const shape = create(pointerName, { target: '.existing' })
     expect(shape).instanceOf(PointItOutPointer)
   })
 
@@ -22,21 +22,21 @@ const createSpecs = (shapeName: PointerName) => {
     describe('target', () => {
       it(`can receive a target element or selector string`, async () => {
         const existing = document.querySelector<HTMLElement>('.existing')!
-        create(shapeName, { target: '.existing' })
-        create(shapeName, { target: existing })
+        create(pointerName, { target: '.existing' })
+        create(pointerName, { target: existing })
         expect(document.querySelectorAll('svg')).toHaveLength(2)
       })
 
       it(`throws if selector doesn't match anything`, async () => {
         expect(() => {
-          create(shapeName, { target: '.not-exists' })
+          create(pointerName, { target: '.not-exists' })
         }).toThrow()
       })
     })
 
     describe('zIndex', () => {
       it(`sets de zIndex property`, async () => {
-        create(shapeName, { target: '.existing', zIndex: 1000 })
+        create(pointerName, { target: '.existing', zIndex: 1000 })
         const created = document.querySelector('svg')!
         expect(created.style.zIndex).equal('1000')
       })
@@ -46,7 +46,7 @@ const createSpecs = (shapeName: PointerName) => {
   describe('Methods', async () => {
     describe('destroy', () => {
       it('removes the created htmlElement from DOM', () => {
-        const pointer = create(shapeName, { target: '.existing' })
+        const pointer = create(pointerName, { target: '.existing' })
         let htmlElement = document.querySelector('svg')
 
         pointer.destroy()
@@ -56,13 +56,13 @@ const createSpecs = (shapeName: PointerName) => {
       })
 
       it('throws if try to redestroy', () => {
-        const pointer = create(shapeName, { target: '.existing' })
+        const pointer = create(pointerName, { target: '.existing' })
         pointer.destroy()
         expect(() => pointer.destroy()).toThrow()
       })
 
       it('will cause the pointer to be excluded from updates', () => {
-        const pointer = create(shapeName, { target: '.existing' })
+        const pointer = create(pointerName, { target: '.existing' })
         const spy = vi.spyOn(pointer, 'update')
         pointer.destroy()
         update()

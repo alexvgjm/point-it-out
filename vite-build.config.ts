@@ -10,6 +10,7 @@ export default defineConfig({
   },
   plugins: [dts({ rollupTypes: true })],
   build: {
+    minify: 'esbuild',
     lib: {
       entry: resolve(__dirname, 'src/lib/main.ts'),
       formats: ['es']

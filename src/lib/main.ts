@@ -1,7 +1,7 @@
-import { RectPointer } from './shapes/rect'
-import { PointItOutPointer } from './shapes/core'
+import { RectPointer } from './pointers/rect'
+import { PointItOutPointer } from './pointers/core'
 import type { PointerOptions, SystemOptions } from './types'
-import { ArrowPointer } from './shapes/arrow'
+import { ArrowPointer } from './pointers/arrow'
 
 const created: Set<PointItOutPointer> = new Set()
 const onResize = () => {
@@ -17,8 +17,7 @@ let systemOptions: SystemOptions = {
 }
 
 if (typeof window !== 'undefined') {
-  console.log('Point it out init config')
-  console.log(config(systemOptions))
+  config(systemOptions)
 }
 
 function removePointerFromCreated(pointer: PointItOutPointer) {

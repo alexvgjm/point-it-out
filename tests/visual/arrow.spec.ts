@@ -1,7 +1,7 @@
 import { test, test as it } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
-import { originStringToAngleMap } from '$lib/shapes/utils'
+import { originStringToAngleMap } from '$lib/pointers/utils'
 import type { Origin } from '$lib/types'
 
 test.describe("create('arrow')", () => {
