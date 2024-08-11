@@ -2,16 +2,18 @@ import { commonSVGOptionsDefaults, createSVG, PointItOutSVGPointer } from './cor
 import type { PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo, originStringToAngle } from './utils'
 
-function createArrowDPathAttribute(w: number, len: number, strw: number) {
+/**
+ * @param w Arrow width
+ * @param l Arrow length
+ * @param strw strokeWidth
+ * @param dist distance
+ * @returns the d string
+ */
+function createArrowDPathAttribute(w: number, l: number, strw: number, dist: number) {
+  // Destroying readability here is justified. The code of D attribute is
+  // difficult to compress by gzip and can easily grow.
   // pretier-ignore
-  const atr = `M ${strw / 2},             ${w / 2 + strw / 2}
-   L ${len / 2 + strw / 2},     ${w + strw / 2}
-   l 0,                    -${w / 3}
-   l ${len / 2},              0
-   l 0,                    -${w / 3}
-   l -${len / 2},             0
-   l 0,                    -${w / 3}
-   Z`
+  const atr = `M${dist + strw / 2} ${w / 2 + strw / 2} L${dist + l / 2 + strw / 2} ${w + strw / 2} l0 -${w / 3} l${l / 2} 0 l0 -${w / 3} l-${l / 2} 0 l0 -${w / 3} Z`
 
   return atr
 }
@@ -26,6 +28,7 @@ export class ArrowPointer extends PointItOutSVGPointer {
   path: SVGPathElement
 
   fromAngle: number
+  distance: number
 
   constructor(options: PointerOptions['arrow']) {
     super({ ...arrowDefaults, ...options })
@@ -41,7 +44,8 @@ export class ArrowPointer extends PointItOutSVGPointer {
       this.fromAngle = options.fromAngle ?? 45
     }
 
-    this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth))
+    this.distance = options.distance ?? 0
+    this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth, this.distance))
 
     this.htmlElement.style.fill = this.fillColor
     this.htmlElement.style.stroke = this.strokeColor
@@ -49,7 +53,7 @@ export class ArrowPointer extends PointItOutSVGPointer {
 
     this.htmlElement.style.transformOrigin = 'center left'
     this.htmlElement.style.transform = `translateY(-50%) rotate(${this.fromAngle}deg)`
-    this.htmlElement.setAttribute('width', `${128 + this.strokeWidth}`)
+    this.htmlElement.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
     this.htmlElement.setAttribute('height', `${96 + this.strokeWidth}`)
 
     this.update()

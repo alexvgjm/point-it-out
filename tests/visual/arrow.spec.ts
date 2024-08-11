@@ -120,7 +120,7 @@ test.describe("create('arrow')", () => {
       })
 
       test.describe(`distance (${xW}x${xH})`, () => {
-        it.only('separates the created arrow a number of pixels from center', async ({
+        it('separates the created arrow a number of pixels from center', async ({
           page
         }, testInfo) => {
           await visualComparisonBetweenPages({
