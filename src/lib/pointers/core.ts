@@ -1,11 +1,11 @@
 import type { CommonOptions, PointerName, SVGOptions } from '../types'
 
+// FIXME: container default initialization to avoid PlayWright environmnet
+//		  without document init. Maybe should use a init function?
+//container: document.body
 export const commonOptionsDefaults: Partial<CommonOptions> = {
   className: undefined,
   zIndex: 9999
-  // FIXME: container default initialization to avoid PlayWright environmnet
-  //		  without document init. Maybe should use a init function?
-  //container: document.body
 }
 
 export const commonSVGOptionsDefaults: Required<SVGOptions> = {
@@ -87,7 +87,7 @@ export abstract class PointItOutPointer {
   }
 
   /**
-   * Updates the shape to fit its target element. onResize shoud call it by
+   * Updates the pointer to fit its target element. onResize shoud call it by
    * default, but must be called manually if the position or size of the
    * target element changes for some other reason.
    */
