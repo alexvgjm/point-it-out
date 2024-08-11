@@ -138,6 +138,26 @@ test.describe("create('arrow')", () => {
             pwTestInfo: testInfo
           })
         })
+
+        it('separates the arrow from center in same direction of fromAngle option', async ({
+          page
+        }, testInfo) => {
+          await visualComparisonBetweenPages({
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/arrow/distance-option/148`,
+            action: () => {
+              return page.evaluate(() => {
+                pio.create('arrow', {
+                  target: `.test-box`,
+                  distance: 80,
+                  fromAngle: 148
+                })
+              })
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
+        })
       })
     })
   })
