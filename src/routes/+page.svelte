@@ -72,6 +72,20 @@
         </a>
         strokeWidth only
       </li>
+
+      <li>
+        <a href="/300x300/arrow/stroke-fill-strokewidth-options">
+          <span class="size">300x300</span>
+        </a>
+        strokeWidth, strokeColor & fillColor options
+      </li>
+
+      <li>
+        <a href="/300x300/arrow/distance-option">
+          <span class="size">300x300</span>
+        </a>
+        distance option
+      </li>
     </ul>
   </div>
 </section>
