@@ -54,6 +54,7 @@ export type Origin =
 
 export type ArrowOptions = {
   fromAngle?: number | Origin
+  distance?: number
 }
 
 export type PointerOptions = {

@@ -118,6 +118,27 @@ test.describe("create('arrow')", () => {
           })
         })
       })
+
+      test.describe(`distance (${xW}x${xH})`, () => {
+        it.only('separates the created arrow a number of pixels from center', async ({
+          page
+        }, testInfo) => {
+          await visualComparisonBetweenPages({
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/arrow/distance-option`,
+            action: () => {
+              return page.evaluate(() => {
+                pio.create('arrow', {
+                  target: `.test-box`,
+                  distance: 80
+                })
+              })
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
+        })
+      })
     })
   })
 })

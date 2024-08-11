@@ -41,15 +41,5 @@
     stroke-width: 8px;
     stroke-linecap: round;
     stroke-linejoin: round;
-    /* animation: 3s orbit infinite linear; */
-  }
-
-  @keyframes orbit {
-    0% {
-      transform: translate(100%, -50%) rotate(0deg);
-    }
-    100% {
-      transform: translate(100%, -50%) rotate(360deg);
-    }
   }
 </style>

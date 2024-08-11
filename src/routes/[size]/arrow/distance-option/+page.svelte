@@ -5,19 +5,19 @@
 
   const w = 96
   const len = 128
-  const strw = 8
+  const dist = 80
 </script>
 
 <div
   class="test-box test-box--{data.w}x{data.h} test-box--expected"
   style="width: {data.w}px; height: {data.h}px"
 >
-  <svg class="expected-svg" xmlns="http://www.w3.org/2000/svg" width={len + strw} height={w + strw}>
+  <svg class="expected-svg" xmlns="http://www.w3.org/2000/svg" width={len + dist} height={w}>
     <g>
       <path
         d="
-      M {strw / 2}, {w / 2 + strw / 2}
-      L {len / 2 + strw / 2}, {w + strw / 2}
+      M {dist}, {w / 2}
+      L {len / 2 + dist}, {w}
       l 0,-{w / 3}
       l {len / 2}, 0
       l 0,-{w / 3}
@@ -40,7 +40,6 @@
 
   path {
     fill: orange;
-    stroke: darkorange;
-    stroke-width: 8px;
+    stroke: none;
   }
 </style>

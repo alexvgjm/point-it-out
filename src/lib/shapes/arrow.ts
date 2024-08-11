@@ -18,7 +18,8 @@ function createArrowDPathAttribute(w: number, len: number, strw: number) {
 
 const arrowDefaults: Readonly<Required<SVGOptions>> = Object.freeze({
   ...commonSVGOptionsDefaults,
-  strokeWidth: 0
+  strokeWidth: 0,
+  distance: 0
 })
 
 export class ArrowPointer extends PointItOutSVGPointer {
