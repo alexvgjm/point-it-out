@@ -1,6 +1,6 @@
 import { RectPointer } from './pointers/rect'
-import { PointItOutPointer } from './pointers/core'
-import type { PointerOptions, SystemOptions } from './types'
+import { BasePointer } from './pointers/core'
+import type { PointerOptions, PointItOutPointer, SystemOptions } from './types'
 import { ArrowPointer } from './pointers/arrow'
 
 const created: Set<PointItOutPointer> = new Set()
@@ -51,7 +51,7 @@ export function create<PointerName extends keyof PointerOptions>(
   pointerName: PointerName,
   options: PointerOptions[PointerName]
 ) {
-  let createdPointer!: PointItOutPointer
+  let createdPointer!: BasePointer
 
   // Deliberately using explicit if-casing instead mappings
   if (pointerName == 'rect') {
@@ -60,7 +60,7 @@ export function create<PointerName extends keyof PointerOptions>(
     createdPointer = new ArrowPointer(options)
   }
 
-  createdPointer.onDestroyListeners.push(removePointerFromCreated)
+  createdPointer.on('destroy', removePointerFromCreated)
   created.add(createdPointer)
   return createdPointer
 }
