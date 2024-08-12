@@ -1,8 +1,15 @@
-import type { CommonOptions, PointerName, SVGOptions } from '../types'
+import type {
+  CommonOptions,
+  PIOEventName,
+  PIOPointerEvents,
+  PointerName,
+  PointItOutPointer,
+  SVGOptions
+} from '../types'
 
-// FIXME: container default initialization to avoid PlayWright environmnet
-//		  without document init. Maybe should use a init function?
-//container: document.body
+// FIXME: container: document.body
+// Default at constructor to avoid PlayWright environmnet
+// without document. Maybe should use a init function?
 export const commonOptionsDefaults: Partial<CommonOptions> = {
   className: undefined,
   zIndex: 9999
@@ -53,22 +60,14 @@ function getTarget(selectorOrTarget: HTMLElement | string | null) {
 
 export const availablePointers: Readonly<PointerName[]> = ['rect', 'arrow']
 
-export abstract class PointItOutPointer {
-  destroyed: boolean = false
-
-  target: HTMLElement
-
-  /** The absolutely positioned DOM element */
-  htmlElement: HTMLElement | SVGElement
-
-  /** The htmlElement parent */
-  container: HTMLElement
-
-  /**
-   * If this pointer is destroyed, all listeners/callbacks register here
-   * will be called.
-   */
-  onDestroyListeners: ((pointer: PointItOutPointer) => void)[] = []
+export abstract class BasePointer implements PointItOutPointer {
+  destroyed = false
+  target
+  pointerElement
+  container
+  listeners: {
+    [PIOEvent in PIOEventName]?: ((payload: PIOPointerEvents[PIOEventName]) => void)[] | undefined
+  }
 
   constructor(options: CommonOptions) {
     const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>
@@ -80,42 +79,38 @@ export abstract class PointItOutPointer {
     if (!target) {
       throw new Error(`PointItOut: Target is ${target}. Check target option.`)
     }
+    this.listeners = {}
     this.container = container
 
     this.target = target
-    this.htmlElement = createParentSVG(options)
+    this.pointerElement = createParentSVG(options)
   }
 
-  /**
-   * Updates the pointer to fit its target element. onResize shoud call it by
-   * default, but must be called manually if the position or size of the
-   * target element changes for some other reason.
-   */
   abstract update(): void
 
-  /**
-   * Destroy the current Pointer and created elements.
-   */
   destroy() {
     if (this.destroyed) {
       throw new Error('Pointer already destroyed')
     }
 
     this.destroyed = true
-    this.htmlElement.remove()
-    this.onDestroyListeners.forEach((cb) => cb(this))
+    this.pointerElement.remove()
+    this.listeners.destroy?.forEach((cb) => cb(this))
   }
 
-  /**
-   * Register a listener/callback to notify when this Pointer is destroyed
-   * @param cb a function to call when this pointer is destroyed
-   */
-  onDestroy(cb: (pointer: PointItOutPointer) => void) {
-    this.onDestroyListeners.push(cb)
+  on: PointItOutPointer['on'] = (event, cb) => {
+    if (this.listeners[event] === undefined) {
+      return (this.listeners[event] = [cb])
+    }
+
+    if (this.listeners[event].includes(cb)) {
+      return
+    }
+    this.listeners[event].push(cb)
   }
 }
 
-export abstract class PointItOutSVGPointer extends PointItOutPointer {
+export abstract class PointItOutSVGPointer extends BasePointer implements PointItOutSVGPointer {
   strokeWidth: number
   strokeColor: string
   fillColor: string

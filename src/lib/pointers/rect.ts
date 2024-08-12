@@ -20,8 +20,8 @@ export class RectPointer extends PointItOutSVGPointer {
     super(opts)
 
     this.rectElm = createSVG('rect')
-    this.htmlElement.appendChild(this.rectElm)
-    this.container.appendChild(this.htmlElement)
+    this.pointerElement.appendChild(this.rectElm)
+    this.container.appendChild(this.pointerElement)
     this.round = options.round ?? rectDefaults.round
 
     if (typeof opts.padding == 'number') {
@@ -44,10 +44,10 @@ export class RectPointer extends PointItOutSVGPointer {
     const height = targetRect.height + strW * 2 + this.padding.y * 2
     const offset = Math.round(strW / 2)
 
-    this.htmlElement.style.left = targetLeft - strW - this.padding.x + 'px'
-    this.htmlElement.style.top = targetTop - strW - this.padding.y + 'px'
-    this.htmlElement.setAttribute('width', width.toString())
-    this.htmlElement.setAttribute('height', height.toString())
+    this.pointerElement.style.left = targetLeft - strW - this.padding.x + 'px'
+    this.pointerElement.style.top = targetTop - strW - this.padding.y + 'px'
+    this.pointerElement.setAttribute('width', width.toString())
+    this.pointerElement.setAttribute('height', height.toString())
 
     this.rectElm.setAttribute('x', `${offset}`)
     this.rectElm.setAttribute('y', `${offset}`)

@@ -35,8 +35,8 @@ export class ArrowPointer extends PointItOutSVGPointer {
     const g = createSVG<SVGGElement>('g')
     this.path = createSVG<SVGPathElement>('path')
     g.appendChild(this.path)
-    this.htmlElement.appendChild(g)
-    this.container.appendChild(this.htmlElement)
+    this.pointerElement.appendChild(g)
+    this.container.appendChild(this.pointerElement)
 
     if (typeof options.fromAngle == 'string') {
       this.fromAngle = originStringToAngle(options.fromAngle)
@@ -47,14 +47,14 @@ export class ArrowPointer extends PointItOutSVGPointer {
     this.distance = options.distance ?? 0
     this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth, this.distance))
 
-    this.htmlElement.style.fill = this.fillColor
-    this.htmlElement.style.stroke = this.strokeColor
-    this.htmlElement.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`
+    this.pointerElement.style.fill = this.fillColor
+    this.pointerElement.style.stroke = this.strokeColor
+    this.pointerElement.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`
 
-    this.htmlElement.style.transformOrigin = 'center left'
-    this.htmlElement.style.transform = `translateY(-50%) rotate(${this.fromAngle}deg)`
-    this.htmlElement.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
-    this.htmlElement.setAttribute('height', `${96 + this.strokeWidth}`)
+    this.pointerElement.style.transformOrigin = 'center left'
+    this.pointerElement.style.transform = `translateY(-50%) rotate(${this.fromAngle}deg)`
+    this.pointerElement.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
+    this.pointerElement.setAttribute('height', `${96 + this.strokeWidth}`)
 
     this.update()
   }
@@ -62,7 +62,7 @@ export class ArrowPointer extends PointItOutSVGPointer {
   update(): void {
     const { targetRect, targetTop, targetLeft } = getRectsInfo(this.target, this.container)
 
-    this.htmlElement.style.left = targetLeft + targetRect.width / 2 + 'px'
-    this.htmlElement.style.top = targetTop + targetRect.height / 2 + 'px'
+    this.pointerElement.style.left = targetLeft + targetRect.width / 2 + 'px'
+    this.pointerElement.style.top = targetTop + targetRect.height / 2 + 'px'
   }
 }
