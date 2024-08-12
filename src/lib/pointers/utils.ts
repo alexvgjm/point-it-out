@@ -1,4 +1,4 @@
-import type { Origin } from '$lib/types'
+import type { Origin } from '../types'
 
 type RectsInfo = {
   targetRect: DOMRect

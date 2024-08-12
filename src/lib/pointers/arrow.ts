@@ -1,4 +1,4 @@
-import { commonSVGOptionsDefaults, createSVG, PointItOutSVGPointer } from './core'
+import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
 import type { PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo, originStringToAngle } from './utils'
 
@@ -24,7 +24,7 @@ const arrowDefaults: Readonly<Required<SVGOptions>> = Object.freeze({
   distance: 0
 })
 
-export class ArrowPointer extends PointItOutSVGPointer {
+export class ArrowPointer extends SVGBasePointer {
   path: SVGPathElement
 
   fromAngle: number

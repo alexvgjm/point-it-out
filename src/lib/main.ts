@@ -1,3 +1,6 @@
+export type * from './types'
+export type * from './pointers'
+
 import { RectPointer } from './pointers/rect'
 import { BasePointer } from './pointers/core'
 import type { PointerOptions, PointItOutPointer, SystemOptions } from './types'

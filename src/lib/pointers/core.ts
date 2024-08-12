@@ -4,7 +4,8 @@ import type {
   PIOPointerEvents,
   PointerName,
   PointItOutPointer,
-  SVGOptions
+  SVGOptions,
+  PointItOutSVGPointer
 } from '../types'
 
 // FIXME: container: document.body
@@ -110,7 +111,7 @@ export abstract class BasePointer implements PointItOutPointer {
   }
 }
 
-export abstract class PointItOutSVGPointer extends BasePointer implements PointItOutSVGPointer {
+export abstract class SVGBasePointer extends BasePointer implements PointItOutSVGPointer {
   strokeWidth: number
   strokeColor: string
   fillColor: string

@@ -1,4 +1,4 @@
-import { commonSVGOptionsDefaults, createSVG, PointItOutSVGPointer } from './core'
+import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
 import type { PointerOptions, RectOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
 
@@ -9,7 +9,7 @@ const rectDefaults: Readonly<Required<SVGOptions & RectOptions>> = Object.freeze
   padding: { x: 0, y: 0 }
 })
 
-export class RectPointer extends PointItOutSVGPointer {
+export class RectPointer extends SVGBasePointer {
   rectElm: SVGRectElement
 
   round: number | string | { rx: number | string; ry: number | string } = 0
