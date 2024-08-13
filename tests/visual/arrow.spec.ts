@@ -1,7 +1,7 @@
 import { test, test as it } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
-import { originStringToAngleMap } from '$lib/pointers/utils'
+import { originToAngleMap } from '$lib/values'
 import type { Origin } from '$lib/types'
 
 test.describe("create('arrow')", () => {
@@ -54,7 +54,7 @@ test.describe("create('arrow')", () => {
           })
         })
 
-        Object.entries(originStringToAngleMap).forEach(([angleString, angle]) => {
+        Object.entries(originToAngleMap).forEach(([angleString, angle]) => {
           it(`rotates the arrow in angle specified by origin string (${angleString})`, async ({
             page
           }, testInfo) => {
@@ -160,7 +160,7 @@ test.describe("create('arrow')", () => {
         })
       })
 
-      test.describe.only(`size (${xW}x${xH})`, () => {
+      test.describe(`size (${xW}x${xH})`, () => {
         ;['xs', 'sm', 'md', 'lg', 'xl', 'xxl'].forEach((sizeName) => {
           it(`accepts '${sizeName}' as size`, async ({ page }, testInfo) => {
             await visualComparisonBetweenPages({
@@ -174,7 +174,7 @@ test.describe("create('arrow')", () => {
                       size: sizeName
                     })
                   },
-                  { sizeName: sizeName as pio.ArrowSize }
+                  { sizeName: sizeName as pio.NamedSize }
                 )
               },
               pwPage: page,
