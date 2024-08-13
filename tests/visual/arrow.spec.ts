@@ -159,6 +159,30 @@ test.describe("create('arrow')", () => {
           })
         })
       })
+
+      test.describe.only(`size (${xW}x${xH})`, () => {
+        ;['xs', 'sm', 'md', 'lg', 'xl', 'xxl'].forEach((sizeName) => {
+          it(`accepts '${sizeName}' as size`, async ({ page }, testInfo) => {
+            await visualComparisonBetweenPages({
+              testingURL: `/${xW}x${xH}`,
+              expectedURL: `/${xW}x${xH}/arrow/size-option/${sizeName}`,
+              action: () => {
+                return page.evaluate(
+                  ({ sizeName }) => {
+                    pio.create('arrow', {
+                      target: `.test-box`,
+                      size: sizeName
+                    })
+                  },
+                  { sizeName: sizeName as pio.ArrowSize }
+                )
+              },
+              pwPage: page,
+              pwTestInfo: testInfo
+            })
+          })
+        })
+      })
     })
   })
 })

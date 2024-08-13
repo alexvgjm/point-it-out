@@ -51,9 +51,12 @@ export interface RectOptions {
       }
 }
 
+export type ArrowSize = number | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+
 export interface ArrowOptions {
   fromAngle?: number | Origin
   distance?: number
+  size?: ArrowSize
 }
 
 export interface PointerOptions {
