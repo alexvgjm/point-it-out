@@ -1,10 +1,12 @@
 <script lang="ts">
   import { page } from '$app/stores'
+  import { originToAngleMap } from '$lib/values'
   import type { PageData } from './$types'
 
   export let data: PageData
 
-  const angle = $page.params.angle
+  const namedAngle = originToAngleMap[$page.params.angle as keyof typeof originToAngleMap]
+  const angle = namedAngle ?? +$page.params.angle
 
   const w = 96
   const len = 128

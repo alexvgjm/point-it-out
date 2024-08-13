@@ -1,17 +1,11 @@
 <script lang="ts">
   import type { PageData } from './$types'
   import { page } from '$app/stores'
+  import { sizeNameToNumber } from '$lib/values'
 
   export let data: PageData
 
-  const namedSizes = {
-    xs: 0.5,
-    sm: 0.7,
-    md: 1,
-    lg: 1.25,
-    xl: 2,
-    xxl: 3
-  }
+  const namedSizes = sizeNameToNumber
   const w = 96
   const len = 128
 
