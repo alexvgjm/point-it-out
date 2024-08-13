@@ -66,6 +66,7 @@ export interface ArrowOptions {
   fromAngle?: number | Origin
   distance?: number
   size?: number | NamedSize
+  responsive?: false | 'rotate' | 'scale'
 }
 
 export interface PointerOptions {

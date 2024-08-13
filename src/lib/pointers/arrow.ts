@@ -1,5 +1,5 @@
 import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
-import type { PointerOptions, SVGOptions } from '../types'
+import type { ArrowOptions, PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
 import { sizeNameToNumber, originToAngleMap } from '$lib/values'
 
@@ -19,12 +19,13 @@ function createArrowDPathAttribute(w: number, l: number, strw: number, dist: num
   return atr
 }
 
-const arrowDefaults: Readonly<Required<SVGOptions>> = Object.freeze({
+const arrowDefaults: Readonly<Required<SVGOptions & ArrowOptions>> = Object.freeze({
   ...commonSVGOptionsDefaults,
   strokeWidth: 0,
   fromAngle: 45,
   distance: 0,
-  size: 1
+  size: 1,
+  responsive: false
 })
 
 export class ArrowPointer extends SVGBasePointer {
@@ -33,6 +34,7 @@ export class ArrowPointer extends SVGBasePointer {
   fromAngle: number
   distance: number
   size: number
+  responsive?: false | 'rotate' | 'scale'
 
   constructor(options: PointerOptions['arrow']) {
     const opts = { ...arrowDefaults, ...options } as Required<PointerOptions['arrow']>
@@ -55,6 +57,8 @@ export class ArrowPointer extends SVGBasePointer {
     }
     this.size = opts.size
     this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth, this.distance))
+
+    this.responsive = opts.responsive
 
     this.pointerElement.style.fill = this.fillColor
     this.pointerElement.style.stroke = this.strokeColor
