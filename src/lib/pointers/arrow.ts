@@ -1,6 +1,7 @@
 import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
 import type { PointerOptions, SVGOptions } from '../types'
-import { getRectsInfo, originStringToAngle } from './utils'
+import { getRectsInfo } from './utils'
+import { sizeNameToNumber, originToAngleMap } from '$lib/values'
 
 /**
  * @param w Arrow width
@@ -21,7 +22,9 @@ function createArrowDPathAttribute(w: number, l: number, strw: number, dist: num
 const arrowDefaults: Readonly<Required<SVGOptions>> = Object.freeze({
   ...commonSVGOptionsDefaults,
   strokeWidth: 0,
-  distance: 0
+  fromAngle: 45,
+  distance: 0,
+  size: 1
 })
 
 export class ArrowPointer extends SVGBasePointer {
@@ -29,22 +32,28 @@ export class ArrowPointer extends SVGBasePointer {
 
   fromAngle: number
   distance: number
+  size: number
 
   constructor(options: PointerOptions['arrow']) {
-    super({ ...arrowDefaults, ...options })
+    const opts = { ...arrowDefaults, ...options } as Required<PointerOptions['arrow']>
+    super(opts)
     const g = createSVG<SVGGElement>('g')
     this.path = createSVG<SVGPathElement>('path')
     g.appendChild(this.path)
     this.pointerElement.appendChild(g)
     this.container.appendChild(this.pointerElement)
 
-    if (typeof options.fromAngle == 'string') {
-      this.fromAngle = originStringToAngle(options.fromAngle)
+    if (typeof opts.fromAngle === 'string') {
+      this.fromAngle = originToAngleMap[opts.fromAngle]
     } else {
-      this.fromAngle = options.fromAngle ?? 45
+      this.fromAngle = opts.fromAngle
     }
 
-    this.distance = options.distance ?? 0
+    this.distance = opts.distance
+    if (typeof opts.size === 'string') {
+      opts.size = sizeNameToNumber[opts.size]
+    }
+    this.size = opts.size
     this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth, this.distance))
 
     this.pointerElement.style.fill = this.fillColor
@@ -52,7 +61,7 @@ export class ArrowPointer extends SVGBasePointer {
     this.pointerElement.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`
 
     this.pointerElement.style.transformOrigin = 'center left'
-    this.pointerElement.style.transform = `translateY(-50%) rotate(${this.fromAngle}deg)`
+    this.pointerElement.style.transform = `translateY(-50%) rotate(${this.fromAngle}deg) scale(${this.size})`
     this.pointerElement.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
     this.pointerElement.setAttribute('height', `${96 + this.strokeWidth}`)
 

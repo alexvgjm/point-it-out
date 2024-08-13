@@ -1,6 +1,4 @@
-import type { Origin } from '../types'
-
-type RectsInfo = {
+export type RectsInfo = {
   targetRect: DOMRect
   containerRect: DOMRect
 
@@ -31,19 +29,4 @@ export function getRectsInfo(target: HTMLElement, container: HTMLElement): Rects
     targetTop,
     targetLeft
   }
-}
-
-export const originStringToAngleMap = Object.freeze({
-  'top-right': 315,
-  top: 270,
-  'top-left': 225,
-  left: 180,
-  'bottom-left': 135,
-  bottom: 90,
-  'bottom-right': 45,
-  right: 0
-}) as Readonly<{ [key in Origin & string]: number }>
-
-export function originStringToAngle(origin: string & Origin) {
-  return originStringToAngleMap[origin]
 }

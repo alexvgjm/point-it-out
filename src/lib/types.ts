@@ -8,6 +8,17 @@
 // to follow an interface-specification-driven design. Also this lighten the
 // implementation code separating type definitions and documentation.
 
+export type NamedSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+export type Origin =
+  | 'right'
+  | 'top-right'
+  | 'top'
+  | 'top-left'
+  | 'left'
+  | 'bottom-left'
+  | 'bottom'
+  | 'bottom-right'
+
 export interface SystemOptions {
   updateOnResize: boolean
   updateAfterLoad: boolean
@@ -51,12 +62,10 @@ export interface RectOptions {
       }
 }
 
-export type ArrowSize = number | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
-
 export interface ArrowOptions {
   fromAngle?: number | Origin
   distance?: number
-  size?: ArrowSize
+  size?: number | NamedSize
 }
 
 export interface PointerOptions {
@@ -70,17 +79,6 @@ export interface PIOPointerEvents {
 export type PIOEventName = keyof PIOPointerEvents
 
 export type PointerName = keyof PointerOptions
-
-export type Origin =
-  | number
-  | 'right'
-  | 'top-right'
-  | 'top'
-  | 'top-left'
-  | 'left'
-  | 'bottom-left'
-  | 'bottom'
-  | 'bottom-right'
 
 export interface PointItOutPointer {
   /**
