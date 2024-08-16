@@ -183,6 +183,46 @@ test.describe("create('arrow')", () => {
           })
         })
       })
+
+      test.describe(`responsive (${xW}x${xH})`, { tag: '@responsive' }, () => {
+        it(`rotates to fit if responsive: 'rotate'`, async ({ page }, testInfo) => {
+          await visualComparisonBetweenPages({
+            testingURL: `/${xW}x${xH}/arrow/responsive-option`,
+            expectedURL: `/${xW}x${xH}/arrow/responsive-option/rotate`,
+            action: () => {
+              return page.evaluate(() => {
+                pio.create('arrow', {
+                  target: `.test-box`,
+                  container: '.limited-container',
+                  responsive: 'rotate',
+                  size: 1.75
+                })
+              })
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
+        })
+
+        it(`scale to fit if responsive: 'scale'`, async ({ page }, testInfo) => {
+          await visualComparisonBetweenPages({
+            testingURL: `/${xW}x${xH}/arrow/responsive-option`,
+            expectedURL: `/${xW}x${xH}/arrow/responsive-option/scale`,
+            action: () => {
+              return page.evaluate(() => {
+                pio.create('arrow', {
+                  target: `.test-box`,
+                  container: '.limited-container',
+                  responsive: 'scale',
+                  size: 1.75
+                })
+              })
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
+        })
+      })
     })
   })
 })
