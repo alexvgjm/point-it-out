@@ -30,3 +30,7 @@ export function getRectsInfo(target: HTMLElement, container: HTMLElement): Rects
     targetLeft
   }
 }
+
+export function distanceFromTo(a: { x: number; y: number }, b: { x: number; y: number }) {
+  return Math.sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y))
+}
