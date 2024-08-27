@@ -1,7 +1,13 @@
 import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
-import type { PointerOptions, SVGOptions } from '../types'
+import type { NamedSize, Origin, PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
-import { sizeNameToNumber, originToAngleMap } from '$lib/values'
+import { sizeNameToNumber, originToAngleMap } from '../values'
+
+export interface ArrowOptions {
+  fromAngle?: number | Origin
+  distance?: number
+  size?: number | NamedSize
+}
 
 /**
  * @param w Arrow width

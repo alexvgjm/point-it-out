@@ -6,4 +6,14 @@ describe("create('rect')", () => {
     create('rect', { target: '.existing' })
     expect(document.querySelector('.existing rect')).toBeDefined()
   })
+
+  describe('animate options', () => {
+    describe('Some basic and defaults specs using "pulse"', () => {
+      it('adds an animation style properties with infinite repeat and 1s timing', () => {
+        create('rect', {
+          target: '.existing'
+        })
+      })
+    })
+  })
 })
