@@ -1,12 +1,4 @@
-// Why this file?
-//
-// Most minify + tree-shaking tools do not remove some documentation or
-// comments from source code. In fact, they add the comments in the generated
-// d.ts file but not remove it from some sources.
-//
-// In the other hand, this file can help us to centralize definitions and
-// to follow an interface-specification-driven design. Also this lighten the
-// implementation code separating type definitions and documentation.
+import type { ArrowOptions, RectOptions } from './pointers'
 
 export type NamedSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type Origin =
@@ -41,31 +33,6 @@ export interface SVGOptions {
   strokeWidth?: number
   strokeColor?: string
   fillColor?: string
-}
-
-export interface RectOptions {
-  /** Space between stroke and content. Can be negative. Default: 0*/
-  padding?:
-    | number
-    | {
-        /** Horizontal gap (left and right) */
-        x?: number
-        /** Vertical gap (top and bottom) */
-        y?: number
-      }
-  round?:
-    | number
-    | string
-    | {
-        rx: number | string
-        ry: number | string
-      }
-}
-
-export interface ArrowOptions {
-  fromAngle?: number | Origin
-  distance?: number
-  size?: number | NamedSize
 }
 
 export interface PointerOptions {
