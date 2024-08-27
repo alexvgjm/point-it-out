@@ -27,10 +27,9 @@ describe("create('rect')", () => {
           animate: 'pulse'
         })
 
-        const style: HTMLStyleElement = document.head.querySelector('#point-it-out-keyframes')
+        const style = document.head.querySelector<HTMLStyleElement>('#point-it-out-keyframes')!
 
         expect(style.textContent).includes('@keyframes pio__pulse')
-        console.log(style.textContent)
       })
     })
   })

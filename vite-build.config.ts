@@ -12,12 +12,12 @@ export default defineConfig({
   build: {
     minify: 'esbuild',
     lib: {
-      entry: resolve(__dirname, 'src/lib/main.ts'),
+      entry: resolve(__dirname, 'src/lib/index.ts'),
       formats: ['es']
     },
     copyPublicDir: false,
     rollupOptions: {
-      input: 'src/lib/main.ts'
+      input: 'src/lib/index.ts'
     },
     outDir: 'dist-npm'
   }
