@@ -20,6 +20,18 @@ describe("create('rect')", () => {
         expect(styles.animation).includes('1s')
         expect(styles.animation).includes('alternate')
       })
+
+      it('injects a <style> with the pio__pulse @keyframes', () => {
+        create('rect', {
+          target: '.existing',
+          animate: 'pulse'
+        })
+
+        const style: HTMLStyleElement = document.head.querySelector('#point-it-out-keyframes')
+
+        expect(style.textContent).includes('@keyframes pio__pulse')
+        console.log(style.textContent)
+      })
     })
   })
 })

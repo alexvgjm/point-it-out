@@ -48,5 +48,32 @@ export function parseAnimateProps<T>(options: T | AnimatableOptions<T>) {
 export type AnimationTextGenerator<T> = (opts: AnimatableOptions<T>) => string
 
 export function defaultAnimationTextGenerator<T>(opts: AnimatableOptions<T>) {
-  return `${opts.duration}s ${opts.repeat} ${opts.direction} ${opts.name}`
+  return `${opts.duration}s ease-in-out ${opts.repeat} ${opts.direction} pio__${opts.name}`
+}
+
+function getKeyframesStylesheet() {
+  let sheet = document.head.querySelector<HTMLStyleElement>('#point-it-out-keyframes')
+  if (!sheet) {
+    sheet = document.createElement('style')
+    sheet.title = 'point-it-out-keyframes'
+    sheet.id = 'point-it-out-keyframes'
+    document.head.appendChild(sheet)
+  }
+
+  return sheet
+}
+
+export function injectKeyframesIfNotExists(name: string, keyframesBody: { [key: number]: string }) {
+  const sheet = getKeyframesStylesheet()
+  if (sheet.innerHTML.includes(`@keyframes pio__${name}`)) {
+    return
+  }
+
+  let keyframe = `@keyframes pio__${name} { `
+  Object.entries(keyframesBody).forEach(([percent, props]) => {
+    keyframe += `${percent}% { ${props} } `
+  })
+  keyframe += ' }'
+
+  sheet.innerHTML += keyframe
 }
