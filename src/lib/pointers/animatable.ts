@@ -48,3 +48,9 @@ export function parseAnimateProps<T>(options?: false | T | AnimatableOptions<T>)
     name: options
   }
 }
+
+export type AnimationTextGenerator<T> = (opts: AnimatableOptions<T>) => string
+
+export function defaultAnimationTextGenerator<T>(opts: AnimatableOptions<T>) {
+  return `${opts.duration}s ${opts.repeat} ${opts.direction} ${opts.name}`
+}
