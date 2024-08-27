@@ -1,9 +1,15 @@
 import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
 import type { PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
-import { parseAnimateProps, type Animatable, type AnimatableOptions } from './animatable'
+import {
+  defaultAnimationTextGenerator,
+  parseAnimateProps,
+  type Animatable,
+  type AnimatableOptions,
+  type AnimationTextGenerator
+} from './animatable'
 
-export interface RectOptions extends Animatable<'pulse'> {
+export interface RectOptions extends Animatable<RectAnimation> {
   /** Space between stroke and content. Can be negative. Default: 0*/
   padding?:
     | number
@@ -21,6 +27,8 @@ export interface RectOptions extends Animatable<'pulse'> {
         ry: number | string
       }
 }
+
+export type RectAnimation = 'pulse'
 
 const rectDefaults: Readonly<Required<SVGOptions & RectOptions>> = Object.freeze({
   ...commonSVGOptionsDefaults,
@@ -45,12 +53,18 @@ function parsePaddingProps(padding?: PointerOptions['rect']['padding']) {
   }
 }
 
-export class RectPointer extends SVGBasePointer implements Animatable<'pulse'> {
+const rectAnimationTextGenerator: {
+  [key in RectAnimation]: AnimationTextGenerator<RectAnimation>
+} = {
+  pulse: defaultAnimationTextGenerator
+}
+
+export class RectPointer extends SVGBasePointer implements Animatable<RectAnimation> {
   rectElm: SVGRectElement
   round: number | string | { rx: number | string; ry: number | string } = 0
   padding: { x: number; y: number }
 
-  animate: false | AnimatableOptions<'pulse'>
+  animate: false | AnimatableOptions<RectAnimation>
 
   constructor(options: PointerOptions['rect']) {
     const opts = Object.freeze({ ...rectDefaults, ...options })
@@ -62,6 +76,11 @@ export class RectPointer extends SVGBasePointer implements Animatable<'pulse'> {
     this.round = options.round ?? rectDefaults.round
     this.padding = parsePaddingProps(opts.padding)
     this.animate = parseAnimateProps(opts.animate)
+    if (this.animate) {
+      this.pointerElement.style.animation = rectAnimationTextGenerator[this.animate.name](
+        this.animate
+      )
+    }
     this.update()
   }
 
