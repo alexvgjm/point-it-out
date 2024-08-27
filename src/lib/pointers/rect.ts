@@ -1,13 +1,8 @@
 import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
 import type { PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
-import {
-  defaultAnimationTextGenerator,
-  parseAnimateProps,
-  type Animatable,
-  type AnimatableOptions,
-  type AnimationTextGenerator
-} from './animatable'
+import { type Animatable, type AnimatableOptions } from './animations/animatable'
+import { prepareRectAnimation } from './animations/rect-animations'
 
 export interface RectOptions extends Animatable<RectAnimation> {
   /** Space between stroke and content. Can be negative. Default: 0*/
@@ -53,18 +48,12 @@ function parsePaddingProps(padding?: PointerOptions['rect']['padding']) {
   }
 }
 
-const rectAnimationTextGenerator: {
-  [key in RectAnimation]: AnimationTextGenerator<RectAnimation>
-} = {
-  pulse: defaultAnimationTextGenerator
-}
-
 export class RectPointer extends SVGBasePointer implements Animatable<RectAnimation> {
   rectElm: SVGRectElement
   round: number | string | { rx: number | string; ry: number | string } = 0
   padding: { x: number; y: number }
 
-  animate: false | AnimatableOptions<RectAnimation>
+  animate: false | AnimatableOptions<RectAnimation> = false
 
   constructor(options: PointerOptions['rect']) {
     const opts = Object.freeze({ ...rectDefaults, ...options })
@@ -75,11 +64,8 @@ export class RectPointer extends SVGBasePointer implements Animatable<RectAnimat
     this.container.appendChild(this.pointerElement)
     this.round = options.round ?? rectDefaults.round
     this.padding = parsePaddingProps(opts.padding)
-    this.animate = parseAnimateProps(opts.animate)
-    if (this.animate) {
-      this.pointerElement.style.animation = rectAnimationTextGenerator[this.animate.name](
-        this.animate
-      )
+    if (opts.animate) {
+      prepareRectAnimation(this, opts.animate)
     }
     this.update()
   }

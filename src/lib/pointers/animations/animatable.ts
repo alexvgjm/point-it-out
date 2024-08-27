@@ -31,11 +31,7 @@ export const animationDefaults: Partial<AnimatableOptions<unknown>> = {
   repeat: 'infinite'
 }
 
-export function parseAnimateProps<T>(options?: false | T | AnimatableOptions<T>) {
-  if (!options) {
-    return false
-  }
-
+export function parseAnimateProps<T>(options: T | AnimatableOptions<T>) {
   if (typeof options == 'object') {
     return {
       ...animationDefaults,
