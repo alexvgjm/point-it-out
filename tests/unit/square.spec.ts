@@ -8,11 +8,17 @@ describe("create('rect')", () => {
   })
 
   describe('animate options', () => {
-    describe('Some basic and defaults specs using "pulse"', () => {
-      it('adds an animation style properties with infinite repeat and 1s timing', () => {
-        create('rect', {
-          target: '.existing'
+    describe('Some basic and default specs using "pulse"', () => {
+      it('adds an animation style properties with infinite repeat, 1s timing and alternate', () => {
+        const pointer = create('rect', {
+          target: '.existing',
+          animate: 'pulse'
         })
+
+        const styles = getComputedStyle(pointer.pointerElement)
+        expect(styles.animation).includes('infinite')
+        expect(styles.animation).includes('1s')
+        expect(styles.animation).includes('alternate')
       })
     })
   })
