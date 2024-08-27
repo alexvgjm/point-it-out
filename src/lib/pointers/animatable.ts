@@ -1,5 +1,5 @@
 export interface Animatable<T> {
-  animate?: false | AnimatableOptions<T>
+  animate?: false | T | AnimatableOptions<T>
 }
 
 export interface AnimatableOptions<T> {
@@ -31,9 +31,20 @@ export const animationDefaults: Partial<AnimatableOptions<unknown>> = {
   repeat: 'infinite'
 }
 
-export function parseAnimateProps<T>(options?: false | AnimatableOptions<T>) {
+export function parseAnimateProps<T>(options?: false | T | AnimatableOptions<T>) {
   if (!options) {
     return false
   }
-  return { ...options }
+
+  if (typeof options == 'object') {
+    return {
+      ...animationDefaults,
+      ...options
+    }
+  }
+
+  return {
+    ...animationDefaults,
+    name: options
+  }
 }
