@@ -57,8 +57,8 @@ export interface PointItOutPointer {
   /** The element to point out. */
   target: HTMLElement
 
-  /** The created DOM element created by this pointer */
-  pointerElement: HTMLElement | SVGElement
+  /** The DOM element created by this pointer */
+  pointerElement: HTMLElement | SVGSVGElement
 
   /**
    * The parent element which the pointerElement is a direct child. Should be

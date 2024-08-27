@@ -1,4 +1,4 @@
-import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
+import { commonSVGOptionsDefaults, createParentSVG, createSVG, SVGBasePointer } from './core'
 import type { PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
 import { type Animatable, type AnimatableOptions } from './animations/animatable'
@@ -49,6 +49,8 @@ function parsePaddingProps(padding?: PointerOptions['rect']['padding']) {
 }
 
 export class RectPointer extends SVGBasePointer implements Animatable<RectAnimation> {
+  pointerElement: HTMLElement | SVGSVGElement
+
   rectElm: SVGRectElement
   round: number | string | { rx: number | string; ry: number | string } = 0
   padding: { x: number; y: number }
@@ -60,6 +62,7 @@ export class RectPointer extends SVGBasePointer implements Animatable<RectAnimat
     super(opts)
 
     this.rectElm = createSVG('rect')
+    this.pointerElement = createParentSVG(opts)
     this.pointerElement.appendChild(this.rectElm)
     this.container.appendChild(this.pointerElement)
     this.round = options.round ?? rectDefaults.round

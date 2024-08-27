@@ -14,6 +14,7 @@ import type {
 export const commonOptionsDefaults: Partial<CommonOptions> = {
   className: undefined,
   zIndex: 9999
+  // container: document.body
 }
 
 export const commonSVGOptionsDefaults: Required<SVGOptions> = {
@@ -22,16 +23,46 @@ export const commonSVGOptionsDefaults: Required<SVGOptions> = {
   strokeWidth: 4
 }
 
-function createParentSVG(options: CommonOptions & SVGOptions) {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+export function createWrapper(options: CommonOptions) {
+  const wrapper = document.createElement('div')
+
+  const opts = {
+    ...commonOptionsDefaults,
+    ...options
+  }
+
+  wrapper.style.zIndex = opts.zIndex!.toString()
+  wrapper.style.position = 'absolute'
+
+  if (opts.className) {
+    wrapper.classList.add(opts.className)
+  }
+
+  return wrapper
+}
+
+export function createParentSVG(options: CommonOptions & SVGOptions, wrap: true): HTMLElement
+export function createParentSVG(options: CommonOptions & SVGOptions, wrap?: false): SVGSVGElement
+export function createParentSVG(options: CommonOptions & SVGOptions, wrap: boolean = false) {
   const opts = {
     ...commonOptionsDefaults,
     ...commonSVGOptionsDefaults,
     ...options
   } as Required<CommonOptions & SVGOptions>
 
-  svg.style.zIndex = opts.zIndex!.toString()
-  svg.style.position = 'absolute'
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+
+  if (wrap) {
+    const wrapper = createWrapper(options)
+    wrapper.appendChild(svg)
+  } else {
+    if (opts.className) {
+      svg.classList.add(opts.className)
+    }
+    svg.style.zIndex = opts.zIndex!.toString()
+    svg.style.position = 'absolute'
+  }
+
   svg.style.stroke = opts.strokeColor
   svg.style.fill = opts.fillColor
   svg.style.strokeWidth = `${opts.strokeWidth}`
@@ -39,12 +70,8 @@ function createParentSVG(options: CommonOptions & SVGOptions) {
   svg.style.strokeLinejoin = 'round'
   svg.style.strokeLinecap = 'round'
 
-  if (opts.className) {
-    svg.classList.add(opts.className)
-  }
-
   svg.style.strokeWidth = opts.strokeWidth + 'px'
-  return svg
+  return wrap ? svg.parentElement : svg
 }
 
 export function createSVG<T = SVGElement>(tag: string) {
@@ -62,9 +89,10 @@ function getTarget(selectorOrTarget: HTMLElement | string | null) {
 export const availablePointers: Readonly<PointerName[]> = ['rect', 'arrow']
 
 export abstract class BasePointer implements PointItOutPointer {
+  abstract pointerElement: PointItOutPointer['pointerElement']
+
   destroyed = false
   target
-  pointerElement
   container
   listeners: {
     [PIOEvent in PIOEventName]?: ((payload: PIOPointerEvents[PIOEventName]) => void)[] | undefined
@@ -84,7 +112,6 @@ export abstract class BasePointer implements PointItOutPointer {
     this.container = container
 
     this.target = target
-    this.pointerElement = createParentSVG(options)
   }
 
   abstract update(): void
