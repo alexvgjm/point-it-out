@@ -1,13 +1,17 @@
-import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
+import { commonSVGOptionsDefaults, createParentSVG, createSVG, SVGBasePointer } from './core'
 import type { NamedSize, Origin, PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
 import { sizeNameToNumber, originToAngleMap } from '../values'
+import type { Animatable, AnimatableOptions } from './animations/animatable'
+import { prepareArrowAnimation } from './animations/arrow-animations'
 
-export interface ArrowOptions {
+export interface ArrowOptions extends Animatable<ArrowAnimation> {
   fromAngle?: number | Origin
   distance?: number
   size?: number | NamedSize
 }
+
+export type ArrowAnimation = 'pulse'
 
 /**
  * @param w Arrow width
@@ -33,12 +37,16 @@ const arrowDefaults: Readonly<Required<SVGOptions>> = Object.freeze({
   size: 1
 })
 
-export class ArrowPointer extends SVGBasePointer {
+export class ArrowPointer extends SVGBasePointer implements Animatable<ArrowAnimation> {
+  pointerElement: HTMLElement | SVGSVGElement
   path: SVGPathElement
+  svg: SVGSVGElement
 
   fromAngle: number
   distance: number
   size: number
+
+  animate?: false | AnimatableOptions<'pulse'> = false
 
   constructor(options: PointerOptions['arrow']) {
     const opts = { ...arrowDefaults, ...options } as Required<PointerOptions['arrow']>
@@ -46,7 +54,10 @@ export class ArrowPointer extends SVGBasePointer {
     const g = createSVG<SVGGElement>('g')
     this.path = createSVG<SVGPathElement>('path')
     g.appendChild(this.path)
-    this.pointerElement.appendChild(g)
+    this.pointerElement = createParentSVG(opts, true)
+    this.svg = this.pointerElement.querySelector('svg')!
+    this.svg.appendChild(g)
+
     this.container.appendChild(this.pointerElement)
 
     if (typeof opts.fromAngle === 'string') {
@@ -62,15 +73,18 @@ export class ArrowPointer extends SVGBasePointer {
     this.size = opts.size
     this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth, this.distance))
 
-    this.pointerElement.style.fill = this.fillColor
-    this.pointerElement.style.stroke = this.strokeColor
-    this.pointerElement.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`
+    this.svg.style.fill = this.fillColor
+    this.svg.style.stroke = this.strokeColor
+    this.svg.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`
+    this.svg.style.transformOrigin = 'center left'
+    this.svg.style.transform = `translateY(-50%) rotate(${this.fromAngle}deg) scale(${this.size})`
+    this.svg.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
+    this.svg.setAttribute('height', `${96 + this.strokeWidth}`)
 
-    this.pointerElement.style.transformOrigin = 'center left'
-    this.pointerElement.style.transform = `translateY(-50%) rotate(${this.fromAngle}deg) scale(${this.size})`
-    this.pointerElement.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
-    this.pointerElement.setAttribute('height', `${96 + this.strokeWidth}`)
-
+    this.pointerElement.style.transformOrigin = 'top left'
+    if (opts.animate) {
+      prepareArrowAnimation(this, opts.animate)
+    }
     this.update()
   }
 
