@@ -5,7 +5,8 @@ import type {
   PointerName,
   PointItOutPointer,
   SVGOptions,
-  PointItOutSVGPointer
+  PointItOutSVGPointer,
+  VirtualTransforms
 } from '../types'
 
 // FIXME: container: document.body
@@ -143,11 +144,38 @@ export abstract class SVGBasePointer extends BasePointer implements PointItOutSV
   strokeColor: string
   fillColor: string
 
+  transform?: VirtualTransforms
+
   constructor(options: CommonOptions & SVGOptions) {
     super(options)
     const opts = { ...commonSVGOptionsDefaults, ...options } as Required<SVGOptions>
     this.strokeWidth = opts.strokeWidth
     this.strokeColor = opts.strokeColor
     this.fillColor = opts.fillColor
+  }
+
+  applyTransform(toWhat = this.pointerElement) {
+    if (!this.transform) {
+      return
+    }
+
+    let transformStr = ''
+
+    if (this.transform.translate) {
+      const { x, y } = this.transform.translate
+
+      if (x && y) {
+        transformStr += `translate(${x}, ${y}) `
+      } else if (this.transform.translate.x) {
+        transformStr += `translateX(${x}) `
+      } else if (this.transform.translate.y) {
+        transformStr += `translateY(${y}) `
+      }
+    }
+
+    if (this.transform.rotate) transformStr += `rotate(${this.transform.rotate}deg) `
+
+    if (this.transform.scale) transformStr += `scale(${this.transform.scale}) `
+    toWhat.style.transform = transformStr
   }
 }

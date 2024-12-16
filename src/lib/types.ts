@@ -35,6 +35,54 @@ export interface SVGOptions {
   fillColor?: string
 }
 
+export interface RectOptions {
+  /** Space between stroke and content. Can be negative. Default: 0*/
+  padding?:
+    | number
+    | {
+        /** Horizontal gap (left and right) */
+        x?: number
+        /** Vertical gap (top and bottom) */
+        y?: number
+      }
+  round?:
+    | number
+    | string
+    | {
+        rx: number | string
+        ry: number | string
+      }
+}
+
+export type ResponsiveArrowOptions =
+  | false
+  | 'rotate'
+  | 'scale'
+  | {
+      type: 'rotate'
+    }
+  | {
+      type: 'scale'
+      minSize?: number
+    }
+
+export type ResponsiveArrowFields =
+  | false
+  | {
+      type: 'scale'
+      minSize: number
+    }
+  | {
+      type: 'rotate'
+    }
+
+export interface ArrowOptions {
+  fromAngle?: number | Origin
+  distance?: number
+  size?: number | NamedSize
+  responsive?: ResponsiveArrowOptions
+}
+
 export interface PointerOptions {
   rect: CommonOptions & SVGOptions & RectOptions
   arrow: CommonOptions & SVGOptions & ArrowOptions
@@ -97,3 +145,9 @@ export interface PointItOutSVGPointer extends PointItOutPointer {
   /** The color used to paint the SVG. */
   fillColor: string
 }
+
+export type VirtualTransforms = Readonly<{
+  scale?: number
+  rotate?: number
+  translate?: { x?: string; y?: string }
+}>
