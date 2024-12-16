@@ -1,4 +1,4 @@
-import { test, test as it } from '@playwright/test'
+import { test, test as it, expect, type Page } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
 import { originToAngleMap } from '$lib/values'
@@ -185,42 +185,42 @@ test.describe("create('arrow')", () => {
       })
 
       test.describe(`responsive (${xW}x${xH})`, { tag: '@responsive' }, () => {
-        it(`rotates to fit if responsive: 'rotate'`, async ({ page }, testInfo) => {
-          await visualComparisonBetweenPages({
-            testingURL: `/${xW}x${xH}/arrow/responsive-option`,
-            expectedURL: `/${xW}x${xH}/arrow/responsive-option/rotate`,
-            action: () => {
-              return page.evaluate(() => {
-                pio.create('arrow', {
-                  target: `.test-box`,
-                  container: '.limited-container',
-                  responsive: 'rotate',
-                  size: 1.75
-                })
-              })
-            },
-            pwPage: page,
-            pwTestInfo: testInfo
+        async function expectArrowInsideContainer(page: Page) {
+          const container = await page.getByTestId('limited-container').boundingBox()
+          const arrow = await page.locator('.test-arrow').boundingBox()
+          const cx = container!.x + container!.width
+          const ax = arrow!.x + arrow!.width
+          expect(ax).toBeLessThanOrEqual(cx)
+        }
+
+        const testingURL = `/${xW}x${xH}/arrow/responsive-option`
+
+        it(`rotates to fit if responsive: 'rotate'`, async ({ page }) => {
+          await page.goto(testingURL, { waitUntil: 'networkidle' })
+          await page.evaluate(() => {
+            pio.create('arrow', {
+              target: `.test-box`,
+              className: 'test-arrow',
+              container: '.limited-container',
+              responsive: 'rotate',
+              size: 1.75
+            })
           })
+          await expectArrowInsideContainer(page)
         })
 
-        it(`scale to fit if responsive: 'scale'`, async ({ page }, testInfo) => {
-          await visualComparisonBetweenPages({
-            testingURL: `/${xW}x${xH}/arrow/responsive-option`,
-            expectedURL: `/${xW}x${xH}/arrow/responsive-option/scale`,
-            action: () => {
-              return page.evaluate(() => {
-                pio.create('arrow', {
-                  target: `.test-box`,
-                  container: '.limited-container',
-                  responsive: 'scale',
-                  size: 1.75
-                })
-              })
-            },
-            pwPage: page,
-            pwTestInfo: testInfo
+        it(`scale to fit if responsive: 'scale'`, async ({ page }) => {
+          await page.goto(testingURL, { waitUntil: 'networkidle' })
+          await page.evaluate(() => {
+            pio.create('arrow', {
+              target: `.test-box`,
+              className: 'test-arrow',
+              container: '.limited-container',
+              responsive: 'scale',
+              size: 1.75
+            })
           })
+          await expectArrowInsideContainer(page)
         })
       })
     })

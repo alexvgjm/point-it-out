@@ -30,3 +30,7 @@ export function getRectsInfo(target: HTMLElement, container: HTMLElement): Rects
     targetLeft
   }
 }
+
+export function isRectHorizontallyInsideOther(target: DOMRect, container: DOMRect) {
+  return target.left >= container.left && target.right <= container.right
+}

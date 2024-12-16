@@ -62,11 +62,33 @@ export interface RectOptions {
       }
 }
 
+export type ResponsiveArrowOptions =
+  | false
+  | 'rotate'
+  | 'scale'
+  | {
+      type: 'rotate'
+    }
+  | {
+      type: 'scale'
+      minSize?: number
+    }
+
+export type ResponsiveArrowFields =
+  | false
+  | {
+      type: 'scale'
+      minSize: number
+    }
+  | {
+      type: 'rotate'
+    }
+
 export interface ArrowOptions {
   fromAngle?: number | Origin
   distance?: number
   size?: number | NamedSize
-  responsive?: false | 'rotate' | 'scale'
+  responsive?: ResponsiveArrowOptions
 }
 
 export interface PointerOptions {
@@ -131,3 +153,9 @@ export interface PointItOutSVGPointer extends PointItOutPointer {
   /** The color used to paint the SVG. */
   fillColor: string
 }
+
+export type VirtualTransforms = Readonly<{
+  scale?: number
+  rotate?: number
+  translate?: { x?: string; y?: string }
+}>
