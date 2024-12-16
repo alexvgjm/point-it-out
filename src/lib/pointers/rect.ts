@@ -1,27 +1,8 @@
 import { commonSVGOptionsDefaults, createParentSVG, createSVG, SVGBasePointer } from './core'
-import type { PointerOptions, SVGOptions } from '../types'
+import type { PointerOptions, RectOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
 import { type Animatable, type AnimatableOptions } from './animations/animatable'
 import { prepareRectAnimation } from './animations/rect-animations'
-
-export interface RectOptions extends Animatable<RectAnimation> {
-  /** Space between stroke and content. Can be negative. Default: 0*/
-  padding?:
-    | number
-    | {
-        /** Horizontal gap (left and right) */
-        x?: number
-        /** Vertical gap (top and bottom) */
-        y?: number
-      }
-  round?:
-    | number
-    | string
-    | {
-        rx: number | string
-        ry: number | string
-      }
-}
 
 export type RectAnimation = 'pulse'
 
