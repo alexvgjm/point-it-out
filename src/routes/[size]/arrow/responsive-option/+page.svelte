@@ -9,10 +9,10 @@
    * WITH THE RESPONSIVE OPTION. DO NOT ALTER IT.
    */
 
-  // /**
-  //  * Call this for some fun during manual testing :)
-  //  */
-  // function scaleTests() { // eslint-disable @typescript-eslint/no-unused-vars
+  /**
+   * Call this for some fun during manual testing :)
+   */
+  // function scaleTests(animate: 'pulse' | false = false) { // eslint-disable @typescript-eslint/no-unused-vars
   //   setTimeout(() => {
   //     create('arrow', {
   //       target: `.test-box`,
@@ -21,7 +21,8 @@
   //       container: '.limited-container',
   //       fromAngle: 135,
   //       responsive: 'scale',
-  //       distance: 40
+  //       distance: 40,
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -30,7 +31,8 @@
   //       fromAngle: 0,
   //       fillColor: '#0c0',
   //       responsive: 'scale',
-  //       distance: 40
+  //       distance: 40,
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -39,7 +41,8 @@
   //       fillColor: 'red',
   //       fromAngle: 45,
   //       responsive: 'scale',
-  //       distance: 40
+  //       distance: 40,
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -47,7 +50,8 @@
   //       container: '.limited-container',
   //       fromAngle: 180,
   //       responsive: 'scale',
-  //       distance: 40
+  //       distance: 40,
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -56,7 +60,8 @@
   //       fillColor: '#acf',
   //       fromAngle: 315,
   //       responsive: 'scale',
-  //       distance: 40
+  //       distance: 40,
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -65,15 +70,16 @@
   //       fillColor: '#f4f',
   //       fromAngle: 225,
   //       responsive: 'scale',
-  //       distance: 40
+  //       distance: 40,
+  //       animate
   //     })
   //   }, 500)
   // }
 
-  // /**
-  //  * Call this for some fun during manual testing :)
-  //  */
-  // function rotationTests() { // eslint-disable @typescript-eslint/no-unused-vars
+  // // /**
+  // //  * Call this for some fun during manual testing :)
+  // //  */
+  // function rotationTests(animate: 'pulse' | false = false) { // eslint-disable @typescript-eslint/no-unused-vars
   //   setTimeout(() => {
   //     create('arrow', {
   //       target: `.test-box`,
@@ -82,7 +88,8 @@
   //       container: '.limited-container',
   //       fromAngle: 135,
   //       distance: 50,
-  //       responsive: 'rotate'
+  //       responsive: 'rotate',
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -91,7 +98,8 @@
   //       fillColor: 'limegreen',
   //       fromAngle: 0,
   //       distance: 40,
-  //       responsive: 'rotate'
+  //       responsive: 'rotate',
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -100,7 +108,8 @@
   //       fillColor: 'red',
   //       fromAngle: 45,
   //       distance: 30,
-  //       responsive: 'rotate'
+  //       responsive: 'rotate',
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -109,7 +118,8 @@
   //       fromAngle: 180,
   //       distance: 20,
   //       responsive: 'rotate',
-  //       zIndex: 100
+  //       zIndex: 100,
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -119,7 +129,8 @@
   //       fromAngle: 315,
   //       distance: 10,
   //       responsive: 'rotate',
-  //       zIndex: 100
+  //       zIndex: 100,
+  //       animate
   //     })
   //     create('arrow', {
   //       target: `.test-box`,
@@ -128,14 +139,15 @@
   //       fillColor: '#f4f',
   //       fromAngle: 225,
   //       responsive: 'rotate',
-  //       zIndex: 100
+  //       zIndex: 100,
+  //       animate
   //     })
   //   }, 500)
   // }
 
   if (browser) {
-    // scaleTests()
-    // rotationTests()
+    // scaleTests('pulse')
+    //rotationTests('pulse')
   }
 </script>
 

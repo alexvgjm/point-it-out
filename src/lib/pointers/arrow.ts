@@ -103,12 +103,11 @@ export class ArrowPointer extends SVGBasePointer implements Animatable<ArrowAnim
       rotate: this.fromAngle,
       scale: this.size
     }
-    this.applyTransform()
     this.svg.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
     this.svg.setAttribute('height', `${96 + this.strokeWidth}`)
+    this.applyTransform(this.svg)
 
     this.pointerElement.style.transformOrigin = 'top left'
-
     if (opts.animate) {
       prepareArrowAnimation(this, opts.animate)
     }
@@ -130,7 +129,7 @@ export class ArrowPointer extends SVGBasePointer implements Animatable<ArrowAnim
       }
     }
 
-    this.applyTransform()
+    this.applyTransform(this.svg)
     const pRect = this.pointerElement.getBoundingClientRect()
     console.log(pRect.width)
   }
@@ -141,8 +140,8 @@ export class ArrowPointer extends SVGBasePointer implements Animatable<ArrowAnim
       scale: this.size,
       rotate: this.fromAngle
     }
-    this.applyTransform()
-    const pRect = this.pointerElement.getBoundingClientRect()
+    this.applyTransform(this.svg)
+    const pRect = this.svg.getBoundingClientRect()
 
     if (isRectHorizontallyInsideOther(pRect, containerRect)) {
       return
@@ -170,8 +169,8 @@ export class ArrowPointer extends SVGBasePointer implements Animatable<ArrowAnim
 
   responsiveRotationUpdate({ containerRect }: RectsInfo) {
     this.transform = { ...this.transform, rotate: this.fromAngle }
-    this.applyTransform()
-    const pRect = this.pointerElement.getBoundingClientRect()
+    this.applyTransform(this.svg)
+    const pRect = this.svg.getBoundingClientRect()
 
     if (isRectHorizontallyInsideOther(pRect, containerRect)) {
       return

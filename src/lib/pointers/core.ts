@@ -154,7 +154,7 @@ export abstract class SVGBasePointer extends BasePointer implements PointItOutSV
     this.fillColor = opts.fillColor
   }
 
-  applyTransform() {
+  applyTransform(toWhat = this.pointerElement) {
     if (!this.transform) {
       return
     }
@@ -175,8 +175,7 @@ export abstract class SVGBasePointer extends BasePointer implements PointItOutSV
 
     if (this.transform.rotate) transformStr += `rotate(${this.transform.rotate}deg) `
 
-    if (this.transform.scale) transformStr += `scale(${this.transform.scale})`
-
-    this.pointerElement.style.transform = transformStr
+    if (this.transform.scale) transformStr += `scale(${this.transform.scale}) `
+    toWhat.style.transform = transformStr
   }
 }

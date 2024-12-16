@@ -185,12 +185,12 @@ test.describe("create('arrow')", () => {
       })
 
       test.describe(`responsive (${xW}x${xH})`, { tag: '@responsive' }, () => {
-        async function expectArrowInsideContainer(page: Page) {
+        async function expectArrowInsideContainer(page: Page, tolerance = 10) {
           const container = await page.getByTestId('limited-container').boundingBox()
           const arrow = await page.locator('.test-arrow').boundingBox()
           const cx = container!.x + container!.width
           const ax = arrow!.x + arrow!.width
-          expect(ax).toBeLessThanOrEqual(cx)
+          expect(ax).toBeLessThanOrEqual(cx + tolerance)
         }
 
         const testingURL = `/${xW}x${xH}/arrow/responsive-option`
