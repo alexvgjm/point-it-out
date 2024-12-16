@@ -64,14 +64,14 @@ export type ResponsiveArrowOptions =
     }
   | {
       type: 'scale'
-      minSize?: number
+      minScale?: number
     }
 
 export type ResponsiveArrowFields =
   | false
   | {
       type: 'scale'
-      minSize: number
+      minScale: number
     }
   | {
       type: 'rotate'

@@ -75,8 +75,8 @@ export class ArrowPointer extends SVGBasePointer implements Animatable<ArrowAnim
       this.responsive = opts.responsive as ResponsiveArrowFields & object
     } else if (typeof opts.responsive !== 'boolean') {
       this.responsive = { type: opts.responsive } as ResponsiveArrowFields & object
-      if (this.responsive.type == 'scale' && !this.responsive.minSize) {
-        this.responsive.minSize = 0.25
+      if (this.responsive.type == 'scale' && !this.responsive.minScale) {
+        this.responsive.minScale = 0.25
       }
     }
 
@@ -143,10 +143,10 @@ export class ArrowPointer extends SVGBasePointer implements Animatable<ArrowAnim
     const mod90 = this.fromAngle % 90
     const hAngle = Math.min(mod90, 90 - mod90)
     const percent = dx / (pRect.width * Math.cos((hAngle / 180) * Math.PI))
-    const config = this.responsive as { minSize: number }
+    const config = this.responsive as { minScale: number }
     this.transform = {
       ...this.transform,
-      scale: Math.max(config.minSize, this.size * (1 - percent)),
+      scale: Math.max(config.minScale, this.size * (1 - percent)),
       rotate: this.fromAngle
     }
   }
