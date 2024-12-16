@@ -19,9 +19,7 @@ let systemOptions: SystemOptions = {
   updateAfterLoad: true
 }
 
-if (typeof window !== 'undefined') {
-  config(systemOptions)
-}
+let initialized = false
 
 function removePointerFromCreated(pointer: PointItOutPointer) {
   created.delete(pointer)
@@ -42,7 +40,6 @@ export function config(newOptions: Partial<SystemOptions>) {
   if (systemOptions.updateAfterLoad) {
     window.addEventListener('load', onLoad)
   }
-
   return structuredClone(systemOptions)
 }
 
@@ -54,6 +51,14 @@ export function create<PointerName extends keyof PointerOptions>(
   pointerName: PointerName,
   options: PointerOptions[PointerName]
 ) {
+  if (!initialized) {
+    config(systemOptions)
+    initialized = true
+    if (systemOptions.updateAfterLoad && document.readyState == 'complete') {
+      onLoad()
+    }
+  }
+
   let createdPointer!: BasePointer
 
   // Deliberately using explicit if-casing instead mappings

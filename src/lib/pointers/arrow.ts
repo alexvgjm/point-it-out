@@ -116,8 +116,6 @@ export class ArrowPointer extends SVGBasePointer implements Animatable<ArrowAnim
     }
 
     this.applyTransform(this.svg)
-    const pRect = this.pointerElement.getBoundingClientRect()
-    console.log(pRect.width)
   }
 
   responsiveScaleUpdate({ containerRect }: RectsInfo) {
