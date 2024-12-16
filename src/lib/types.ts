@@ -1,4 +1,5 @@
-import type { ArrowOptions, RectOptions } from './pointers'
+import type { ArrowAnimation, RectAnimation } from './pointers'
+import type { Animatable } from './pointers/animations/animatable'
 
 export type NamedSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type Origin =
@@ -84,8 +85,8 @@ export interface ArrowOptions {
 }
 
 export interface PointerOptions {
-  rect: CommonOptions & SVGOptions & RectOptions
-  arrow: CommonOptions & SVGOptions & ArrowOptions
+  rect: CommonOptions & SVGOptions & RectOptions & Animatable<RectAnimation>
+  arrow: CommonOptions & SVGOptions & ArrowOptions & Animatable<ArrowAnimation>
 }
 
 export interface PIOPointerEvents {

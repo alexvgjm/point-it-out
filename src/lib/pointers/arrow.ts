@@ -1,23 +1,9 @@
 import { commonSVGOptionsDefaults, createParentSVG, createSVG, SVGBasePointer } from './core'
-import type {
-  NamedSize,
-  Origin,
-  PointerOptions,
-  ResponsiveArrowFields,
-  ResponsiveArrowOptions,
-  SVGOptions
-} from '../types'
+import type { ArrowOptions, PointerOptions, ResponsiveArrowFields, SVGOptions } from '../types'
 import { getRectsInfo, isRectHorizontallyInsideOther, type RectsInfo } from './utils'
 import { sizeNameToNumber, originToAngleMap } from '../values'
 import type { Animatable, AnimatableOptions } from './animations/animatable'
 import { prepareArrowAnimation } from './animations/arrow-animations'
-
-export interface ArrowOptions extends Animatable<ArrowAnimation> {
-  fromAngle?: number | Origin
-  distance?: number
-  size?: number | NamedSize
-  responsive?: ResponsiveArrowOptions
-}
 
 export type ArrowAnimation = 'pulse'
 
