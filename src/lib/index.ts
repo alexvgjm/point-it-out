@@ -1,1 +1,1 @@
-// Not used ATM
+export { create, update, config, clear } from './main'

@@ -1,38 +1,75 @@
-import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
-import type { PointerOptions, RectOptions, SVGOptions } from '../types'
+import { commonSVGOptionsDefaults, createParentSVG, createSVG, SVGBasePointer } from './core'
+import type { PointerOptions, SVGOptions } from '../types'
 import { getRectsInfo } from './utils'
+import { type Animatable, type AnimatableOptions } from './animations/animatable'
+import { prepareRectAnimation } from './animations/rect-animations'
+
+export interface RectOptions extends Animatable<RectAnimation> {
+  /** Space between stroke and content. Can be negative. Default: 0*/
+  padding?:
+    | number
+    | {
+        /** Horizontal gap (left and right) */
+        x?: number
+        /** Vertical gap (top and bottom) */
+        y?: number
+      }
+  round?:
+    | number
+    | string
+    | {
+        rx: number | string
+        ry: number | string
+      }
+}
+
+export type RectAnimation = 'pulse'
 
 const rectDefaults: Readonly<Required<SVGOptions & RectOptions>> = Object.freeze({
   ...commonSVGOptionsDefaults,
   fillColor: 'none',
   round: 0,
-  padding: { x: 0, y: 0 }
+  padding: { x: 0, y: 0 },
+  animate: false
 })
 
-export class RectPointer extends SVGBasePointer {
-  rectElm: SVGRectElement
+function parsePaddingProps(padding?: PointerOptions['rect']['padding']) {
+  if (!padding) {
+    return rectDefaults.padding as { x: number; y: number }
+  }
 
+  if (typeof padding == 'number') {
+    return { x: padding, y: padding }
+  }
+
+  return {
+    x: padding.x ?? 0,
+    y: padding.y ?? 0
+  }
+}
+
+export class RectPointer extends SVGBasePointer implements Animatable<RectAnimation> {
+  pointerElement: HTMLElement | SVGSVGElement
+
+  rectElm: SVGRectElement
   round: number | string | { rx: number | string; ry: number | string } = 0
   padding: { x: number; y: number }
+
+  animate: false | AnimatableOptions<RectAnimation> = false
 
   constructor(options: PointerOptions['rect']) {
     const opts = Object.freeze({ ...rectDefaults, ...options })
     super(opts)
 
     this.rectElm = createSVG('rect')
+    this.pointerElement = createParentSVG(opts)
     this.pointerElement.appendChild(this.rectElm)
     this.container.appendChild(this.pointerElement)
     this.round = options.round ?? rectDefaults.round
-
-    if (typeof opts.padding == 'number') {
-      this.padding = { x: opts.padding, y: opts.padding }
-    } else {
-      this.padding = {
-        x: opts.padding.x ?? 0,
-        y: opts.padding.y ?? 0
-      }
+    this.padding = parsePaddingProps(opts.padding)
+    if (opts.animate) {
+      prepareRectAnimation(this, opts.animate)
     }
-
     this.update()
   }
 

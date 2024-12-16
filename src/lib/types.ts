@@ -1,12 +1,4 @@
-// Why this file?
-//
-// Most minify + tree-shaking tools do not remove some documentation or
-// comments from source code. In fact, they add the comments in the generated
-// d.ts file but not remove it from some sources.
-//
-// In the other hand, this file can help us to centralize definitions and
-// to follow an interface-specification-driven design. Also this lighten the
-// implementation code separating type definitions and documentation.
+import type { ArrowOptions, RectOptions } from './pointers'
 
 export type NamedSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type Origin =
@@ -113,8 +105,8 @@ export interface PointItOutPointer {
   /** The element to point out. */
   target: HTMLElement
 
-  /** The created DOM element created by this pointer */
-  pointerElement: HTMLElement | SVGElement
+  /** The DOM element created by this pointer */
+  pointerElement: HTMLElement | SVGSVGElement
 
   /**
    * The parent element which the pointerElement is a direct child. Should be

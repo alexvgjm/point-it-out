@@ -36,9 +36,9 @@ const createSpecs = (pointerName: PointerName) => {
 
     describe('zIndex', () => {
       it(`sets de zIndex property`, async () => {
-        create(pointerName, { target: '.existing', zIndex: 1000 })
-        const created = document.querySelector('svg')!
-        expect(created.style.zIndex).equal('1000')
+        const created = create(pointerName, { target: '.existing', zIndex: 1000 })
+
+        expect(created.pointerElement.style.zIndex).equal('1000')
       })
     })
   })

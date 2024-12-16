@@ -1,7 +1,25 @@
-import { commonSVGOptionsDefaults, createSVG, SVGBasePointer } from './core'
-import type { ArrowOptions, PointerOptions, ResponsiveArrowFields, SVGOptions } from '../types'
+import { commonSVGOptionsDefaults, createParentSVG, createSVG, SVGBasePointer } from './core'
+import type {
+  NamedSize,
+  Origin,
+  PointerOptions,
+  ResponsiveArrowFields,
+  ResponsiveArrowOptions,
+  SVGOptions
+} from '../types'
 import { getRectsInfo, isRectHorizontallyInsideOther, type RectsInfo } from './utils'
-import { sizeNameToNumber, originToAngleMap } from '$lib/values'
+import { sizeNameToNumber, originToAngleMap } from '../values'
+import type { Animatable, AnimatableOptions } from './animations/animatable'
+import { prepareArrowAnimation } from './animations/arrow-animations'
+
+export interface ArrowOptions extends Animatable<ArrowAnimation> {
+  fromAngle?: number | Origin
+  distance?: number
+  size?: number | NamedSize
+  responsive?: ResponsiveArrowOptions
+}
+
+export type ArrowAnimation = 'pulse'
 
 /**
  * @param w Arrow width
@@ -25,15 +43,20 @@ const arrowDefaults: Readonly<Required<SVGOptions & ArrowOptions>> = Object.free
   fromAngle: 45,
   distance: 0,
   size: 1,
-  responsive: false
+  responsive: false,
+  animate: false
 })
 
-export class ArrowPointer extends SVGBasePointer {
+export class ArrowPointer extends SVGBasePointer implements Animatable<ArrowAnimation> {
+  pointerElement: HTMLElement | SVGSVGElement
   path: SVGPathElement
+  svg: SVGSVGElement
 
   fromAngle: number
   distance: number
   size: number
+
+  animate?: false | AnimatableOptions<'pulse'> = false
   responsive?: ResponsiveArrowFields
 
   constructor(options: PointerOptions['arrow']) {
@@ -42,7 +65,10 @@ export class ArrowPointer extends SVGBasePointer {
     const g = createSVG<SVGGElement>('g')
     this.path = createSVG<SVGPathElement>('path')
     g.appendChild(this.path)
-    this.pointerElement.appendChild(g)
+    this.pointerElement = createParentSVG(opts, true)
+    this.svg = this.pointerElement.querySelector('svg')!
+    this.svg.appendChild(g)
+
     this.container.appendChild(this.pointerElement)
 
     if (typeof opts.fromAngle === 'string') {
@@ -68,20 +94,24 @@ export class ArrowPointer extends SVGBasePointer {
       }
     }
 
-    this.pointerElement.style.fill = this.fillColor
-    this.pointerElement.style.stroke = this.strokeColor
-    this.pointerElement.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`
-
-    this.pointerElement.style.transformOrigin = 'center left'
+    this.svg.style.fill = this.fillColor
+    this.svg.style.stroke = this.strokeColor
+    this.svg.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`
+    this.svg.style.transformOrigin = 'center left'
     this.transform = {
       translate: { y: '-50%' },
       rotate: this.fromAngle,
       scale: this.size
     }
     this.applyTransform()
-    this.pointerElement.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
-    this.pointerElement.setAttribute('height', `${96 + this.strokeWidth}`)
+    this.svg.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
+    this.svg.setAttribute('height', `${96 + this.strokeWidth}`)
 
+    this.pointerElement.style.transformOrigin = 'top left'
+
+    if (opts.animate) {
+      prepareArrowAnimation(this, opts.animate)
+    }
     this.update()
   }
 

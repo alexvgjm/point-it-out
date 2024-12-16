@@ -4,8 +4,8 @@
 
 <h2>Test pages</h2>
 <ul class="test-pages-links">
-  <li><a href="/box/300x300"><span class="size">300x300</span></a></li>
-  <li><a href="/box/400x250"><span class="size">400x250</span></a></li>
+  <li><a href="/300x300"><span class="size">300x300</span></a></li>
+  <li><a href="/400x250"><span class="size">400x250</span></a></li>
 </ul>
 
 <section class="expected-index">
