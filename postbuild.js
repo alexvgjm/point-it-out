@@ -9,6 +9,7 @@ const npmFields = [
   'version',
   'type',
   'description',
+  'sideEffects',
   'homepage',
   'author',
   'keywords',
