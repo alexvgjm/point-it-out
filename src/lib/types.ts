@@ -35,7 +35,7 @@ export interface SVGOptions {
   fillColor?: string
 }
 
-export interface RectOptions extends CommonOptions, SVGOptions, Animatable<CommonAnimations> {
+export interface RectOptions extends CommonOptions, SVGOptions, Animatable {
   /** Space between stroke and content. Can be negative. Default: 0*/
   padding?:
     | number
@@ -62,7 +62,7 @@ export type ResponsiveConfigurationObject =
 
 export type ResponsiveOptions = false | ResponsiveMode | ResponsiveConfigurationObject
 
-export interface FreePointerOptions extends CommonOptions, Animatable<CommonAnimations> {
+export interface FreePointerOptions extends CommonOptions, Animatable {
   pointerElement: HTMLElement | SVGSVGElement | string
   fromAngle?: number | Origin
   distance?: number
@@ -80,8 +80,6 @@ export interface FreePointerOptions extends CommonOptions, Animatable<CommonAnim
  * - An animatable, receiving animate options.
  */
 export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> & SVGOptions
-
-export type CommonAnimations = 'pulse'
 
 export interface PointerOptions {
   rect: RectOptions

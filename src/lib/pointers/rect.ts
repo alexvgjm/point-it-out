@@ -5,10 +5,14 @@ import {
   createParentSVG,
   createSVG
 } from './core'
-import type { CommonAnimations, PointerOptions, SVGPointer } from '../types'
+import type { PointerOptions, SVGPointer } from '../types'
 import { getRectsInfo } from './utils'
-import { type Animatable, type AnimatableOptions } from './animations/animatable'
-import { prepareRectAnimation } from './animations/rect-animations'
+import {
+  prepareCommonAnimation,
+  type Animatable,
+  type AnimatableOptions,
+  type CommonAnimations
+} from './animations/animatable'
 
 const DEFAULT_RECT_OPTIONS: Readonly<Omit<PointerOptions['rect'], 'target'>> = Object.freeze({
   ...DEFAULT_COMMON_OPTIONS,
@@ -61,7 +65,7 @@ export class RectPointer extends BasePointer implements SVGPointer, Animatable<C
     this.fillColor = opts.fillColor
 
     if (opts.animate) {
-      prepareRectAnimation(this, opts.animate)
+      prepareCommonAnimation(this, opts.animate)
     }
     this.update()
   }
