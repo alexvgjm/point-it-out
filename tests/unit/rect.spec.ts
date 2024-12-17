@@ -15,7 +15,7 @@ describe("create('rect')", () => {
           animate: 'pulse'
         })
 
-        const styles = getComputedStyle(pointer.pointerElement)
+        const styles = getComputedStyle(pointer.rootElement)
         expect(styles.animation).includes('infinite')
         expect(styles.animation).includes('1s')
         expect(styles.animation).includes('alternate')

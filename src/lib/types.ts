@@ -1,16 +1,15 @@
-import type { ArrowAnimation, RectAnimation } from './pointers'
 import type { Animatable } from './pointers/animations/animatable'
 
 export type NamedSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type Origin =
   | 'right'
-  | 'top-right'
+  | 'top right'
   | 'top'
-  | 'top-left'
+  | 'top left'
   | 'left'
-  | 'bottom-left'
+  | 'bottom left'
   | 'bottom'
-  | 'bottom-right'
+  | 'bottom right'
 
 export interface SystemOptions {
   updateOnResize: boolean
@@ -36,7 +35,7 @@ export interface SVGOptions {
   fillColor?: string
 }
 
-export interface RectOptions {
+export interface RectOptions extends CommonOptions, SVGOptions, Animatable {
   /** Space between stroke and content. Can be negative. Default: 0*/
   padding?:
     | number
@@ -46,6 +45,7 @@ export interface RectOptions {
         /** Vertical gap (top and bottom) */
         y?: number
       }
+
   round?:
     | number
     | string
@@ -55,43 +55,42 @@ export interface RectOptions {
       }
 }
 
-export type ResponsiveArrowOptions =
-  | false
-  | 'rotate'
-  | 'scale'
-  | {
-      type: 'rotate'
-    }
-  | {
-      type: 'scale'
-      minScale?: number
-    }
+export type ResponsiveMode = 'rotate' | 'scale'
+export type ResponsiveConfigurationObject =
+  | { type: 'rotate' }
+  | { type: 'scale'; minScale?: number }
 
-export type ResponsiveArrowFields =
-  | false
-  | {
-      type: 'scale'
-      minScale: number
-    }
-  | {
-      type: 'rotate'
-    }
+export type ResponsiveOptions = false | ResponsiveMode | ResponsiveConfigurationObject
 
-export interface ArrowOptions {
+export interface FreePointerOptions extends CommonOptions, Animatable {
+  pointerElement: HTMLElement | SVGSVGElement | string
   fromAngle?: number | Origin
   distance?: number
   size?: number | NamedSize
-  responsive?: ResponsiveArrowOptions
+  responsive?: ResponsiveOptions
+  pointerTip?: Origin
 }
 
+/**
+ * Arrows are:
+ * - A pointer, receiving CommonOptions.
+ * - A SVGPointer, receiving SVGOptions.
+ * - A kind of Free Pointer but they don't need pointerElement as they create
+ * their own pointerElement (an SVG).
+ * - An animatable, receiving animate options.
+ */
+export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> & SVGOptions
+
 export interface PointerOptions {
-  rect: CommonOptions & SVGOptions & RectOptions & Animatable<RectAnimation>
-  arrow: CommonOptions & SVGOptions & ArrowOptions & Animatable<ArrowAnimation>
+  rect: RectOptions
+  arrow: ArrowPointerOptions
+  free: FreePointerOptions
 }
 
 export interface PIOPointerEvents {
   destroy: PointItOutPointer
 }
+
 export type PIOEventName = keyof PIOPointerEvents
 
 export type PointerName = keyof PointerOptions
@@ -104,17 +103,17 @@ export interface PointItOutPointer {
   destroyed: boolean
 
   /** The element to point out. */
-  target: HTMLElement
+  target: Element
 
-  /** The DOM element created by this pointer */
-  pointerElement: HTMLElement | SVGSVGElement
+  /** The root DOM element created by this pointer. */
+  rootElement: HTMLElement | SVGSVGElement
 
   /**
-   * The parent element which the pointerElement is a direct child. Should be
-   * non-static positioned in order to absolutely position the
-   * pointerElement in it.
+   * The parent element where the rootElement is a direct child. This element
+   * should have a non-static position to allow the rootElement to be positioned
+   * absolutely within it.
    */
-  container: HTMLElement
+  container: Element
 
   /**
    * Updates the pointer. Must be called if the target element changes its
@@ -136,7 +135,7 @@ export interface PointItOutPointer {
   on<E extends PIOEventName>(event: E, cb: (payload: PIOPointerEvents[E]) => void): void
 }
 
-export interface PointItOutSVGPointer extends PointItOutPointer {
+export interface SVGPointer extends PointItOutPointer {
   /** The width of the stroke to be applied to the SVG */
   strokeWidth: number
 

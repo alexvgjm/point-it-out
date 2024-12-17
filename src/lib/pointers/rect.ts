@@ -1,13 +1,22 @@
-import { commonSVGOptionsDefaults, createParentSVG, createSVG, SVGBasePointer } from './core'
-import type { PointerOptions, RectOptions, SVGOptions } from '../types'
+import {
+  BasePointer,
+  DEFAULT_COMMON_OPTIONS,
+  DEFAULT_SVG_OPTIONS,
+  createParentSVG,
+  createSVG
+} from './core'
+import type { PointerOptions, SVGPointer } from '../types'
 import { getRectsInfo } from './utils'
-import { type Animatable, type AnimatableOptions } from './animations/animatable'
-import { prepareRectAnimation } from './animations/rect-animations'
+import {
+  prepareCommonAnimation,
+  type Animatable,
+  type AnimatableOptions,
+  type CommonAnimations
+} from './animations/animatable'
 
-export type RectAnimation = 'pulse'
-
-const rectDefaults: Readonly<Required<SVGOptions & RectOptions>> = Object.freeze({
-  ...commonSVGOptionsDefaults,
+const DEFAULT_RECT_OPTIONS: Readonly<Omit<PointerOptions['rect'], 'target'>> = Object.freeze({
+  ...DEFAULT_COMMON_OPTIONS,
+  ...DEFAULT_SVG_OPTIONS,
   fillColor: 'none',
   round: 0,
   padding: { x: 0, y: 0 },
@@ -16,7 +25,7 @@ const rectDefaults: Readonly<Required<SVGOptions & RectOptions>> = Object.freeze
 
 function parsePaddingProps(padding?: PointerOptions['rect']['padding']) {
   if (!padding) {
-    return rectDefaults.padding as { x: number; y: number }
+    return DEFAULT_RECT_OPTIONS.padding as { x: number; y: number }
   }
 
   if (typeof padding == 'number') {
@@ -29,27 +38,34 @@ function parsePaddingProps(padding?: PointerOptions['rect']['padding']) {
   }
 }
 
-export class RectPointer extends SVGBasePointer implements Animatable<RectAnimation> {
-  pointerElement: HTMLElement | SVGSVGElement
+export class RectPointer extends BasePointer implements SVGPointer, Animatable<CommonAnimations> {
+  rootElement: HTMLElement | SVGSVGElement
 
   rectElm: SVGRectElement
   round: number | string | { rx: number | string; ry: number | string } = 0
   padding: { x: number; y: number }
+  animate: false | AnimatableOptions<CommonAnimations> = false
 
-  animate: false | AnimatableOptions<RectAnimation> = false
+  strokeWidth: number
+  strokeColor: string
+  fillColor: string
 
   constructor(options: PointerOptions['rect']) {
-    const opts = Object.freeze({ ...rectDefaults, ...options })
+    const opts = { ...DEFAULT_RECT_OPTIONS, ...options } as Required<PointerOptions['rect']>
     super(opts)
 
     this.rectElm = createSVG('rect')
-    this.pointerElement = createParentSVG(opts)
-    this.pointerElement.appendChild(this.rectElm)
-    this.container.appendChild(this.pointerElement)
-    this.round = options.round ?? rectDefaults.round
+    this.rootElement = createParentSVG(opts, true)
+    this.rootElement.appendChild(this.rectElm)
+    this.container.appendChild(this.rootElement)
+    this.round = opts.round
     this.padding = parsePaddingProps(opts.padding)
+    this.strokeWidth = opts.strokeWidth
+    this.strokeColor = opts.strokeColor
+    this.fillColor = opts.fillColor
+
     if (opts.animate) {
-      prepareRectAnimation(this, opts.animate)
+      prepareCommonAnimation(this, opts.animate)
     }
     this.update()
   }
@@ -62,10 +78,10 @@ export class RectPointer extends SVGBasePointer implements Animatable<RectAnimat
     const height = targetRect.height + strW * 2 + this.padding.y * 2
     const offset = Math.round(strW / 2)
 
-    this.pointerElement.style.left = targetLeft - strW - this.padding.x + 'px'
-    this.pointerElement.style.top = targetTop - strW - this.padding.y + 'px'
-    this.pointerElement.setAttribute('width', width.toString())
-    this.pointerElement.setAttribute('height', height.toString())
+    this.rootElement.style.left = targetLeft - strW - this.padding.x + 'px'
+    this.rootElement.style.top = targetTop - strW - this.padding.y + 'px'
+    this.rootElement.setAttribute('width', width.toString())
+    this.rootElement.setAttribute('height', height.toString())
 
     this.rectElm.setAttribute('x', `${offset}`)
     this.rectElm.setAttribute('y', `${offset}`)

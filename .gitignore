@@ -26,6 +26,8 @@ vite.config.ts.timestamp-*
 
 # Temps
 *-snapshots
+bkp
+bkp.*
 *.bkp.*
 *.config.ts.timestamp*
 /test-results/

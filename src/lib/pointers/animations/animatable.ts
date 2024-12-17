@@ -1,8 +1,9 @@
-export interface Animatable<T> {
-  animate?: false | T | AnimatableOptions<T>
+export type CommonAnimations = 'pulse'
+export interface Animatable<AnimationNames extends string = CommonAnimations> {
+  animate?: false | AnimationNames | AnimatableOptions<AnimationNames>
 }
 
-export interface AnimatableOptions<T> {
+export interface AnimatableOptions<T = CommonAnimations> {
   /** The animation name, one from all defined for the pointer type. */
   name: T
 
@@ -76,4 +77,30 @@ export function injectKeyframesIfNotExists(name: string, keyframesBody: { [key: 
   keyframe += ' }'
 
   sheet.innerHTML += keyframe
+}
+
+export const commonAnimationTextGenerator: {
+  [key in CommonAnimations]: AnimationTextGenerator<CommonAnimations>
+} = {
+  pulse: defaultAnimationTextGenerator
+}
+const commonAnimationKeyFrames: {
+  [key in CommonAnimations]: { [key: number]: string }
+} = {
+  pulse: {
+    0: `transform: scale(0.95);`,
+    100: `transform: scale(1.1);`
+  }
+}
+
+export function prepareCommonAnimation(
+  pointer: { rootElement: Element } & Animatable,
+  opts: AnimatableOptions<CommonAnimations> | CommonAnimations
+) {
+  const animProps = parseAnimateProps(opts)
+  pointer.animate = animProps
+  ;(pointer.rootElement as HTMLElement).style.animation =
+    commonAnimationTextGenerator[animProps.name](animProps)
+
+  injectKeyframesIfNotExists(animProps.name, commonAnimationKeyFrames[animProps.name])
 }
