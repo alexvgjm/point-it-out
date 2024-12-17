@@ -1,7 +1,7 @@
 import { test, test as it, expect, type Page } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
-import { originToAngleMap } from '$lib/values'
+import { originToAngle } from '$lib/values'
 import type { Origin } from '$lib/types'
 
 test.describe("create('arrow')", () => {
@@ -54,7 +54,7 @@ test.describe("create('arrow')", () => {
           })
         })
 
-        Object.entries(originToAngleMap).forEach(([angleString, angle]) => {
+        Object.entries(originToAngle).forEach(([angleString, angle]) => {
           it(`rotates the arrow in angle specified by origin string (${angleString})`, async ({
             page
           }, testInfo) => {

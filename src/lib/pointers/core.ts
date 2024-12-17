@@ -1,3 +1,4 @@
+import { originToAngle, sizeNameToNumber } from '$lib/values'
 import type {
   CommonOptions,
   PIOEventName,
@@ -5,30 +6,30 @@ import type {
   PointerName,
   PointItOutPointer,
   SVGOptions,
-  PointItOutSVGPointer,
-  VirtualTransforms
+  NamedSize,
+  Origin
 } from '../types'
 
 // FIXME: container: document.body
 // Default at constructor to avoid PlayWright environmnet
 // without document. Maybe should use a init function?
-export const commonOptionsDefaults: Partial<CommonOptions> = {
+export const DEFAULT_COMMON_OPTIONS: Partial<CommonOptions> = Object.freeze({
   className: undefined,
   zIndex: 9999
   // container: document.body
-}
+})
 
-export const commonSVGOptionsDefaults: Required<SVGOptions> = {
+export const DEFAULT_SVG_OPTIONS: Required<SVGOptions> = Object.freeze({
   strokeColor: 'darkorange',
   fillColor: 'orange',
   strokeWidth: 4
-}
+})
 
 export function createWrapper(options: CommonOptions) {
   const wrapper = document.createElement('div')
 
   const opts = {
-    ...commonOptionsDefaults,
+    ...DEFAULT_COMMON_OPTIONS,
     ...options
   }
 
@@ -42,27 +43,22 @@ export function createWrapper(options: CommonOptions) {
   return wrapper
 }
 
-export function createParentSVG(options: CommonOptions & SVGOptions, wrap: true): HTMLElement
-export function createParentSVG(options: CommonOptions & SVGOptions, wrap?: false): SVGSVGElement
-export function createParentSVG(options: CommonOptions & SVGOptions, wrap: boolean = false) {
+export function createParentSVG(options: CommonOptions & SVGOptions, isRoot = false) {
   const opts = {
-    ...commonOptionsDefaults,
-    ...commonSVGOptionsDefaults,
+    ...DEFAULT_COMMON_OPTIONS,
+    ...DEFAULT_SVG_OPTIONS,
     ...options
   } as Required<CommonOptions & SVGOptions>
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 
-  if (wrap) {
-    const wrapper = createWrapper(options)
-    wrapper.appendChild(svg)
-  } else {
+  if (isRoot) {
+    svg.style.position = 'absolute'
     if (opts.className) {
       svg.classList.add(opts.className)
     }
-    svg.style.zIndex = opts.zIndex!.toString()
-    svg.style.position = 'absolute'
   }
+  svg.style.zIndex = options.zIndex!.toString()
 
   svg.style.stroke = opts.strokeColor
   svg.style.fill = opts.fillColor
@@ -70,16 +66,21 @@ export function createParentSVG(options: CommonOptions & SVGOptions, wrap: boole
   svg.style.pointerEvents = 'none'
   svg.style.strokeLinejoin = 'round'
   svg.style.strokeLinecap = 'round'
-
   svg.style.strokeWidth = opts.strokeWidth + 'px'
-  return wrap ? svg.parentElement : svg
+  return svg
 }
 
 export function createSVG<T = SVGElement>(tag: string) {
   return document.createElementNS('http://www.w3.org/2000/svg', tag) as T
 }
+export function getAngle(value: number | Origin) {
+  return typeof value === 'number' ? value : originToAngle[value]
+}
+export function getSize(value: number | NamedSize) {
+  return typeof value === 'number' ? value : sizeNameToNumber[value]
+}
 
-function getTarget(selectorOrTarget: HTMLElement | string | null) {
+export function getTarget(selectorOrTarget: HTMLElement | SVGSVGElement | string | null) {
   if (typeof selectorOrTarget == 'string') {
     return document.querySelector(selectorOrTarget) as HTMLElement
   }
@@ -90,7 +91,7 @@ function getTarget(selectorOrTarget: HTMLElement | string | null) {
 export const availablePointers: Readonly<PointerName[]> = ['rect', 'arrow']
 
 export abstract class BasePointer implements PointItOutPointer {
-  abstract pointerElement: PointItOutPointer['pointerElement']
+  abstract rootElement: PointItOutPointer['rootElement']
 
   destroyed = false
   target
@@ -100,7 +101,7 @@ export abstract class BasePointer implements PointItOutPointer {
   }
 
   constructor(options: CommonOptions) {
-    const opts = { ...commonOptionsDefaults, ...options } as Required<CommonOptions>
+    const opts = { ...DEFAULT_COMMON_OPTIONS, ...options } as Required<CommonOptions>
     const container = getTarget(opts.container || document.body)
     if (!container) {
       throw new Error(`PointItOut: container is ${container}. Check container option.`)
@@ -123,7 +124,7 @@ export abstract class BasePointer implements PointItOutPointer {
     }
 
     this.destroyed = true
-    this.pointerElement.remove()
+    this.rootElement.remove()
     this.listeners.destroy?.forEach((cb) => cb(this))
   }
 
@@ -135,47 +136,7 @@ export abstract class BasePointer implements PointItOutPointer {
     if (this.listeners[event].includes(cb)) {
       return
     }
+
     this.listeners[event].push(cb)
-  }
-}
-
-export abstract class SVGBasePointer extends BasePointer implements PointItOutSVGPointer {
-  strokeWidth: number
-  strokeColor: string
-  fillColor: string
-
-  transform?: VirtualTransforms
-
-  constructor(options: CommonOptions & SVGOptions) {
-    super(options)
-    const opts = { ...commonSVGOptionsDefaults, ...options } as Required<SVGOptions>
-    this.strokeWidth = opts.strokeWidth
-    this.strokeColor = opts.strokeColor
-    this.fillColor = opts.fillColor
-  }
-
-  applyTransform(toWhat = this.pointerElement) {
-    if (!this.transform) {
-      return
-    }
-
-    let transformStr = ''
-
-    if (this.transform.translate) {
-      const { x, y } = this.transform.translate
-
-      if (x && y) {
-        transformStr += `translate(${x}, ${y}) `
-      } else if (this.transform.translate.x) {
-        transformStr += `translateX(${x}) `
-      } else if (this.transform.translate.y) {
-        transformStr += `translateY(${y}) `
-      }
-    }
-
-    if (this.transform.rotate) transformStr += `rotate(${this.transform.rotate}deg) `
-
-    if (this.transform.scale) transformStr += `scale(${this.transform.scale}) `
-    toWhat.style.transform = transformStr
   }
 }

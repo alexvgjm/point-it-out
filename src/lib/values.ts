@@ -1,13 +1,13 @@
 import type { Origin, NamedSize } from './types'
 
-export const originToAngleMap = Object.freeze({
-  'top-right': 315,
+export const originToAngle = Object.freeze({
+  'top right': 315,
   top: 270,
-  'top-left': 225,
+  'top left': 225,
   left: 180,
-  'bottom-left': 135,
+  'bottom left': 135,
   bottom: 90,
-  'bottom-right': 45,
+  'bottom right': 45,
   right: 0
 }) as Readonly<{ [key in Origin]: number }>
 

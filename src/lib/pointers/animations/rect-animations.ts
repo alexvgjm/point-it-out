@@ -1,4 +1,4 @@
-import type { RectAnimation, RectPointer } from '../rect'
+import type { RectPointer } from '../rect'
 import type { AnimatableOptions, AnimationTextGenerator } from './animatable'
 import {
   defaultAnimationTextGenerator,
@@ -28,7 +28,7 @@ export function prepareRectAnimation(
   const animProps = parseAnimateProps(opts)
   pointer.animate = animProps
 
-  pointer.pointerElement.style.animation = rectAnimationTextGenerator[animProps.name](animProps)
+  pointer.rootElement.style.animation = rectAnimationTextGenerator[animProps.name](animProps)
 
   injectKeyframesIfNotExists(animProps.name, rectAnimationKeyFrames[animProps.name])
 }

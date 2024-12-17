@@ -38,7 +38,7 @@ const createSpecs = (pointerName: PointerName) => {
       it(`sets de zIndex property`, async () => {
         const created = create(pointerName, { target: '.existing', zIndex: 1000 })
 
-        expect(created.pointerElement.style.zIndex).equal('1000')
+        expect(created.rootElement.style.zIndex).equal('1000')
       })
     })
   })
@@ -72,7 +72,7 @@ const createSpecs = (pointerName: PointerName) => {
   })
 }
 
-describe.each(availablePointers)(`create('$shapeName')`, createSpecs)
+describe.each(availablePointers)(`create('%s')`, createSpecs)
 
 describe('update()', () => {
   it('should call update of each created shape', () => {

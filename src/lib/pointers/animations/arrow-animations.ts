@@ -1,4 +1,4 @@
-import type { ArrowAnimation, ArrowPointer } from '../arrow'
+import type { ArrowPointer } from '../arrow'
 import type { AnimatableOptions, AnimationTextGenerator } from './animatable'
 import {
   defaultAnimationTextGenerator,
@@ -28,7 +28,7 @@ export function prepareArrowAnimation(
   const animProps = parseAnimateProps(opts)
   pointer.animate = animProps
 
-  pointer.pointerElement.style.animation = arrowAnimationTextGenerator[animProps.name](animProps)
+  pointer.rootElement.style.animation = arrowAnimationTextGenerator[animProps.name](animProps)
 
   injectKeyframesIfNotExists(animProps.name, arrowAnimationKeyFrames[animProps.name])
 }
