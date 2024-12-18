@@ -1,11 +1,6 @@
 import { DEFAULT_SVG_OPTIONS, createParentSVG, createSVG, DEFAULT_COMMON_OPTIONS } from './core'
 import type { ArrowPointerOptions, PointerOptions, SVGPointer } from '../types'
-import {
-  prepareCommonAnimation,
-  type Animatable,
-  type AnimatableOptions,
-  type CommonAnimations
-} from './animations/animatable'
+import { prepareAnimation, type AnimatableOptions, type Animatable } from './animations/animatable'
 import { DEFAULT_FREE_POINTER_OPTIONS, FreePointer } from './free-pointer'
 import { applyVirtualTransform } from './utils'
 
@@ -32,7 +27,7 @@ const DEFAULT_ARROW_OPTIONS: Readonly<Omit<ArrowPointerOptions, 'target'>> = Obj
   strokeWidth: 0
 })
 
-export class ArrowPointer extends FreePointer implements SVGPointer, Animatable<CommonAnimations> {
+export class ArrowPointer extends FreePointer implements SVGPointer, Animatable {
   path: SVGPathElement
   strokeWidth: number
   strokeColor: string
@@ -80,7 +75,7 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable<
     this.svg.setAttribute('height', `${96 + this.strokeWidth}`)
 
     if (opts.animate) {
-      prepareCommonAnimation(this, opts.animate)
+      prepareAnimation(this, opts.animate)
     }
 
     applyVirtualTransform(this.transform!, this.pointerElement)

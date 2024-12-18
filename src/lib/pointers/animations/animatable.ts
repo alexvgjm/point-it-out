@@ -1,11 +1,11 @@
 export type CommonAnimations = 'pulse'
-export interface Animatable<AnimationNames extends string = CommonAnimations> {
-  animate?: false | AnimationNames | AnimatableOptions<AnimationNames>
+export interface Animatable<AnimName extends string = CommonAnimations> {
+  animate?: false | AnimName | AnimatableOptions<AnimName>
 }
 
-export interface AnimatableOptions<T = CommonAnimations> {
+export interface AnimatableOptions<AnimName = CommonAnimations> {
   /** The animation name, one from all defined for the pointer type. */
-  name: T
+  name: AnimName
 
   /**
    * How many times animation should be repeated
@@ -30,20 +30,6 @@ export const animationDefaults: Partial<AnimatableOptions<unknown>> = {
   direction: 'alternate',
   duration: 1,
   repeat: 'infinite'
-}
-
-export function parseAnimateProps<T>(options: T | AnimatableOptions<T>) {
-  if (typeof options == 'object') {
-    return {
-      ...animationDefaults,
-      ...options
-    }
-  }
-
-  return {
-    ...animationDefaults,
-    name: options
-  }
 }
 
 export type AnimationTextGenerator<T> = (opts: AnimatableOptions<T>) => string
@@ -79,11 +65,6 @@ export function injectKeyframesIfNotExists(name: string, keyframesBody: { [key: 
   sheet.innerHTML += keyframe
 }
 
-export const commonAnimationTextGenerator: {
-  [key in CommonAnimations]: AnimationTextGenerator<CommonAnimations>
-} = {
-  pulse: defaultAnimationTextGenerator
-}
 const commonAnimationKeyFrames: {
   [key in CommonAnimations]: { [key: number]: string }
 } = {
@@ -93,14 +74,25 @@ const commonAnimationKeyFrames: {
   }
 }
 
-export function prepareCommonAnimation(
-  pointer: { rootElement: Element } & Animatable,
-  opts: AnimatableOptions<CommonAnimations> | CommonAnimations
-) {
-  const animProps = parseAnimateProps(opts)
-  pointer.animate = animProps
-  ;(pointer.rootElement as HTMLElement).style.animation =
-    commonAnimationTextGenerator[animProps.name](animProps)
+function isCommonAnimation(name: string): name is keyof typeof commonAnimationKeyFrames {
+  return name in commonAnimationKeyFrames
+}
 
-  injectKeyframesIfNotExists(animProps.name, commonAnimationKeyFrames[animProps.name])
+export function prepareAnimation<AnimName extends string = CommonAnimations>(
+  pointer: { rootElement: Element } & Animatable,
+  opts: AnimatableOptions<AnimName> | AnimName
+) {
+  if (typeof opts == 'string') {
+    opts = {
+      name: opts,
+      ...animationDefaults
+    } as AnimatableOptions<AnimName>
+  }
+
+  const elm = pointer.rootElement as HTMLElement
+  elm.style.animation = defaultAnimationTextGenerator(opts)
+
+  if (isCommonAnimation(opts.name)) {
+    injectKeyframesIfNotExists(opts.name, commonAnimationKeyFrames[opts.name])
+  }
 }

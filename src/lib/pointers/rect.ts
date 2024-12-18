@@ -8,7 +8,7 @@ import {
 import type { PointerOptions, SVGPointer } from '../types'
 import { getRectsInfo } from './utils'
 import {
-  prepareCommonAnimation,
+  prepareAnimation,
   type Animatable,
   type AnimatableOptions,
   type CommonAnimations
@@ -38,7 +38,7 @@ function parsePaddingProps(padding?: PointerOptions['rect']['padding']) {
   }
 }
 
-export class RectPointer extends BasePointer implements SVGPointer, Animatable<CommonAnimations> {
+export class RectPointer extends BasePointer implements SVGPointer, Animatable {
   rootElement: HTMLElement | SVGSVGElement
 
   rectElm: SVGRectElement
@@ -65,8 +65,9 @@ export class RectPointer extends BasePointer implements SVGPointer, Animatable<C
     this.fillColor = opts.fillColor
 
     if (opts.animate) {
-      prepareCommonAnimation(this, opts.animate)
+      prepareAnimation(this, opts.animate)
     }
+
     this.update()
   }
 
