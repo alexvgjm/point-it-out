@@ -5,6 +5,7 @@ import { RectPointer } from './pointers/rect'
 import { BasePointer } from './pointers/core'
 import type { PointerOptions, PointItOutPointer, SystemOptions } from './types'
 import { ArrowPointer } from './pointers/arrow'
+import { FreePointer } from './pointers/free-pointer'
 
 const created: Set<PointItOutPointer> = new Set()
 const onResize = () => {
@@ -66,6 +67,8 @@ export function create<PointerName extends keyof PointerOptions>(
     createdPointer = new RectPointer(options)
   } else if (pointerName == 'arrow') {
     createdPointer = new ArrowPointer(options)
+  } else if (pointerName == 'free') {
+    createdPointer = new FreePointer(options as PointerOptions['free'])
   }
 
   createdPointer.on('destroy', removePointerFromCreated)
