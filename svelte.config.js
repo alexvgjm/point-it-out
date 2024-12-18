@@ -14,7 +14,8 @@ let config = {
       $comps: './src/doc-components',
       $lib: './src/lib',
       $stores: './src/stores',
-      $src: './src'
+      $src: './src',
+      $assets: './src/assets'
     }
   }
 }
