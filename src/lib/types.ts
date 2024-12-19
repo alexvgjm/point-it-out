@@ -68,7 +68,7 @@ export interface FreePointerOptions extends CommonOptions, Animatable {
   distance?: number
   size?: number | NamedSize
   responsive?: ResponsiveOptions
-  pointerTip?: Origin
+  transformOrigin?: Origin | { x: number | string; y: number | string }
 }
 
 /**

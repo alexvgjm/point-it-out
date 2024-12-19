@@ -23,7 +23,8 @@
       {size}
       pointerName="free"
       pointerOptions={{
-        pointerElement: p1
+        pointerElement: p1,
+        distance: 100
       }}
     />
   </section>

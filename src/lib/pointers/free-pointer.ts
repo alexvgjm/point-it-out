@@ -79,6 +79,7 @@ export class FreePointer extends BasePointer {
     this.distance = opts.distance
 
     this.pointerElement.style.paddingLeft = `${this.distance}px`
+    this.pointerElement.style.boxSizing = 'content-box'
     this.pointerElement.style.overflow = 'visible'
 
     this.transform = {
