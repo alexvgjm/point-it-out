@@ -26,7 +26,6 @@
   let p: PointItOutPointer
 
   onMount(() => {
-    console.log(pointerOptions)
     if (browser) {
       p = create(pointerName, {
         ...pointerOptions,

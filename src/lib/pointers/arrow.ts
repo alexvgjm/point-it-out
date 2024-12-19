@@ -11,7 +11,7 @@ import { applyVirtualTransform } from './utils'
  * @param dist distance
  * @returns the d string
  */
-function createArrowDPathAttribute(w: number, l: number, strw: number, dist: number) {
+function createArrowDPathAttribute(w: number, l: number, strw: number, dist = 0) {
   // Destroying readability here is justified. The code of D attribute is
   // difficult to compress by gzip and can easily grow.
   // pretier-ignore
@@ -65,7 +65,7 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
     g.appendChild(this.path)
     this.svg.appendChild(g)
 
-    this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth, this.distance))
+    this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth))
 
     this.svg.style.transformOrigin = 'left'
     this.svg.style.fill = this.fillColor
