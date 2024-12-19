@@ -78,6 +78,9 @@ export class FreePointer extends BasePointer {
     this.fromAngle = getAngle(opts.fromAngle)
     this.distance = opts.distance
 
+    this.pointerElement.style.paddingLeft = `${this.distance}px`
+    this.pointerElement.style.overflow = 'visible'
+
     this.transform = {
       scale: this.size,
       rotate: this.fromAngle
