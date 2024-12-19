@@ -2,7 +2,7 @@ import { test, test as it, expect, type Page } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
 import { originToAngle } from '$lib/values'
-import type { Origin } from '$lib/types'
+import type { NamedOrigin } from '$lib/types'
 
 test.describe("create('arrow')", () => {
   const testsTargets = [{ xW: 300, xH: 300 }]
@@ -66,7 +66,7 @@ test.describe("create('arrow')", () => {
                   ({ angleString }) => {
                     pio.create('arrow', {
                       target: `.test-box`,
-                      fromAngle: angleString as Origin
+                      fromAngle: angleString as NamedOrigin
                     })
                   },
                   { angleString }

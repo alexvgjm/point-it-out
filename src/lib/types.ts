@@ -1,15 +1,21 @@
 import type { Animatable } from './pointers/animations/animatable'
 
 export type NamedSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
-export type Origin =
+export type NamedOrigin =
   | 'right'
-  | 'top right'
+  | 'right top'
   | 'top'
-  | 'top left'
+  | 'left top'
   | 'left'
-  | 'bottom left'
+  | 'left bottom'
   | 'bottom'
-  | 'bottom right'
+  | 'right bottom'
+
+export type Origin = `${Percent | OriginX} ${Percent | OriginY}`
+
+export type OriginX = 'left' | 'right' | 'center'
+export type OriginY = 'top' | 'bottom' | 'center'
+export type Percent = `${number}%`
 
 export interface SystemOptions {
   updateOnResize: boolean
@@ -62,13 +68,29 @@ export type ResponsiveConfigurationObject =
 
 export type ResponsiveOptions = false | ResponsiveMode | ResponsiveConfigurationObject
 
+export type TransformOrigin = {
+  x: Percent | OriginX
+  y: Percent | OriginY
+}
+export type TransformOriginOption =
+  | NamedOrigin
+  | {
+      x: number | Percent | OriginX
+      y: number | Percent | OriginY
+    }
+
 export interface FreePointerOptions extends CommonOptions, Animatable {
   pointerElement: HTMLElement | SVGSVGElement | string
-  fromAngle?: number | Origin
+  fromAngle?: number | NamedOrigin
   distance?: number
   size?: number | NamedSize
   responsive?: ResponsiveOptions
-  transformOrigin?: Origin | { x: number | string; y: number | string }
+  transformOrigin?:
+    | NamedOrigin
+    | {
+        x: number | Percent | OriginX
+        y: number | Percent | OriginY
+      }
 }
 
 /**

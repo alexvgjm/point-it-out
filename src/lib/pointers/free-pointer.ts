@@ -1,15 +1,32 @@
 import type {
   FreePointerOptions,
+  Origin,
+  OriginX,
+  OriginY,
+  Percent,
   PointerOptions,
   ResponsiveConfigurationObject,
   ResponsiveMode,
   VirtualTransforms
 } from '$lib/types'
+import {
+  convertFromPercentToUnitSpace,
+  namedXToStringPercent,
+  namedYToStringPercent
+} from '$lib/values'
 import type { AnimatableOptions } from './animations/animatable'
-import { BasePointer, createWrapper, getAngle, getSize, getTarget } from './core'
+import {
+  BasePointer,
+  createWrapper,
+  getAngle,
+  getSize,
+  getTarget,
+  getTransformOrigin
+} from './core'
 import {
   applyVirtualTransform,
   getRectsInfo,
+  isPercent,
   isRectHorizontallyInsideOther,
   type RectsInfo
 } from './utils'
@@ -29,10 +46,21 @@ export const DEFAULT_FREE_POINTER_OPTIONS: Readonly<
   size: 1,
   responsive: false,
   animate: false,
-  pointerTip: 'top left'
+  transformOrigin: 'left top'
 })
 
 export class FreePointer extends BasePointer {
+  /**
+   * Applied depending on transformOrigin to rectify the a fromAngle value
+   * in a way that fromAngle: 0 always mean looking from right to left
+   */
+  private baseAngle = 0
+
+  private get angle() {
+    console.log(this.fromAngle, this.baseAngle, this.fromAngle + this.baseAngle)
+    return this.fromAngle + this.baseAngle
+  }
+
   rootElement: HTMLElement | SVGSVGElement
 
   /**
@@ -50,6 +78,8 @@ export class FreePointer extends BasePointer {
    * the wrapper rootElement not using this transform.
    */
   transform?: VirtualTransforms
+
+  _transformOrigin: Origin
 
   size: number
   fromAngle: number
@@ -69,8 +99,9 @@ export class FreePointer extends BasePointer {
       )
     }
 
+    this._transformOrigin = getTransformOrigin(opts.transformOrigin)
     this.rootElement = createWrapper(opts)
-    this.rootElement.style.transformOrigin = 'top left'
+    this.pointerElement.style.transformOrigin = this._transformOrigin
     this.rootElement.appendChild(this.pointerElement)
     this.container.appendChild(this.rootElement)
 
@@ -78,13 +109,14 @@ export class FreePointer extends BasePointer {
     this.fromAngle = getAngle(opts.fromAngle)
     this.distance = opts.distance
 
-    this.pointerElement.style.paddingLeft = `${this.distance}px`
     this.pointerElement.style.boxSizing = 'content-box'
     this.pointerElement.style.overflow = 'visible'
 
+    this.calculateBaseAngle()
+
     this.transform = {
       scale: this.size,
-      rotate: this.fromAngle
+      rotate: this.angle
     }
 
     if (!opts.responsive) {
@@ -117,14 +149,39 @@ export class FreePointer extends BasePointer {
       }
     }
 
+    this.transform = {
+      ...this.transform,
+      translate: {
+        y: this.transform?.translate?.y ?? '0',
+        x: this.distance + 'px'
+      }
+    }
     applyVirtualTransform(this.transform!, this.pointerElement)
+  }
+
+  private calculateBaseAngle() {
+    let [xPer, yPer] = this._transformOrigin.split(' ') as [OriginX | Percent, OriginY | Percent]
+
+    if (!isPercent(xPer)) {
+      xPer = namedXToStringPercent[xPer]
+    }
+    if (!isPercent(yPer)) {
+      yPer = namedYToStringPercent[yPer]
+    }
+
+    const x = convertFromPercentToUnitSpace(xPer)
+    const y = convertFromPercentToUnitSpace(yPer)
+
+    // Base on origin, determine how much angle to sub or add to adjust so
+    // So fromAngle: 0 always means looking to the left from the right
+    this.baseAngle = (90 + (Math.atan2(x, y) * 180) / Math.PI) % 360
   }
 
   responsiveScaleUpdate({ containerRect }: RectsInfo) {
     this.transform = {
       ...this.transform,
       scale: this.size,
-      rotate: this.fromAngle
+      rotate: this.angle
     }
 
     applyVirtualTransform(this.transform, this.pointerElement)
@@ -143,19 +200,19 @@ export class FreePointer extends BasePointer {
       dx += containerRect.left - pRect.left
     }
 
-    const mod90 = this.fromAngle % 90
+    const mod90 = this.angle % 90
     const hAngle = Math.min(mod90, 90 - mod90)
     const percent = dx / (pRect.width * Math.cos((hAngle / 180) * Math.PI))
     const config = this.responsive as { minScale: number }
     this.transform = {
       ...this.transform,
       scale: Math.max(config.minScale, this.size * (1 - percent)),
-      rotate: this.fromAngle
+      rotate: this.angle
     }
   }
 
   responsiveRotationUpdate({ containerRect }: RectsInfo) {
-    this.transform = { ...this.transform, rotate: this.fromAngle }
+    this.transform = { ...this.transform, rotate: this.angle }
     applyVirtualTransform(this.transform, this.pointerElement)
     const pRect = this.pointerElement.getBoundingClientRect()
 
@@ -163,8 +220,8 @@ export class FreePointer extends BasePointer {
       return
     }
 
-    const fromTop = this.fromAngle < 0 || this.fromAngle >= 180
-    const fromLeft = this.fromAngle > 90 && this.fromAngle <= 270
+    const fromTop = this.angle < 0 || this.angle >= 180
+    const fromLeft = this.angle > 90 && this.angle <= 270
     const dx = fromLeft ? containerRect.left - pRect.left : pRect.right - containerRect.right
 
     let excessFactor = 1 - dx / (containerRect.width / 2)
@@ -177,18 +234,18 @@ export class FreePointer extends BasePointer {
 
     if (fromLeft) {
       if (fromTop) {
-        rotate = Math.min(rotate, 270 - this.fromAngle)
+        rotate = Math.min(rotate, 270 - this.angle)
       } else {
-        rotate = Math.max(rotate, 90 - this.fromAngle)
+        rotate = Math.max(rotate, 90 - this.angle)
       }
     } else {
       if (fromTop) {
-        rotate = Math.max(rotate, 270 - this.fromAngle)
+        rotate = Math.max(rotate, 270 - this.angle)
       } else {
-        rotate = Math.min(rotate, 90 - this.fromAngle)
+        rotate = Math.min(rotate, 90 - this.angle)
       }
     }
 
-    this.transform = { ...this.transform, rotate: this.fromAngle + rotate }
+    this.transform = { ...this.transform, rotate: this.angle + rotate }
   }
 }

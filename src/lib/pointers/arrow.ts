@@ -67,7 +67,7 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
 
     this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth))
 
-    this.svg.style.transformOrigin = 'left'
+    this._transformOrigin = 'left center'
     this.svg.style.fill = this.fillColor
     this.svg.style.stroke = this.strokeColor
     this.svg.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`

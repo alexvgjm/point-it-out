@@ -18,13 +18,13 @@
 <section class="examples">
   <section class="examples__section">
     <h1>pointerElement (required)</h1>
-    <p>Requires pointerElement</p>
     <Example
       {size}
       pointerName="free"
       pointerOptions={{
         pointerElement: p1,
-        distance: 100
+        distance: 0, // TODO: fix distance
+        transformOrigin: 'left top'
       }}
     />
   </section>

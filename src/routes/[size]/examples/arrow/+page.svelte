@@ -21,8 +21,8 @@
       <Example
         {size}
         pointerName="arrow"
-        pointerOptions={{ fromAngle: 'bottom left', distance: 20 }}
-        inBoxText="'bottom left'"
+        pointerOptions={{ fromAngle: 'left bottom', distance: 20 }}
+        inBoxText="'left bottom'"
       />
       <Example
         {size}
@@ -44,6 +44,30 @@
       <Example {size} pointerName="arrow" pointerOptions={{ distance: 20 }} inBoxText="20" />
       <Example {size} pointerName="arrow" pointerOptions={{ distance: 50 }} inBoxText="50" />
       <Example {size} pointerName="arrow" pointerOptions={{ distance: 80 }} inBoxText="80" />
+    </div>
+  </section>
+
+  <section class="examples__section">
+    <h1>Size</h1>
+    <div class="examples__list">
+      <Example
+        {size}
+        pointerName="arrow"
+        pointerOptions={{ distance: 20, size: 'xs' }}
+        inBoxText="xs"
+      />
+      <Example
+        {size}
+        pointerName="arrow"
+        pointerOptions={{ distance: 20, size: 1 }}
+        inBoxText="1"
+      />
+      <Example
+        {size}
+        pointerName="arrow"
+        pointerOptions={{ distance: 20, size: 'lg' }}
+        inBoxText="lg"
+      />
     </div>
   </section>
 

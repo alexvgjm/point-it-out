@@ -1,4 +1,4 @@
-import type { VirtualTransforms } from '$lib/types'
+import type { Percent, VirtualTransforms } from '$lib/types'
 
 export type RectsInfo = {
   targetRect: DOMRect
@@ -40,20 +40,28 @@ export function isRectHorizontallyInsideOther(target: DOMRect, container: DOMRec
 export function applyVirtualTransform(transform: VirtualTransforms, target: Element) {
   let transformStr = ''
 
+  if (transform.scale !== undefined) transformStr += `scale(${transform.scale}) `
+
   if (transform.translate) {
     const { x, y } = transform.translate
 
-    if (x && y) {
+    if (x !== undefined && y !== undefined) {
       transformStr += `translate(${x}, ${y}) `
-    } else if (transform.translate.x) {
+    } else if (x !== undefined) {
       transformStr += `translateX(${x}) `
-    } else if (transform.translate.y) {
+    } else if (y !== undefined) {
       transformStr += `translateY(${y}) `
     }
   }
 
-  if (transform.rotate) transformStr += `rotate(${transform.rotate}deg) `
+  if (transform.rotate !== undefined) {
+    transformStr += `rotate(${transform.rotate}deg) `
+  }
 
-  if (transform.scale) transformStr += `scale(${transform.scale}) `
+  console.log(transform)
   ;(target as HTMLElement).style.transform = transformStr
+}
+
+export function isPercent(value: string): value is Percent {
+  return value.endsWith('%')
 }
