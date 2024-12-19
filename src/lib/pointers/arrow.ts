@@ -11,11 +11,11 @@ import { applyVirtualTransform } from './utils'
  * @param dist distance
  * @returns the d string
  */
-function createArrowDPathAttribute(w: number, l: number, strw: number, dist = 0) {
+function createArrowDPathAttribute(w: number, l: number, strw: number) {
   // Destroying readability here is justified. The code of D attribute is
   // difficult to compress by gzip and can easily grow.
   // pretier-ignore
-  const atr = `M${dist + strw / 2} ${w / 2 + strw / 2} L${dist + l / 2 + strw / 2} ${w + strw / 2} l0 -${w / 3} l${l / 2} 0 l0 -${w / 3} l-${l / 2} 0 l0 -${w / 3} Z`
+  const atr = `M${strw / 2} ${w / 2 + strw / 2} L${l / 2 + strw / 2} ${w + strw / 2} l0 -${w / 3} l${l / 2} 0 l0 -${w / 3} l-${l / 2} 0 l0 -${w / 3} Z`
 
   return atr
 }
