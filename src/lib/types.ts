@@ -1,6 +1,6 @@
 import type { Animatable } from './pointers/animations/animatable'
 
-export type NamedSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+export type NamedScale = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type NamedOrigin =
   | 'right'
   | 'right top'
@@ -81,9 +81,13 @@ export type TransformOriginOption =
 
 export interface FreePointerOptions extends CommonOptions, Animatable {
   pointerElement: HTMLElement | SVGSVGElement | string
+
+  /** From where the pointer points to target. */
   fromAngle?: number | NamedOrigin
+  /** How mucho distance between pointer and target's center */
   distance?: number
-  size?: number | NamedSize
+
+  scale?: number | NamedScale
   responsive?: ResponsiveOptions
   transformOrigin?:
     | NamedOrigin

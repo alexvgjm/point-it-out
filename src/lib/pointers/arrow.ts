@@ -24,7 +24,8 @@ const DEFAULT_ARROW_OPTIONS: Readonly<Omit<ArrowPointerOptions, 'target'>> = Obj
   ...DEFAULT_COMMON_OPTIONS,
   ...DEFAULT_SVG_OPTIONS,
   ...DEFAULT_FREE_POINTER_OPTIONS,
-  strokeWidth: 0
+  strokeWidth: 0,
+  transformOrigin: 'left'
 })
 
 export class ArrowPointer extends FreePointer implements SVGPointer, Animatable {
@@ -44,6 +45,16 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
     const opts = { ...DEFAULT_ARROW_OPTIONS, ...options } as Required<PointerOptions['arrow']>
 
     const svg = createParentSVG(opts)
+    svg.style.fill = opts.fillColor
+    svg.style.stroke = opts.strokeColor
+    svg.style.strokeWidth = `${opts.strokeWidth == 0 ? 'none' : opts.strokeWidth}`
+    svg.setAttribute('width', `${128 + opts.strokeWidth + opts.distance}`)
+    svg.setAttribute('height', `${96 + opts.strokeWidth}`)
+    const path = createSVG<SVGPathElement>('path')
+    const g = createSVG<SVGGElement>('g')
+    path.setAttribute('d', createArrowDPathAttribute(96, 128, opts.strokeWidth))
+    g.appendChild(path)
+    svg.appendChild(g)
 
     super({
       ...opts,
@@ -55,24 +66,9 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
     this.strokeColor = opts.strokeColor
     this.svg = svg
 
-    this.transform = {
-      ...this.transform,
-      translate: { y: '-50%' }
-    }
-
-    const g = createSVG<SVGGElement>('g')
-    this.path = createSVG<SVGPathElement>('path')
-    g.appendChild(this.path)
-    this.svg.appendChild(g)
-
-    this.path.setAttribute('d', createArrowDPathAttribute(96, 128, this.strokeWidth))
+    this.path = path
 
     this._transformOrigin = 'left center'
-    this.svg.style.fill = this.fillColor
-    this.svg.style.stroke = this.strokeColor
-    this.svg.style.strokeWidth = `${this.strokeWidth == 0 ? 'none' : this.strokeWidth}`
-    this.svg.setAttribute('width', `${128 + this.strokeWidth + this.distance}`)
-    this.svg.setAttribute('height', `${96 + this.strokeWidth}`)
 
     if (opts.animate) {
       prepareAnimation(this, opts.animate)

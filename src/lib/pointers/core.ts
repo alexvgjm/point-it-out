@@ -6,7 +6,7 @@ import type {
   PointerName,
   PointItOutPointer,
   SVGOptions,
-  NamedSize,
+  NamedScale,
   NamedOrigin,
   TransformOriginOption,
   Origin,
@@ -81,7 +81,7 @@ export function createSVG<T = SVGElement>(tag: string) {
 export function getAngle(value: number | NamedOrigin) {
   return typeof value === 'number' ? value : originToAngle[value]
 }
-export function getSize(value: number | NamedSize) {
+export function getSize(value: number | NamedScale) {
   return typeof value === 'number' ? value : sizeNameToNumber[value]
 }
 

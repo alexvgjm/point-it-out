@@ -1,4 +1,5 @@
-import type { NamedOrigin, NamedSize, Origin, OriginX, OriginY, Percent } from './types'
+import { isPercent } from './pointers/utils'
+import type { NamedOrigin, NamedScale, Origin, OriginX, OriginY, Percent } from './types'
 
 export const originToAngle = Object.freeze({
   'right top': 315,
@@ -18,7 +19,7 @@ export const sizeNameToNumber = Object.freeze({
   lg: 1.25,
   xl: 2,
   xxl: 3
-}) as Readonly<{ [key in NamedSize]: number }>
+}) as Readonly<{ [key in NamedScale]: number }>
 
 export const namedOriginToComponents = Object.freeze<{
   [key in NamedOrigin]: Origin
@@ -59,4 +60,39 @@ export function convertFromPercentToUnitSpace(percent: Percent | number) {
   }
 
   return (p / 100) * 2 - 1
+}
+
+export function percentNumber(percent: Percent) {
+  return +percent.substring(0, percent.length - 1)
+}
+
+export function getAsPercentsNumbers(coords: Origin) {
+  const { x, y } = getAsPercents(coords)
+  return {
+    x: percentNumber(x),
+    y: percentNumber(y)
+  }
+}
+
+export function getAsPercents(coords: Origin): { x: Percent; y: Percent } {
+  let [x, y] = coords.split(' ') as [OriginX | Percent, OriginY | Percent]
+
+  if (!isPercent(x)) {
+    x = namedXToStringPercent[x]
+  }
+  if (!isPercent(y)) {
+    y = namedYToStringPercent[y]
+  }
+
+  return { x, y }
+}
+
+export function getUnitSpaceCoords(coords: Origin) {
+  const { x, y } = getAsPercents(coords)
+  console.log(coords, x, y)
+
+  return {
+    x: convertFromPercentToUnitSpace(x),
+    y: convertFromPercentToUnitSpace(y)
+  }
 }

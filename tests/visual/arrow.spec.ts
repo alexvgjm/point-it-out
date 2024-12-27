@@ -171,10 +171,10 @@ test.describe("create('arrow')", () => {
                   ({ sizeName }) => {
                     pio.create('arrow', {
                       target: `.test-box`,
-                      size: sizeName
+                      scale: sizeName
                     })
                   },
-                  { sizeName: sizeName as pio.NamedSize }
+                  { sizeName: sizeName as pio.NamedScale }
                 )
               },
               pwPage: page,
@@ -203,7 +203,7 @@ test.describe("create('arrow')", () => {
               className: 'test-arrow',
               container: '.limited-container',
               responsive: 'rotate',
-              size: 1.75
+              scale: 1.75
             })
           })
           await expectArrowInsideContainer(page)
@@ -217,7 +217,7 @@ test.describe("create('arrow')", () => {
               className: 'test-arrow',
               container: '.limited-container',
               responsive: 'scale',
-              size: 1.75
+              scale: 1.75
             })
           })
           await expectArrowInsideContainer(page)

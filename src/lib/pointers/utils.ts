@@ -40,8 +40,6 @@ export function isRectHorizontallyInsideOther(target: DOMRect, container: DOMRec
 export function applyVirtualTransform(transform: VirtualTransforms, target: Element) {
   let transformStr = ''
 
-  if (transform.scale !== undefined) transformStr += `scale(${transform.scale}) `
-
   if (transform.translate) {
     const { x, y } = transform.translate
 
@@ -58,10 +56,18 @@ export function applyVirtualTransform(transform: VirtualTransforms, target: Elem
     transformStr += `rotate(${transform.rotate}deg) `
   }
 
-  console.log(transform)
+  if (transform.scale !== undefined) transformStr += `scale(${transform.scale}) `
   ;(target as HTMLElement).style.transform = transformStr
 }
 
 export function isPercent(value: string): value is Percent {
   return value.endsWith('%')
+}
+
+export function degsToRads(angle: number) {
+  return angle / (180 / Math.PI)
+}
+
+export function radsToDegs(angleInRadians: number) {
+  return (angleInRadians * 180) / Math.PI
 }

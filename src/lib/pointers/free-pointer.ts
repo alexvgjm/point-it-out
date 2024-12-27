@@ -1,19 +1,12 @@
 import type {
   FreePointerOptions,
   Origin,
-  OriginX,
-  OriginY,
-  Percent,
   PointerOptions,
   ResponsiveConfigurationObject,
   ResponsiveMode,
   VirtualTransforms
 } from '$lib/types'
-import {
-  convertFromPercentToUnitSpace,
-  namedXToStringPercent,
-  namedYToStringPercent
-} from '$lib/values'
+import { getAsPercentsNumbers, getUnitSpaceCoords } from '$lib/values'
 import type { AnimatableOptions } from './animations/animatable'
 import {
   BasePointer,
@@ -25,8 +18,8 @@ import {
 } from './core'
 import {
   applyVirtualTransform,
+  degsToRads,
   getRectsInfo,
-  isPercent,
   isRectHorizontallyInsideOther,
   type RectsInfo
 } from './utils'
@@ -40,14 +33,14 @@ export const DEFAULT_RESPONSIVE_OPTIONS: {
 
 export const DEFAULT_FREE_POINTER_OPTIONS: Readonly<
   Omit<FreePointerOptions, 'pointerElement' | 'target'>
-> = Object.freeze({
+> = {
   fromAngle: 45,
   distance: 0,
-  size: 1,
+  scale: 1,
   responsive: false,
   animate: false,
   transformOrigin: 'left top'
-})
+}
 
 export class FreePointer extends BasePointer {
   /**
@@ -56,8 +49,13 @@ export class FreePointer extends BasePointer {
    */
   private baseAngle = 0
 
+  /**
+   * Applied depending on transformOrigin to translate pointerElement
+   * in a way that its tip touch target's center (if distance 0).
+   */
+  private baseTranslation = { x: '0', y: '0' }
+
   private get angle() {
-    console.log(this.fromAngle, this.baseAngle, this.fromAngle + this.baseAngle)
     return this.fromAngle + this.baseAngle
   }
 
@@ -99,22 +97,26 @@ export class FreePointer extends BasePointer {
       )
     }
 
-    this._transformOrigin = getTransformOrigin(opts.transformOrigin)
+    this.distance = opts.distance
+    this.fromAngle = getAngle(opts.fromAngle)
+    this.size = getSize(opts.scale)
+
     this.rootElement = createWrapper(opts)
-    this.pointerElement.style.transformOrigin = this._transformOrigin
     this.rootElement.appendChild(this.pointerElement)
     this.container.appendChild(this.rootElement)
 
-    this.size = getSize(opts.size)
-    this.fromAngle = getAngle(opts.fromAngle)
-    this.distance = opts.distance
+    this._transformOrigin = getTransformOrigin(opts.transformOrigin)
 
-    this.pointerElement.style.boxSizing = 'content-box'
+    this.pointerElement.style.transformOrigin = this._transformOrigin
     this.pointerElement.style.overflow = 'visible'
 
-    this.calculateBaseAngle()
+    this.calculateBaseTranslation()
 
     this.transform = {
+      translate: {
+        x: this.baseTranslation.x + '%',
+        y: this.baseTranslation.y + '%'
+      },
       scale: this.size,
       rotate: this.angle
     }
@@ -151,30 +153,63 @@ export class FreePointer extends BasePointer {
 
     this.transform = {
       ...this.transform,
-      translate: {
-        y: this.transform?.translate?.y ?? '0',
-        x: this.distance + 'px'
-      }
+      translate: { ...this.baseTranslation }
     }
     applyVirtualTransform(this.transform!, this.pointerElement)
   }
 
-  private calculateBaseAngle() {
-    let [xPer, yPer] = this._transformOrigin.split(' ') as [OriginX | Percent, OriginY | Percent]
+  private calculateDistancedOriginAndBaseAngle(origin: Origin): Origin {
+    const { x: xUnit, y: yUnit } = getUnitSpaceCoords(origin)
 
-    if (!isPercent(xPer)) {
-      xPer = namedXToStringPercent[xPer]
+    let dx = 0
+    let dy = 0
+
+    if (this.distance) {
+      dx = this.distance * xUnit
+      dy = this.distance * yUnit
+      // console.log(dx, dy, dx / 100 * rect.width, dy / 100 * rect.height)
+      // console.log(rect.width, rect.height)
     }
-    if (!isPercent(yPer)) {
-      yPer = namedYToStringPercent[yPer]
+
+    const { x: px, y: py } = getAsPercentsNumbers(origin)
+    this.baseAngle = (90 + (Math.atan2(xUnit, yUnit) * 180) / Math.PI) % 360
+
+    return `${dx + px}% ${dy + py}%`
+  }
+
+  private calculateBaseTranslation() {
+    const { x, y } = getAsPercentsNumbers(this._transformOrigin)
+
+    let offX = 0
+    let offY = 0
+    if (this.distance) {
+      const angRads = degsToRads(this.angle)
+      const xUnit = Math.cos(angRads)
+      const yUnit = Math.sin(angRads)
+      const rect = this.pointerElement.getBoundingClientRect()
+      console.log(this.pointerElement.getBoundingClientRect())
+      setTimeout(() => {
+        console.log(this.pointerElement.getBoundingClientRect())
+      }, 1)
+      offX = ((this.distance * xUnit) / rect.width) * 100
+      offY = ((this.distance * yUnit) / rect.height) * 100
+      console.log('------------------')
+      console.log(this.pointerElement)
+      console.log('dist: ', this.distance)
+      console.log('distX: ', this.distance * xUnit)
+      console.log('rect.width: ', rect.width)
+      console.log('origin: ', x, y)
+      console.log('units: ', xUnit, yUnit)
+      console.log('offsets: ', offX, offY)
+      console.log('------------------')
     }
 
-    const x = convertFromPercentToUnitSpace(xPer)
-    const y = convertFromPercentToUnitSpace(yPer)
+    this.baseTranslation = {
+      x: (offX - x).toFixed(2) + '%',
+      y: (offY - y).toFixed(2) + '%'
+    }
 
-    // Base on origin, determine how much angle to sub or add to adjust so
-    // So fromAngle: 0 always means looking to the left from the right
-    this.baseAngle = (90 + (Math.atan2(x, y) * 180) / Math.PI) % 360
+    console.log(this.baseTranslation)
   }
 
   responsiveScaleUpdate({ containerRect }: RectsInfo) {
