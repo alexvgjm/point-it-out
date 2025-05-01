@@ -1,4 +1,4 @@
-import { test, test as it } from '@playwright/test'
+import { test, test as it, expect } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
 import type { PointerOptions } from '$lib/types'
@@ -95,6 +95,17 @@ test.describe('Common options', () => {
         pwPage: page,
         pwTestInfo: testInfo
       })
+    })
+
+    it('sets position: relative if container is static', async ({ page }) => {
+      await page.goto('/300x300/issues/static-container', { waitUntil: 'networkidle' })
+      const position = await page.evaluate(() => {
+        pio.create('rect', { target: `.test-box` })
+        const elm = document.querySelector('.visual-test')!
+        return Promise.resolve(getComputedStyle(elm).position)
+      })
+
+      expect(position).toBe('relative')
     })
   })
 })

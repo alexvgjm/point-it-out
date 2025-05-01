@@ -120,6 +120,11 @@ export abstract class BasePointer implements PointItOutPointer {
     if (!container) {
       throw new Error(`PointItOut: container is ${container}. Check container option.`)
     }
+
+    if (getComputedStyle(container).position === 'static') {
+      container.style.position = 'relative'
+    }
+
     const target = getTarget(options.target)
     if (!target) {
       throw new Error(`PointItOut: Target is ${target}. Check target option.`)
