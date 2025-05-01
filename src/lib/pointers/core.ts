@@ -126,7 +126,6 @@ export abstract class BasePointer implements PointItOutPointer {
     }
     this.listeners = {}
     this.container = container
-
     this.target = target
   }
 

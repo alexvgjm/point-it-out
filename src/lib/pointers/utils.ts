@@ -56,7 +56,10 @@ export function applyVirtualTransform(transform: VirtualTransforms, target: Elem
     transformStr += `rotate(${transform.rotate}deg) `
   }
 
-  if (transform.scale !== undefined) transformStr += `scale(${transform.scale}) `
+  if (transform.scale !== undefined) {
+    transformStr += `scale(${transform.scale}) `
+  }
+
   ;(target as HTMLElement).style.transform = transformStr
 }
 

@@ -33,13 +33,7 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
   strokeWidth: number
   strokeColor: string
   fillColor: string
-
   animate?: false | AnimatableOptions<'pulse'> = false
-
-  /**
-   * alias to this.pointerElement
-   */
-  svg: SVGSVGElement
 
   constructor(options: PointerOptions['arrow']) {
     const opts = { ...DEFAULT_ARROW_OPTIONS, ...options } as Required<PointerOptions['arrow']>
@@ -64,7 +58,6 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
     this.strokeWidth = opts.strokeWidth
     this.fillColor = opts.fillColor
     this.strokeColor = opts.strokeColor
-    this.svg = svg
     this.path = path
     this._transformOrigin = 'left center'
 

@@ -38,9 +38,12 @@ export const DEFAULT_FREE_POINTER_OPTIONS: Readonly<
   scale: 1,
   responsive: false,
   animate: false,
-  transformOrigin: 'left top'
+  transformOrigin: 'left'
 }
 
+/**
+ *
+ */
 export class FreePointer extends BasePointer {
   /**
    * Applied depending on transformOrigin to rectify the a fromAngle value
@@ -137,9 +140,18 @@ export class FreePointer extends BasePointer {
         ...DEFAULT_RESPONSIVE_OPTIONS[opts.responsive]
       }
     }
+
+    this.update()
+  }
+
+  private clearPointerElementPositionStyles() {
+    const propsToClear = ['left', 'top', 'transform']
+    propsToClear.forEach((p) => this.pointerElement.style.removeProperty(p))
   }
 
   update(): void {
+    this.clearPointerElementPositionStyles()
+
     const rectsInfo = getRectsInfo(this.target, this.container)
     const { targetRect, targetTop, targetLeft } = rectsInfo
 
@@ -232,15 +244,17 @@ export class FreePointer extends BasePointer {
       rotate: this.angle
     }
     applyVirtualTransform(withoutResponsive, this.pointerElement)
-    const pRect = this.pointerElement.getBoundingClientRect()
+    const pointerRect = this.pointerElement.getBoundingClientRect()
 
-    if (isRectHorizontallyInsideOther(pRect, containerRect)) {
+    if (isRectHorizontallyInsideOther(pointerRect, containerRect)) {
       return false
     }
 
     const fromTop = this.angle < 0 || this.angle >= 180
     const fromLeft = this.angle > 90 && this.angle <= 270
-    const dx = fromLeft ? containerRect.left - pRect.left : pRect.right - containerRect.right
+    const dx = fromLeft
+      ? containerRect.left - pointerRect.left
+      : pointerRect.right - containerRect.right
 
     let excessFactor = 1 - dx / (containerRect.width / 2)
     excessFactor = Math.min(1, Math.max(-1, excessFactor))
@@ -265,7 +279,6 @@ export class FreePointer extends BasePointer {
     }
 
     this.responsiveAngle = rotate
-    console.log(this.responsiveAngle)
     return true
   }
 }
