@@ -48,7 +48,7 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
     svg.style.fill = opts.fillColor
     svg.style.stroke = opts.strokeColor
     svg.style.strokeWidth = `${opts.strokeWidth == 0 ? 'none' : opts.strokeWidth}`
-    svg.setAttribute('width', `${128 + opts.strokeWidth + opts.distance}`)
+    svg.setAttribute('width', `${128 + opts.strokeWidth}`)
     svg.setAttribute('height', `${96 + opts.strokeWidth}`)
     const path = createSVG<SVGPathElement>('path')
     const g = createSVG<SVGGElement>('g')
@@ -65,9 +65,7 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
     this.fillColor = opts.fillColor
     this.strokeColor = opts.strokeColor
     this.svg = svg
-
     this.path = path
-
     this._transformOrigin = 'left center'
 
     if (opts.animate) {

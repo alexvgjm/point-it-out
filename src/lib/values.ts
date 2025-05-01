@@ -89,7 +89,6 @@ export function getAsPercents(coords: Origin): { x: Percent; y: Percent } {
 
 export function getUnitSpaceCoords(coords: Origin) {
   const { x, y } = getAsPercents(coords)
-  console.log(coords, x, y)
 
   return {
     x: convertFromPercentToUnitSpace(x),

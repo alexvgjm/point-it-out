@@ -31,16 +31,13 @@ export const DEFAULT_SVG_OPTIONS: Required<SVGOptions> = Object.freeze({
 })
 
 export function createWrapper(options: CommonOptions) {
-  const wrapper = document.createElement('div')
-
   const opts = {
     ...DEFAULT_COMMON_OPTIONS,
     ...options
   }
-
+  const wrapper = document.createElement('div')
   wrapper.style.zIndex = opts.zIndex!.toString()
   wrapper.style.position = 'absolute'
-
   if (opts.className) {
     wrapper.classList.add(opts.className)
   }

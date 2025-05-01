@@ -6,7 +6,7 @@ import type {
   ResponsiveMode,
   VirtualTransforms
 } from '$lib/types'
-import { getAsPercentsNumbers, getUnitSpaceCoords } from '$lib/values'
+import { getAsPercentsNumbers } from '$lib/values'
 import type { AnimatableOptions } from './animations/animatable'
 import {
   BasePointer,
@@ -20,8 +20,7 @@ import {
   applyVirtualTransform,
   degsToRads,
   getRectsInfo,
-  isRectHorizontallyInsideOther,
-  type RectsInfo
+  isRectHorizontallyInsideOther
 } from './utils'
 
 export const DEFAULT_RESPONSIVE_OPTIONS: {
@@ -50,13 +49,18 @@ export class FreePointer extends BasePointer {
   private baseAngle = 0
 
   /**
+   * Applied when responsive: 'rotate' is used
+   */
+  private responsiveAngle = 0
+
+  /**
    * Applied depending on transformOrigin to translate pointerElement
    * in a way that its tip touch target's center (if distance 0).
    */
   private baseTranslation = { x: '0', y: '0' }
 
   private get angle() {
-    return this.fromAngle + this.baseAngle
+    return this.fromAngle + this.baseAngle + this.responsiveAngle
   }
 
   rootElement: HTMLElement | SVGSVGElement
@@ -111,7 +115,6 @@ export class FreePointer extends BasePointer {
     this.pointerElement.style.overflow = 'visible'
 
     this.calculateBaseTranslation()
-
     this.transform = {
       translate: {
         x: this.baseTranslation.x + '%',
@@ -145,36 +148,19 @@ export class FreePointer extends BasePointer {
 
     if (this.responsive) {
       if (this.responsive.type == 'rotate') {
-        this.responsiveRotationUpdate(rectsInfo)
+        this.responsiveRotationUpdate(rectsInfo.containerRect)
       } else if (this.responsive.type == 'scale') {
-        this.responsiveScaleUpdate(rectsInfo)
+        this.responsiveScaleUpdate(rectsInfo.containerRect)
       }
     }
-
+    this.calculateBaseTranslation()
     this.transform = {
       ...this.transform,
-      translate: { ...this.baseTranslation }
+      translate: { ...this.baseTranslation },
+      rotate: this.angle,
+      scale: this.size
     }
     applyVirtualTransform(this.transform!, this.pointerElement)
-  }
-
-  private calculateDistancedOriginAndBaseAngle(origin: Origin): Origin {
-    const { x: xUnit, y: yUnit } = getUnitSpaceCoords(origin)
-
-    let dx = 0
-    let dy = 0
-
-    if (this.distance) {
-      dx = this.distance * xUnit
-      dy = this.distance * yUnit
-      // console.log(dx, dy, dx / 100 * rect.width, dy / 100 * rect.height)
-      // console.log(rect.width, rect.height)
-    }
-
-    const { x: px, y: py } = getAsPercentsNumbers(origin)
-    this.baseAngle = (90 + (Math.atan2(xUnit, yUnit) * 180) / Math.PI) % 360
-
-    return `${dx + px}% ${dy + py}%`
   }
 
   private calculateBaseTranslation() {
@@ -187,32 +173,20 @@ export class FreePointer extends BasePointer {
       const xUnit = Math.cos(angRads)
       const yUnit = Math.sin(angRads)
       const rect = this.pointerElement.getBoundingClientRect()
-      console.log(this.pointerElement.getBoundingClientRect())
-      setTimeout(() => {
-        console.log(this.pointerElement.getBoundingClientRect())
-      }, 1)
       offX = ((this.distance * xUnit) / rect.width) * 100
       offY = ((this.distance * yUnit) / rect.height) * 100
-      console.log('------------------')
-      console.log(this.pointerElement)
-      console.log('dist: ', this.distance)
-      console.log('distX: ', this.distance * xUnit)
-      console.log('rect.width: ', rect.width)
-      console.log('origin: ', x, y)
-      console.log('units: ', xUnit, yUnit)
-      console.log('offsets: ', offX, offY)
-      console.log('------------------')
     }
 
     this.baseTranslation = {
       x: (offX - x).toFixed(2) + '%',
       y: (offY - y).toFixed(2) + '%'
     }
-
-    console.log(this.baseTranslation)
   }
 
-  responsiveScaleUpdate({ containerRect }: RectsInfo) {
+  /**
+   * @returns true if updated
+   */
+  responsiveScaleUpdate(containerRect: DOMRect) {
     this.transform = {
       ...this.transform,
       scale: this.size,
@@ -223,7 +197,7 @@ export class FreePointer extends BasePointer {
     const pRect = this.pointerElement.getBoundingClientRect()
 
     if (isRectHorizontallyInsideOther(pRect, containerRect)) {
-      return
+      return false
     }
 
     let dx = 0
@@ -244,15 +218,24 @@ export class FreePointer extends BasePointer {
       scale: Math.max(config.minScale, this.size * (1 - percent)),
       rotate: this.angle
     }
+
+    return true
   }
 
-  responsiveRotationUpdate({ containerRect }: RectsInfo) {
-    this.transform = { ...this.transform, rotate: this.angle }
-    applyVirtualTransform(this.transform, this.pointerElement)
+  /**
+   * @returns true if updated
+   */
+  responsiveRotationUpdate(containerRect: DOMRect) {
+    this.responsiveAngle = 0 // Get original rect without responsive adjust
+    const withoutResponsive = {
+      ...this.transform,
+      rotate: this.angle
+    }
+    applyVirtualTransform(withoutResponsive, this.pointerElement)
     const pRect = this.pointerElement.getBoundingClientRect()
 
     if (isRectHorizontallyInsideOther(pRect, containerRect)) {
-      return
+      return false
     }
 
     const fromTop = this.angle < 0 || this.angle >= 180
@@ -281,6 +264,8 @@ export class FreePointer extends BasePointer {
       }
     }
 
-    this.transform = { ...this.transform, rotate: this.angle + rotate }
+    this.responsiveAngle = rotate
+    console.log(this.responsiveAngle)
+    return true
   }
 }
