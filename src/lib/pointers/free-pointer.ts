@@ -20,7 +20,8 @@ import {
   applyVirtualTransform,
   degsToRads,
   getRectsInfo,
-  isRectHorizontallyInsideOther
+  isRectHorizontallyInsideOther,
+  radsToDegs
 } from './utils'
 
 export const DEFAULT_RESPONSIVE_OPTIONS: {
@@ -118,6 +119,7 @@ export class FreePointer extends BasePointer {
     this.pointerElement.style.overflow = 'visible'
 
     this.calculateBaseTranslation()
+    this.calculateBaseAngleBasedOnTransformOrigin()
     this.transform = {
       translate: {
         x: this.baseTranslation.x + '%',
@@ -175,11 +177,19 @@ export class FreePointer extends BasePointer {
     applyVirtualTransform(this.transform!, this.pointerElement)
   }
 
+  private calculateBaseAngleBasedOnTransformOrigin() {
+    const { x, y } = getAsPercentsNumbers(this._transformOrigin)
+    const xUnit = (x - 50) / 50
+    const yUnit = (y - 50) / 50
+    this.baseAngle = radsToDegs(Math.atan2(yUnit, xUnit)) - 180
+  }
+
   private calculateBaseTranslation() {
     const { x, y } = getAsPercentsNumbers(this._transformOrigin)
 
     let offX = 0
     let offY = 0
+
     if (this.distance) {
       const angRads = degsToRads(this.angle)
       const xUnit = Math.cos(angRads)

@@ -30,4 +30,31 @@ test.describe("create('free')", () => {
       })
     })
   })
+
+  test.describe('Options', () => {
+    testsTargets.forEach(({ xW, xH }) => {
+      test.describe(`transformOrigin (${xW}x${xH})`, () => {
+        it('defines the tip of the pointer', async ({ page }, testInfo) => {
+          await visualComparisonBetweenPages({
+            testingURL: `/${xW}x${xH}/free`,
+            expectedURL: `/${xW}x${xH}/free/transform-origin-option`,
+            action: () => {
+              return page.evaluate(
+                ({ xW, xH }) => {
+                  pio.create('free', {
+                    target: `.test-box--${xW}x${xH}`,
+                    pointerElement: '.pointer-img',
+                    transformOrigin: 'right'
+                  })
+                },
+                { xW, xH }
+              )
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
+        })
+      })
+    })
+  })
 })
