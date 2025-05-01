@@ -185,12 +185,17 @@ test.describe("create('arrow')", () => {
       })
 
       test.describe(`responsive (${xW}x${xH})`, { tag: '@responsive' }, () => {
-        async function expectArrowInsideContainer(page: Page, tolerance = 10) {
+        async function expectArrowInsideContainer(page: Page, tolerance = 10, negate = false) {
           const container = await page.getByTestId('limited-container').boundingBox()
-          const arrow = await page.locator('.test-arrow').boundingBox()
+          const arrow = await page.locator('.test-arrow svg').boundingBox()
           const cx = container!.x + container!.width
           const ax = arrow!.x + arrow!.width
-          expect(ax).toBeLessThanOrEqual(cx + tolerance)
+
+          if (negate) {
+            expect(ax).toBeGreaterThan(cx + tolerance)
+          } else {
+            expect(ax).toBeLessThanOrEqual(cx + tolerance)
+          }
         }
 
         const testingURL = `/${xW}x${xH}/arrow/responsive-option`
@@ -221,6 +226,23 @@ test.describe("create('arrow')", () => {
             })
           })
           await expectArrowInsideContainer(page)
+        })
+
+        it(`scale to fit if responsive until 'scale'`, async ({ page }) => {
+          await page.goto(testingURL, { waitUntil: 'networkidle' })
+          await page.evaluate(() => {
+            pio.create('arrow', {
+              target: `.test-box`,
+              className: 'test-arrow',
+              container: '.limited-container',
+              responsive: {
+                type: 'scale',
+                minScale: 2
+              },
+              scale: 2.5
+            })
+          })
+          await expectArrowInsideContainer(page, 10, true)
         })
       })
     })
