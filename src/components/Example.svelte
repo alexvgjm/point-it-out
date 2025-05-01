@@ -21,7 +21,7 @@
     size = { w: 128, h: 128 }
   }: ExampleProps<T> = $props()
 
-  let target: HTMLElement
+  let target: HTMLElement | undefined = $state()
   let containerElm: HTMLElement | undefined = $state()
   let p: PointItOutPointer
 

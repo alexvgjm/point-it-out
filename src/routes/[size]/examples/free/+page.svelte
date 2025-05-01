@@ -1,7 +1,7 @@
 <script lang="ts">
   import Example from '$src/components/Example.svelte'
   import type { PageData } from './$types'
-  import swordPointer from '$assets/broadsword_by_lorc.svg'
+  import swordPointer from '$assets/arrow_tip_in_85x_61y_percent.png'
 
   let { data }: { data: PageData } = $props()
 
@@ -18,12 +18,13 @@
 <section class="examples">
   <section class="examples__section">
     <h1>pointerElement (required)</h1>
-    <p>Requires pointerElement</p>
     <Example
       {size}
       pointerName="free"
       pointerOptions={{
-        pointerElement: p1
+        pointerElement: p1,
+        distance: 0, // TODO: fix distance
+        transformOrigin: { x: '85%', y: '61%' }
       }}
     />
   </section>

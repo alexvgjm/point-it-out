@@ -2,7 +2,7 @@ import { test, test as it, expect, type Page } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
 import { originToAngle } from '$lib/values'
-import type { Origin } from '$lib/types'
+import type { NamedOrigin } from '$lib/types'
 
 test.describe("create('arrow')", () => {
   const testsTargets = [{ xW: 300, xH: 300 }]
@@ -66,7 +66,7 @@ test.describe("create('arrow')", () => {
                   ({ angleString }) => {
                     pio.create('arrow', {
                       target: `.test-box`,
-                      fromAngle: angleString as Origin
+                      fromAngle: angleString as NamedOrigin
                     })
                   },
                   { angleString }
@@ -171,10 +171,10 @@ test.describe("create('arrow')", () => {
                   ({ sizeName }) => {
                     pio.create('arrow', {
                       target: `.test-box`,
-                      size: sizeName
+                      scale: sizeName
                     })
                   },
-                  { sizeName: sizeName as pio.NamedSize }
+                  { sizeName: sizeName as pio.NamedScale }
                 )
               },
               pwPage: page,
@@ -203,7 +203,7 @@ test.describe("create('arrow')", () => {
               className: 'test-arrow',
               container: '.limited-container',
               responsive: 'rotate',
-              size: 1.75
+              scale: 1.75
             })
           })
           await expectArrowInsideContainer(page)
@@ -217,7 +217,7 @@ test.describe("create('arrow')", () => {
               className: 'test-arrow',
               container: '.limited-container',
               responsive: 'scale',
-              size: 1.75
+              scale: 1.75
             })
           })
           await expectArrowInsideContainer(page)

@@ -12,6 +12,15 @@
 <p>NOTE: using distance: 20 in most examples for legibility.</p>
 <section class="examples">
   <section class="examples__section">
+    <h1>Distance</h1>
+    <div class="examples__list">
+      <Example {size} pointerName="arrow" pointerOptions={{ distance: 20 }} inBoxText="20" />
+      <Example {size} pointerName="arrow" pointerOptions={{ distance: 50 }} inBoxText="50" />
+      <Example {size} pointerName="arrow" pointerOptions={{ distance: 80 }} inBoxText="80" />
+    </div>
+  </section>
+  <!--
+  <section class="examples__section">
     <h1>Default</h1>
     <Example {size} pointerName="arrow" pointerOptions={{}} />
   </section>
@@ -21,8 +30,8 @@
       <Example
         {size}
         pointerName="arrow"
-        pointerOptions={{ fromAngle: 'bottom left', distance: 20 }}
-        inBoxText="'bottom left'"
+        pointerOptions={{ fromAngle: 'left bottom', distance: 20 }}
+        inBoxText="'left bottom'"
       />
       <Example
         {size}
@@ -38,12 +47,29 @@
       />
     </div>
   </section>
+
+
   <section class="examples__section">
-    <h1>Distance</h1>
+    <h1>Size</h1>
     <div class="examples__list">
-      <Example {size} pointerName="arrow" pointerOptions={{ distance: 20 }} inBoxText="20" />
-      <Example {size} pointerName="arrow" pointerOptions={{ distance: 50 }} inBoxText="50" />
-      <Example {size} pointerName="arrow" pointerOptions={{ distance: 80 }} inBoxText="80" />
+      <Example
+        {size}
+        pointerName="arrow"
+        pointerOptions={{ distance: 20, scale: 'xs' }}
+        inBoxText="xs"
+      />
+      <Example
+        {size}
+        pointerName="arrow"
+        pointerOptions={{ distance: 20, scale: 1 }}
+        inBoxText="1"
+      />
+      <Example
+        {size}
+        pointerName="arrow"
+        pointerOptions={{ distance: 20, scale: 'lg' }}
+        inBoxText="lg"
+      />
     </div>
   </section>
 
@@ -57,5 +83,5 @@
         pointerOptions={{ animate: 'pulse', distance: 20 }}
       />
     </div>
-  </section>
+  </section>-->
 </section>

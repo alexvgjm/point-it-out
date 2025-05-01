@@ -4,7 +4,7 @@
 
   export let data: PageData
 
-  const angle = $page.params.angle
+  const degs = $page.params.angle
 
   const w = 96
   const len = 128
@@ -20,7 +20,7 @@
     xmlns="http://www.w3.org/2000/svg"
     width={len + dist}
     height={w}
-    style="--angle: {angle}deg"
+    style="--angle: {degs}deg"
   >
     <g>
       <path

@@ -1,4 +1,4 @@
-import { originToAngle, sizeNameToNumber } from '$lib/values'
+import { originToAngle, namedOriginToComponents, sizeNameToNumber } from '$lib/values'
 import type {
   CommonOptions,
   PIOEventName,
@@ -6,8 +6,13 @@ import type {
   PointerName,
   PointItOutPointer,
   SVGOptions,
-  NamedSize,
-  Origin
+  NamedScale,
+  NamedOrigin,
+  TransformOriginOption,
+  Origin,
+  OriginX,
+  Percent,
+  OriginY
 } from '../types'
 
 // FIXME: container: document.body
@@ -26,16 +31,13 @@ export const DEFAULT_SVG_OPTIONS: Required<SVGOptions> = Object.freeze({
 })
 
 export function createWrapper(options: CommonOptions) {
-  const wrapper = document.createElement('div')
-
   const opts = {
     ...DEFAULT_COMMON_OPTIONS,
     ...options
   }
-
+  const wrapper = document.createElement('div')
   wrapper.style.zIndex = opts.zIndex!.toString()
   wrapper.style.position = 'absolute'
-
   if (opts.className) {
     wrapper.classList.add(opts.className)
   }
@@ -73,11 +75,23 @@ export function createParentSVG(options: CommonOptions & SVGOptions, isRoot = fa
 export function createSVG<T = SVGElement>(tag: string) {
   return document.createElementNS('http://www.w3.org/2000/svg', tag) as T
 }
-export function getAngle(value: number | Origin) {
+export function getAngle(value: number | NamedOrigin) {
   return typeof value === 'number' ? value : originToAngle[value]
 }
-export function getSize(value: number | NamedSize) {
+export function getSize(value: number | NamedScale) {
   return typeof value === 'number' ? value : sizeNameToNumber[value]
+}
+
+export function getTransformOrigin(value: TransformOriginOption): Origin {
+  if (typeof value === 'string') {
+    return namedOriginToComponents[value]
+  }
+
+  const x: OriginX | Percent = typeof value.x == 'number' ? `${value.x}%` : value.x
+
+  const y: OriginY | Percent = typeof value.y == 'number' ? `${value.y}%` : value.y
+
+  return `${x} ${y}`
 }
 
 export function getTarget(selectorOrTarget: HTMLElement | SVGSVGElement | string | null) {
@@ -112,7 +126,6 @@ export abstract class BasePointer implements PointItOutPointer {
     }
     this.listeners = {}
     this.container = container
-
     this.target = target
   }
 
