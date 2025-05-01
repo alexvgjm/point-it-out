@@ -58,6 +58,11 @@ export class FreePointer extends BasePointer {
   private responsiveAngle = 0
 
   /**
+   * Applied when responsive: 'scale' is used
+   */
+  private responsiveScale = 0
+
+  /**
    * Applied depending on transformOrigin to translate pointerElement
    * in a way that its tip touch target's center (if distance 0).
    */
@@ -65,6 +70,10 @@ export class FreePointer extends BasePointer {
 
   private get angle() {
     return this.fromAngle + this.baseAngle + this.responsiveAngle
+  }
+
+  private get scale() {
+    return this.responsive && this.responsive.type == 'scale' ? this.responsiveScale : this.size
   }
 
   rootElement: HTMLElement | SVGSVGElement
@@ -172,7 +181,7 @@ export class FreePointer extends BasePointer {
       ...this.transform,
       translate: { ...this.baseTranslation },
       rotate: this.angle,
-      scale: this.size
+      scale: this.scale
     }
     applyVirtualTransform(this.transform!, this.pointerElement)
   }
@@ -235,12 +244,8 @@ export class FreePointer extends BasePointer {
     const hAngle = Math.min(mod90, 90 - mod90)
     const percent = dx / (pRect.width * Math.cos((hAngle / 180) * Math.PI))
     const config = this.responsive as { minScale: number }
-    this.transform = {
-      ...this.transform,
-      scale: Math.max(config.minScale, this.size * (1 - percent)),
-      rotate: this.angle
-    }
 
+    this.responsiveScale = Math.max(config.minScale, this.size * (1 - percent))
     return true
   }
 

@@ -29,7 +29,7 @@ test.describe("create('free')", () => {
         })
       })
 
-      test.only('using a div element', async ({ page }, testInfo) => {
+      test('using a div element', async ({ page }, testInfo) => {
         await visualComparisonBetweenPages({
           testingURL: `/${xW}x${xH}/free/using-element`,
           expectedURL: `/${xW}x${xH}/free/using-element/expected`,
