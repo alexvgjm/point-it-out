@@ -28,6 +28,26 @@ test.describe("create('free')", () => {
           pwTestInfo: testInfo
         })
       })
+
+      test.only('using a div element', async ({ page }, testInfo) => {
+        await visualComparisonBetweenPages({
+          testingURL: `/${xW}x${xH}/free/using-element`,
+          expectedURL: `/${xW}x${xH}/free/using-element/expected`,
+          action: () => {
+            return page.evaluate(
+              ({ xW, xH }) => {
+                pio.create('free', {
+                  target: `.test-box--${xW}x${xH}`,
+                  pointerElement: '.pointer-element'
+                })
+              },
+              { xW, xH }
+            )
+          },
+          pwPage: page,
+          pwTestInfo: testInfo
+        })
+      })
     })
   })
 
