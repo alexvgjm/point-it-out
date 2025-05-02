@@ -38,6 +38,7 @@ export function createWrapper(options: CommonOptions) {
   const wrapper = document.createElement('div')
   wrapper.style.zIndex = opts.zIndex!.toString()
   wrapper.style.position = 'absolute'
+  wrapper.style.transformOrigin = 'top left'
   if (opts.className) {
     wrapper.classList.add(opts.className)
   }
