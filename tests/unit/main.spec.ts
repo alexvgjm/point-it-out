@@ -1,19 +1,16 @@
 import type { PointerName } from '$lib/types'
 import { config, create, update } from '../../src/lib/main'
-import { availablePointers, BasePointer } from '../../src/lib/pointers/core'
+import { BasePointer } from '../../src/lib/pointers/core'
 import { describe, expect, it, vi } from 'vitest'
 
-/**
- * Create all tests of common behavior for each available shape
- */
-const createSpecs = (pointerName: PointerName) => {
-  it('creates an SVG and append it to body', async () => {
-    expect(document.querySelector('svg')).toBeNull()
+const createArrowAndRectSpecs = (pointerName: PointerName) => {
+  it('creates an element and append it to body if no container specified', async () => {
+    const count = document.body.childNodes.length
     create(pointerName, { target: '.existing' })
-    expect(document.querySelector('svg')).toBeDefined()
+    expect(document.body.childNodes.length).toBe(count + 1)
   })
 
-  it('creates a PointItOutShape and return its reference', () => {
+  it('creates a BasePointer and return its reference', () => {
     const shape = create(pointerName, { target: '.existing' })
     expect(shape).instanceOf(BasePointer)
   })
@@ -39,6 +36,33 @@ const createSpecs = (pointerName: PointerName) => {
         const created = create(pointerName, { target: '.existing', zIndex: 1000 })
 
         expect(created.rootElement.style.zIndex).equal('1000')
+      })
+    })
+
+    describe('animate', () => {
+      describe('Some basic and default specs using "pulse"', () => {
+        it('adds an animation style properties with infinite repeat, 1s timing and alternate', () => {
+          const pointer = create('rect', {
+            target: '.existing',
+            animate: 'pulse'
+          })
+
+          const styles = getComputedStyle(pointer.rootElement)
+          expect(styles.animation).includes('infinite')
+          expect(styles.animation).includes('1s')
+          expect(styles.animation).includes('alternate')
+        })
+
+        it('injects a <style> with the pio__pulse @keyframes', () => {
+          create('rect', {
+            target: '.existing',
+            animate: 'pulse'
+          })
+
+          const style = document.head.querySelector<HTMLStyleElement>('#point-it-out-keyframes')!
+
+          expect(style.textContent).includes('@keyframes pio__pulse')
+        })
       })
     })
   })
@@ -72,7 +96,34 @@ const createSpecs = (pointerName: PointerName) => {
   })
 }
 
-describe.each(availablePointers)(`create('%s')`, createSpecs)
+describe.each(['arrow', 'rect'] satisfies PointerName[])(`create('%s')`, createArrowAndRectSpecs)
+
+describe('animate options', () => {
+  describe('Some basic and default specs using "pulse"', () => {
+    it('adds an animation style properties with infinite repeat, 1s timing and alternate', () => {
+      const pointer = create('rect', {
+        target: '.existing',
+        animate: 'pulse'
+      })
+
+      const styles = getComputedStyle(pointer.rootElement)
+      expect(styles.animation).includes('infinite')
+      expect(styles.animation).includes('1s')
+      expect(styles.animation).includes('alternate')
+    })
+
+    it('injects a <style> with the pio__pulse @keyframes', () => {
+      create('rect', {
+        target: '.existing',
+        animate: 'pulse'
+      })
+
+      const style = document.head.querySelector<HTMLStyleElement>('#point-it-out-keyframes')!
+
+      expect(style.textContent).includes('@keyframes pio__pulse')
+    })
+  })
+})
 
 describe('update()', () => {
   it('should call update of each created shape', () => {

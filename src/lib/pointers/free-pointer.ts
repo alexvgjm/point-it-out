@@ -7,7 +7,7 @@ import type {
   VirtualTransforms
 } from '$lib/types'
 import { getAsPercentsNumbers } from '$lib/values'
-import type { AnimatableOptions } from './animations/animatable'
+import { prepareAnimation, type AnimatableOptions } from './animations/animatable'
 import {
   BasePointer,
   createWrapper,
@@ -118,6 +118,9 @@ export class FreePointer extends BasePointer {
     this.fromAngle = getAngle(opts.fromAngle)
     this.size = getSize(opts.scale)
 
+    const oldWrapper = this.pointerElement.closest('.pio__pointer-wrapper')
+    oldWrapper?.remove()
+
     this.rootElement = createWrapper(opts)
     this.rootElement.appendChild(this.pointerElement)
     this.container.appendChild(this.rootElement)
@@ -150,6 +153,9 @@ export class FreePointer extends BasePointer {
       this.responsive = {
         ...DEFAULT_RESPONSIVE_OPTIONS[opts.responsive]
       }
+    }
+    if (opts.animate) {
+      prepareAnimation(this, opts.animate)
     }
 
     this.update()

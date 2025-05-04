@@ -39,6 +39,7 @@ export function createWrapper(options: CommonOptions) {
   wrapper.style.zIndex = opts.zIndex!.toString()
   wrapper.style.position = 'absolute'
   wrapper.style.transformOrigin = 'top left'
+  wrapper.classList.add('pio__pointer-wrapper')
   if (opts.className) {
     wrapper.classList.add(opts.className)
   }
@@ -103,7 +104,7 @@ export function getTarget(selectorOrTarget: HTMLElement | SVGSVGElement | string
   return selectorOrTarget
 }
 
-export const availablePointers: Readonly<PointerName[]> = ['rect', 'arrow']
+export const availablePointers: Readonly<PointerName[]> = ['rect', 'free', 'arrow']
 
 export abstract class BasePointer implements PointItOutPointer {
   abstract rootElement: PointItOutPointer['rootElement']
