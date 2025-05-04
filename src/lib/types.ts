@@ -80,6 +80,7 @@ export type TransformOriginOption =
     }
 
 export interface FreePointerOptions extends CommonOptions, Animatable {
+  /** Element to use as a pointer */
   pointerElement: HTMLElement | SVGSVGElement | string
 
   /** From where the pointer points to target. */

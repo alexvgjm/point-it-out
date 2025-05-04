@@ -6,6 +6,8 @@
 <ul class="test-pages-links">
   <li><a href="/300x300"><span class="size">300x300</span></a></li>
   <li><a href="/400x250"><span class="size">400x250</span></a></li>
+  <li><a href="/300x300/free"><span class="size">300x300 with image</span></a></li>
+  <li><a href="/400x250/free"><span class="size">400x250 with image</span></a></li>
 </ul>
 
 <section class="expected-index">

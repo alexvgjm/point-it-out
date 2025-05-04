@@ -1,6 +1,6 @@
 import { DEFAULT_SVG_OPTIONS, createParentSVG, createSVG, DEFAULT_COMMON_OPTIONS } from './core'
 import type { ArrowPointerOptions, PointerOptions, SVGPointer } from '../types'
-import { prepareAnimation, type AnimatableOptions, type Animatable } from './animations/animatable'
+import { type AnimatableOptions, type Animatable } from './animations/animatable'
 import { DEFAULT_FREE_POINTER_OPTIONS, FreePointer } from './free-pointer'
 import { applyVirtualTransform } from './utils'
 
@@ -60,10 +60,6 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
     this.strokeColor = opts.strokeColor
     this.path = path
     this._transformOrigin = 'left center'
-
-    if (opts.animate) {
-      prepareAnimation(this, opts.animate)
-    }
 
     applyVirtualTransform(this.transform!, this.pointerElement)
     this.update()

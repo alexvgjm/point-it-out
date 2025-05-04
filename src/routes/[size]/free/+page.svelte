@@ -13,3 +13,9 @@
   class="test-box test-box--{data.w}x{data.h}"
   style="width: {data.w}px; height: {data.h}px"
 ></div>
+
+<style>
+  .test-box {
+    z-index: -1;
+  }
+</style>
