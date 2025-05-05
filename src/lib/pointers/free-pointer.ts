@@ -117,6 +117,7 @@ export class FreePointer extends BasePointer {
     this.distance = opts.distance
     this.fromAngle = getAngle(opts.fromAngle)
     this.size = getSize(opts.scale)
+    this.responsiveScale = this.size
 
     const oldWrapper = this.pointerElement.closest('.pio__pointer-wrapper')
     oldWrapper?.remove()
@@ -154,6 +155,7 @@ export class FreePointer extends BasePointer {
         ...DEFAULT_RESPONSIVE_OPTIONS[opts.responsive]
       }
     }
+
     if (opts.animate) {
       prepareAnimation(this, opts.animate)
     }
