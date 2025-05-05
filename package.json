@@ -1,6 +1,6 @@
 {
   "name": "pointitout",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "type": "module",
   "sideEffects": false,
   "description": "A tiny library to mark/point out DOM elements using absolutely positioned elements or procedurally generated SVGs",
