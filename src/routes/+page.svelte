@@ -65,11 +65,11 @@
         defaults
       </li>
       <li>
-        <a href="/300x300/arrow/from-option/90"><span class="size">90º</span></a>
-        <a href="/300x300/arrow/from-option/120"><span class="size">120º</span></a>
-        <a href="/300x300/arrow/from-option/180"><span class="size">180º</span></a>
-        <a href="/300x300/arrow/from-option/328"><span class="size">328º</span></a>
-        <a href="/300x300/arrow/from-option/top-left"><span class="size">top-left</span></a>
+        <a href="/300x300/free/from-option/90"><span class="size">90º</span></a>
+        <a href="/300x300/free/from-option/120"><span class="size">120º</span></a>
+        <a href="/300x300/free/from-option/180"><span class="size">180º</span></a>
+        <a href="/300x300/free/from-option/328"><span class="size">328º</span></a>
+        <a href="/300x300/free/from-option/top-left"><span class="size">top-left</span></a>
         fromAngle
       </li>
 

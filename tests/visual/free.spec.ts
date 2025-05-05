@@ -60,7 +60,7 @@ test.describe("create('free')", () => {
         }, testInfo) => {
           await visualComparisonBetweenPages({
             testingURL: `/${xW}x${xH}`,
-            expectedURL: `/${xW}x${xH}/arrow/from-option/60`,
+            expectedURL: `/${xW}x${xH}/free/from-option/60`,
             action: () => {
               return page.evaluate(() => {
                 pio.create('arrow', {
@@ -80,7 +80,7 @@ test.describe("create('free')", () => {
           }, testInfo) => {
             await visualComparisonBetweenPages({
               testingURL: `/${xW}x${xH}`,
-              expectedURL: `/${xW}x${xH}/arrow/from-option/${angle}`,
+              expectedURL: `/${xW}x${xH}/free/from-option/${angle}`,
               action: () => {
                 return page.evaluate(
                   ({ angleString }) => {
