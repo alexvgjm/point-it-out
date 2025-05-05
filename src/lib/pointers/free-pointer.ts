@@ -206,7 +206,7 @@ export class FreePointer extends BasePointer {
     let offY = 0
 
     if (this.distance) {
-      const angRads = degsToRads(this.angle)
+      const angRads = degsToRads(this.fromAngle + this.responsiveAngle)
       const xUnit = Math.cos(angRads)
       const yUnit = Math.sin(angRads)
       const rect = this.pointerElement.getBoundingClientRect()

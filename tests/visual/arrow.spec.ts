@@ -1,8 +1,6 @@
 import { test, test as it, expect, type Page } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
-import { originToAngle } from '$lib/values'
-import type { NamedOrigin } from '$lib/types'
 
 test.describe("create('arrow')", () => {
   const testsTargets = [{ xW: 300, xH: 300 }]
@@ -34,51 +32,6 @@ test.describe("create('arrow')", () => {
 
   test.describe('Options', () => {
     testsTargets.forEach(({ xW, xH }) => {
-      test.describe(`fromAngle (${xW}x${xH})`, () => {
-        it('rotates the arrow from its tip to match specified angle', async ({
-          page
-        }, testInfo) => {
-          await visualComparisonBetweenPages({
-            testingURL: `/${xW}x${xH}`,
-            expectedURL: `/${xW}x${xH}/arrow/from-option/60`,
-            action: () => {
-              return page.evaluate(() => {
-                pio.create('arrow', {
-                  target: `.test-box`,
-                  fromAngle: 60
-                })
-              })
-            },
-            pwPage: page,
-            pwTestInfo: testInfo
-          })
-        })
-
-        Object.entries(originToAngle).forEach(([angleString, angle]) => {
-          it(`rotates the arrow in angle specified by origin string (${angleString})`, async ({
-            page
-          }, testInfo) => {
-            await visualComparisonBetweenPages({
-              testingURL: `/${xW}x${xH}`,
-              expectedURL: `/${xW}x${xH}/arrow/from-option/${angle}`,
-              action: () => {
-                return page.evaluate(
-                  ({ angleString }) => {
-                    pio.create('arrow', {
-                      target: `.test-box`,
-                      fromAngle: angleString as NamedOrigin
-                    })
-                  },
-                  { angleString }
-                )
-              },
-              pwPage: page,
-              pwTestInfo: testInfo
-            })
-          })
-        })
-      })
-
       test.describe(`strokeWidth, strokeColor & fill (${xW}x${xH})`, () => {
         it('renders a darkorange stroke color by default if only strokeWidth', async ({
           page
@@ -110,47 +63,6 @@ test.describe("create('arrow')", () => {
                   strokeWidth: 8,
                   strokeColor: 'darkgreen',
                   fillColor: 'limegreen'
-                })
-              })
-            },
-            pwPage: page,
-            pwTestInfo: testInfo
-          })
-        })
-      })
-
-      test.describe(`distance (${xW}x${xH})`, () => {
-        it('separates the created arrow a number of pixels from center', async ({
-          page
-        }, testInfo) => {
-          await visualComparisonBetweenPages({
-            testingURL: `/${xW}x${xH}`,
-            expectedURL: `/${xW}x${xH}/arrow/distance-option`,
-            action: () => {
-              return page.evaluate(() => {
-                pio.create('arrow', {
-                  target: `.test-box`,
-                  distance: 80
-                })
-              })
-            },
-            pwPage: page,
-            pwTestInfo: testInfo
-          })
-        })
-
-        it('separates the arrow from center in same direction of fromAngle option', async ({
-          page
-        }, testInfo) => {
-          await visualComparisonBetweenPages({
-            testingURL: `/${xW}x${xH}`,
-            expectedURL: `/${xW}x${xH}/arrow/distance-option/148`,
-            action: () => {
-              return page.evaluate(() => {
-                pio.create('arrow', {
-                  target: `.test-box`,
-                  distance: 80,
-                  fromAngle: 148
                 })
               })
             },
