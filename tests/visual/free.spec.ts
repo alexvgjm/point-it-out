@@ -39,7 +39,7 @@ test.describe("create('free')", () => {
               ({ xW, xH }) => {
                 pio.create('free', {
                   target: `.test-box--${xW}x${xH}`,
-                  pointerElement: '.pointer-img'
+                  pointerElement: '.pointer-element'
                 })
               },
               { xW, xH }
@@ -99,7 +99,7 @@ test.describe("create('free')", () => {
         })
       })
 
-      test.describe.only(`distance (${xW}x${xH})`, () => {
+      test.describe(`distance (${xW}x${xH})`, () => {
         it('separates the created arrow a number of pixels from center', async ({
           page
         }, testInfo) => {
@@ -141,7 +141,7 @@ test.describe("create('free')", () => {
           })
         })
 
-        it.only('takes into account the transformOrigin option', async ({ page }, testInfo) => {
+        it('takes into account the transformOrigin option', async ({ page }, testInfo) => {
           await visualComparisonBetweenPages({
             testingURL: `/${xW}x${xH}/free`,
             expectedURL: `/${xW}x${xH}/free/distance-option/with-transform-origin`,
