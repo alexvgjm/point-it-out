@@ -88,13 +88,6 @@
       </li>
 
       <li>
-        <a href="/300x300/arrow/distance-option">
-          <span class="size">300x300</span>
-        </a>
-        distance option
-      </li>
-
-      <li>
         {#each Object.keys(sizeNameToNumber) as sizeName}
           <a href="/300x300/arrow/size-option/{sizeName}">
             <span class="size">{sizeName}</span>
@@ -114,6 +107,13 @@
       <li>
         <a href="/300x300/free/default"><span class="size">300x300</span></a>
         defaults
+      </li>
+
+      <li>
+        <a href="/300x300/free/distance-option">
+          <span class="size">300x300</span>
+        </a>
+        distance option
       </li>
 
       <li>
