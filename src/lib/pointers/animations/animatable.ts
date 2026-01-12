@@ -84,11 +84,14 @@ export function prepareAnimation<AnimName extends string = CommonAnimations>(
 ) {
   if (typeof opts == 'string') {
     opts = {
-      name: opts,
-      ...animationDefaults
+      name: opts
     } as AnimatableOptions<AnimName>
   }
 
+  opts = {
+    ...animationDefaults,
+    ...opts
+  }
   const elm = pointer.rootElement as HTMLElement
   elm.style.animation = defaultAnimationTextGenerator(opts)
 
