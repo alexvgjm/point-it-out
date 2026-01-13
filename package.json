@@ -1,6 +1,6 @@
 {
   "name": "pointitout",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "type": "module",
   "sideEffects": false,
   "description": "A tiny library to mark/point out DOM elements using absolutely positioned elements or procedurally generated SVGs",
@@ -56,7 +56,7 @@
     "publint": "^0.2.12",
     "svelte": "^5.0.0-next.1",
     "svelte-check": "^3.6.0",
-    "typescript": "^5.0.0",
+    "typescript": "^5.4.2",
     "typescript-eslint": "^8.0.0-alpha.20",
     "vite": "^5.0.11",
     "vitest": "^2.0.0"
@@ -67,6 +67,6 @@
     "dotenv": "^16.4.5",
     "highlight.js": "^11.10.0",
     "just-throttle": "^4.2.0",
-    "vite-plugin-dts": "4.0.0-beta.2"
+    "vite-plugin-dts": "^4.5.4"
   }
 }
