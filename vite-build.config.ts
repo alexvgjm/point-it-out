@@ -9,6 +9,11 @@ export default defineConfig({
     environment: 'happy-dom'
   },
   plugins: [dts({ rollupTypes: true })],
+  resolve: {
+    alias: {
+      $lib: resolve(__dirname, 'src/lib')
+    }
+  },
   build: {
     minify: 'esbuild',
     lib: {
