@@ -19,17 +19,13 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
-    "preview": "vite preview",
     "test": "npm run test:visual && npm run test:unit",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
-    "test:visual": "playwright test",
+    "test:visual": "playwright test --ui",
     "test:unit": "vitest",
-    "build": "vite build && npm run package",
-    "package": "svelte-kit sync && svelte-package && publint",
     "build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js",
-    "prepare": "husky",
-    "build:docs": "cross-env DOCS=true vite build --config vite-docs.config.ts && cross-env DOCS=true node ./postbuild.js"
+    "prepare": "husky"
   },
   "files": [
     "dist",
