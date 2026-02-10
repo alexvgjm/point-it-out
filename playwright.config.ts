@@ -2,8 +2,9 @@ import { devices, type PlaywrightTestConfig } from '@playwright/test'
 
 const config: PlaywrightTestConfig = {
   webServer: {
-    command: 'npm run build && npm run preview',
-    port: 4173
+    command: 'pnpm dev',
+    port: 5173,
+    reuseExistingServer: true
   },
   testDir: './tests/visual',
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,

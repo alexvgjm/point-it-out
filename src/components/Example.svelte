@@ -85,4 +85,15 @@
     justify-content: center;
     align-items: center;
   }
+
+  .test-container {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+    min-width: 200px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
