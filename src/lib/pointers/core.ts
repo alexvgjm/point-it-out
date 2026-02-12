@@ -104,7 +104,7 @@ export function getTarget(selectorOrTarget: HTMLElement | SVGSVGElement | string
   return selectorOrTarget
 }
 
-export const availablePointers: Readonly<PointerName[]> = ['rect', 'free', 'arrow']
+export const availablePointers: Readonly<PointerName[]> = ['rect', 'free', 'arrow', 'spotlight']
 
 export abstract class BasePointer implements PointItOutPointer {
   abstract rootElement: PointItOutPointer['rootElement']

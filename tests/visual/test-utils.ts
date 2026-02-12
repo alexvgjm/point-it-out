@@ -1,5 +1,7 @@
 import { expect, type Page, type TestInfo } from '@playwright/test'
-import { randomUUID } from 'crypto'
+import { createHash } from 'crypto'
+
+const generated = new Set<string>()
 
 type TestPagesParams = {
   expectedURL: string
@@ -13,16 +15,20 @@ type TestPagesParams = {
   not?: boolean
 }
 
-const generated = new Set<string>()
-
 export async function visualComparisonBetweenPages(params: TestPagesParams) {
   const page = params.pwPage
 
-  let id: string
-  do {
-    id = randomUUID()
-    id = id.substring(id.lastIndexOf('-') + 1)
-  } while (generated.has(id))
+  // Generate deterministic ID based on test path and URLs
+  const testPath = params.pwTestInfo.titlePath.join(' › ')
+  const uniqueString = `${testPath}::${params.expectedURL}::${params.testingURL}`
+  const hash = createHash('sha256').update(uniqueString).digest('hex')
+  let id = hash.substring(0, 12)
+
+  let counter = 0
+  while (generated.has(id)) {
+    // In case of collision, append counter
+    id = hash.substring(0, 10) + (counter++).toString(16).padStart(2, '0')
+  }
   generated.add(id)
 
   const dir = params.pwTestInfo.snapshotDir
@@ -33,12 +39,14 @@ export async function visualComparisonBetweenPages(params: TestPagesParams) {
   if (params.beforeExpectedScreenshot) {
     await params.beforeExpectedScreenshot()
   }
+
   await page.screenshot({
     path: `${dir}/${id}-${projectName}-${suffix}.png`,
     scale: 'css'
   })
 
   await page.goto(params.testingURL, { waitUntil: 'networkidle' })
+
   if (params.beforeAction) {
     await params.beforeAction()
   }

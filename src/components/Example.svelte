@@ -6,6 +6,8 @@
   interface ExampleProps<T extends PointerName> {
     title?: string
     inBoxText?: string
+    outsideTextAbove?: string
+    outsideTextBelow?: string
     container?: boolean
     size?: { w: number; h: number }
     pointerName: T
@@ -18,6 +20,8 @@
     pointerName,
     pointerOptions,
     inBoxText = '',
+    outsideTextAbove = '',
+    outsideTextBelow = '',
     size = { w: 128, h: 128 }
   }: ExampleProps<T> = $props()
 
@@ -42,9 +46,19 @@
   <h1>{title}</h1>
 
   {#snippet TestBox()}
+    {#if outsideTextAbove}
+      <p class="outside-text">{outsideTextAbove}</p>
+    {/if}
+
     <div bind:this={target} class="test-box" style="width: {size.w}px; height: {size.h}px">
-      {inBoxText}
+      {#if inBoxText}
+        <p>{inBoxText}</p>
+      {/if}
     </div>
+
+    {#if outsideTextBelow}
+      <p class="outside-text">{outsideTextBelow}</p>
+    {/if}
   {/snippet}
 
   {#if container}
@@ -84,5 +98,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .test-container {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+    min-width: 200px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .outside-text {
+    color: white;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    text-align: center;
+  }
+
+  .test-box p {
+    color: white;
+    margin: 0;
+    font-size: 0.9rem;
   }
 </style>

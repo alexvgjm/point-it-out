@@ -8,6 +8,8 @@
   <li><a href="/400x250"><span class="size">400x250</span></a></li>
   <li><a href="/300x300/free"><span class="size">300x300 with image</span></a></li>
   <li><a href="/400x250/free"><span class="size">400x250 with image</span></a></li>
+  <li><a href="/300x300/spotlight-base"><span class="size">300x300 spotlight</span></a></li>
+  <li><a href="/400x250/spotlight-base"><span class="size">400x250 spotlight</span></a></li>
 </ul>
 
 <section class="expected-index">
@@ -124,6 +126,27 @@
           <span class="size">400x250</span>
         </a>
         transformOrigin option
+      </li>
+    </ul>
+  </div>
+
+  <div class="category">
+    <h3>create('spotlight', {'{...}'})</h3>
+    <ul>
+      <li>
+        <a href="/300x300/spotlight/default"><span class="size">300x300</span></a>
+        <a href="/400x250/spotlight/default"><span class="size">400x250</span></a>
+        defaults
+      </li>
+
+      <li>
+        <a href="/300x300/spotlight/overlay-color-option"><span class="size">300x300</span></a>
+        overlayColor option
+      </li>
+
+      <li>
+        <a href="/300x300/spotlight/padding-option"><span class="size">300x300</span></a>
+        padding option
       </li>
     </ul>
   </div>
