@@ -88,6 +88,13 @@
       </li>
 
       <li>
+        <a href="/300x300/arrow/custom-shape">
+          <span class="size">300x300</span>
+        </a>
+        custom shape (parametric dimensions)
+      </li>
+
+      <li>
         {#each Object.keys(sizeNameToNumber) as sizeName}
           <a href="/300x300/arrow/size-option/{sizeName}">
             <span class="size">{sizeName}</span>

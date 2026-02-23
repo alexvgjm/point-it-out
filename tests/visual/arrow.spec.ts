@@ -157,6 +157,33 @@ test.describe("create('arrow')", () => {
           await expectArrowInsideContainer(page, 10, true)
         })
       })
+
+      test.describe(`custom shape (${xW}x${xH})`, () => {
+        it('renders a custom parametric shape (long needle)', async ({ page }, testInfo) => {
+          const customShape = {
+            tailWidth: 4,
+            tailLength: 150,
+            headWidth: 30,
+            headLength: 60
+          }
+
+          await visualComparisonBetweenPages({
+            testingURL: `/${xW}x${xH}`,
+            expectedURL: `/${xW}x${xH}/arrow/custom-shape`,
+            action: () => {
+              return page.evaluate((shapeData) => {
+                // @ts-expect-error: pio is attached to window in the browser context
+                window.pio.create('arrow', {
+                  target: `.test-box`,
+                  shape: shapeData
+                })
+              }, customShape)
+            },
+            pwPage: page,
+            pwTestInfo: testInfo
+          })
+        })
+      })
     })
   })
 })

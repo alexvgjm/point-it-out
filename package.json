@@ -19,11 +19,14 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
+    "preview": "vite preview",
     "test": "npm run test:visual && npm run test:unit",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "test:visual": "playwright test --ui",
     "test:unit": "vitest",
+    "build": "vite build && npm run package",
+    "package": "svelte-package",
     "build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js",
     "prepare": "husky"
   },
@@ -40,7 +43,7 @@
     "@sveltejs/package": "^2.3.7",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@types/eslint": "^9.6.0",
-    "eslint": "^9.0.0",
+    "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.36.0",
     "globals": "^15.0.0",
