@@ -8,21 +8,21 @@
   import { page } from '$app/state'
 
   if (browser) {
-    ;(window as unknown as { pio: typeof pio }).pio = pio
+  	;(window as unknown as { pio: typeof pio }).pio = pio
 
-    onMount(() => {
-      if (page.url.href.includes('/examples/')) {
-        return
-      }
-      document.body.classList.add('visual-test')
-    })
+  	onMount(() => {
+  		if (page.url.href.includes('/examples/')) {
+  			return
+  		}
+  		document.body.classList.add('visual-test')
+  	})
 
-    onDestroy(() => {
-      if (page.url.href.includes('/examples/')) {
-        return
-      }
-      document.body.classList.remove('visual-test')
-    })
+  	onDestroy(() => {
+  		if (page.url.href.includes('/examples/')) {
+  			return
+  		}
+  		document.body.classList.remove('visual-test')
+  	})
   }
 </script>
 

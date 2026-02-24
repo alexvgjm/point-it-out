@@ -6,7 +6,7 @@
   let { data }: { data: PageData } = $props()
   let p1: HTMLElement = $state()!
 
-  // DIST: 80
+  	// DIST: 80
 </script>
 
 <div

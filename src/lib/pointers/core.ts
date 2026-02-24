@@ -1,162 +1,162 @@
 import { originToAngle, namedOriginToComponents, sizeNameToNumber } from '$lib/values'
 import type {
-  CommonOptions,
-  PIOEventName,
-  PIOPointerEvents,
-  PointerName,
-  PointItOutPointer,
-  SVGOptions,
-  NamedScale,
-  NamedOrigin,
-  TransformOriginOption,
-  Origin,
-  OriginX,
-  Percent,
-  OriginY
+	CommonOptions,
+	PIOEventName,
+	PIOPointerEvents,
+	PointerName,
+	PointItOutPointer,
+	SVGOptions,
+	NamedScale,
+	NamedOrigin,
+	TransformOriginOption,
+	Origin,
+	OriginX,
+	Percent,
+	OriginY
 } from '../types'
 
 // FIXME: container: document.body
 // Default at constructor to avoid PlayWright environmnet
 // without document. Maybe should use a init function?
 export const DEFAULT_COMMON_OPTIONS: Partial<CommonOptions> = Object.freeze({
-  className: undefined,
-  zIndex: 9999
-  // container: document.body
+	className: undefined,
+	zIndex: 9999
+	// container: document.body
 })
 
 export const DEFAULT_SVG_OPTIONS: Required<SVGOptions> = Object.freeze({
-  strokeColor: 'darkorange',
-  fillColor: 'orange',
-  strokeWidth: 4
+	strokeColor: 'darkorange',
+	fillColor: 'orange',
+	strokeWidth: 4
 })
 
 export function createWrapper(options: CommonOptions) {
-  const opts = {
-    ...DEFAULT_COMMON_OPTIONS,
-    ...options
-  }
-  const wrapper = document.createElement('div')
-  wrapper.style.zIndex = opts.zIndex!.toString()
-  wrapper.style.position = 'absolute'
-  wrapper.style.transformOrigin = 'top left'
-  wrapper.classList.add('pio__pointer-wrapper')
-  if (opts.className) {
-    wrapper.classList.add(opts.className)
-  }
+	const opts = {
+		...DEFAULT_COMMON_OPTIONS,
+		...options
+	}
+	const wrapper = document.createElement('div')
+	wrapper.style.zIndex = opts.zIndex!.toString()
+	wrapper.style.position = 'absolute'
+	wrapper.style.transformOrigin = 'top left'
+	wrapper.classList.add('pio__pointer-wrapper')
+	if (opts.className) {
+		wrapper.classList.add(opts.className)
+	}
 
-  return wrapper
+	return wrapper
 }
 
 export function createParentSVG(options: CommonOptions & SVGOptions, isRoot = false) {
-  const opts = {
-    ...DEFAULT_COMMON_OPTIONS,
-    ...DEFAULT_SVG_OPTIONS,
-    ...options
-  } as Required<CommonOptions & SVGOptions>
+	const opts = {
+		...DEFAULT_COMMON_OPTIONS,
+		...DEFAULT_SVG_OPTIONS,
+		...options
+	} as Required<CommonOptions & SVGOptions>
 
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+	const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 
-  if (isRoot) {
-    svg.style.position = 'absolute'
-    if (opts.className) {
-      svg.classList.add(opts.className)
-    }
-  }
-  svg.style.zIndex = options.zIndex!.toString()
+	if (isRoot) {
+		svg.style.position = 'absolute'
+		if (opts.className) {
+			svg.classList.add(opts.className)
+		}
+	}
+	svg.style.zIndex = options.zIndex!.toString()
 
-  svg.style.stroke = opts.strokeColor
-  svg.style.fill = opts.fillColor
-  svg.style.strokeWidth = `${opts.strokeWidth}`
-  svg.style.pointerEvents = 'none'
-  svg.style.strokeLinejoin = 'round'
-  svg.style.strokeLinecap = 'round'
-  svg.style.strokeWidth = opts.strokeWidth + 'px'
-  return svg
+	svg.style.stroke = opts.strokeColor
+	svg.style.fill = opts.fillColor
+	svg.style.strokeWidth = `${opts.strokeWidth}`
+	svg.style.pointerEvents = 'none'
+	svg.style.strokeLinejoin = 'round'
+	svg.style.strokeLinecap = 'round'
+	svg.style.strokeWidth = opts.strokeWidth + 'px'
+	return svg
 }
 
 export function createSVG<T = SVGElement>(tag: string) {
-  return document.createElementNS('http://www.w3.org/2000/svg', tag) as T
+	return document.createElementNS('http://www.w3.org/2000/svg', tag) as T
 }
 export function getAngle(value: number | NamedOrigin) {
-  return typeof value === 'number' ? value : originToAngle[value]
+	return typeof value === 'number' ? value : originToAngle[value]
 }
 export function getSize(value: number | NamedScale) {
-  return typeof value === 'number' ? value : sizeNameToNumber[value]
+	return typeof value === 'number' ? value : sizeNameToNumber[value]
 }
 
 export function getTransformOrigin(value: TransformOriginOption): Origin {
-  if (typeof value === 'string') {
-    return namedOriginToComponents[value]
-  }
+	if (typeof value === 'string') {
+		return namedOriginToComponents[value]
+	}
 
-  const x: OriginX | Percent = typeof value.x == 'number' ? `${value.x}%` : value.x
+	const x: OriginX | Percent = typeof value.x == 'number' ? `${value.x}%` : value.x
 
-  const y: OriginY | Percent = typeof value.y == 'number' ? `${value.y}%` : value.y
+	const y: OriginY | Percent = typeof value.y == 'number' ? `${value.y}%` : value.y
 
-  return `${x} ${y}`
+	return `${x} ${y}`
 }
 
 export function getTarget(selectorOrTarget: HTMLElement | SVGSVGElement | string | null) {
-  if (typeof selectorOrTarget == 'string') {
-    return document.querySelector(selectorOrTarget) as HTMLElement
-  }
+	if (typeof selectorOrTarget == 'string') {
+		return document.querySelector(selectorOrTarget) as HTMLElement
+	}
 
-  return selectorOrTarget
+	return selectorOrTarget
 }
 
 export const availablePointers: Readonly<PointerName[]> = ['rect', 'free', 'arrow']
 
 export abstract class BasePointer implements PointItOutPointer {
-  abstract rootElement: PointItOutPointer['rootElement']
+	abstract rootElement: PointItOutPointer['rootElement']
 
-  destroyed = false
-  target
-  container
-  listeners: {
-    [PIOEvent in PIOEventName]?: ((payload: PIOPointerEvents[PIOEventName]) => void)[] | undefined
-  }
+	destroyed = false
+	target
+	container
+	listeners: {
+		[PIOEvent in PIOEventName]?: ((payload: PIOPointerEvents[PIOEventName]) => void)[] | undefined
+	}
 
-  constructor(options: CommonOptions) {
-    const opts = { ...DEFAULT_COMMON_OPTIONS, ...options } as Required<CommonOptions>
-    const container = getTarget(opts.container || document.body)
-    if (!container) {
-      throw new Error(`PointItOut: container is ${container}. Check container option.`)
-    }
+	constructor(options: CommonOptions) {
+		const opts = { ...DEFAULT_COMMON_OPTIONS, ...options } as Required<CommonOptions>
+		const container = getTarget(opts.container || document.body)
+		if (!container) {
+			throw new Error(`PointItOut: container is ${container}. Check container option.`)
+		}
 
-    if (getComputedStyle(container).position === 'static') {
-      container.style.position = 'relative'
-    }
+		if (getComputedStyle(container).position === 'static') {
+			container.style.position = 'relative'
+		}
 
-    const target = getTarget(options.target)
-    if (!target) {
-      throw new Error(`PointItOut: Target is ${target}. Check target option.`)
-    }
-    this.listeners = {}
-    this.container = container
-    this.target = target
-  }
+		const target = getTarget(options.target)
+		if (!target) {
+			throw new Error(`PointItOut: Target is ${target}. Check target option.`)
+		}
+		this.listeners = {}
+		this.container = container
+		this.target = target
+	}
 
-  abstract update(): void
+	abstract update(): void
 
-  destroy() {
-    if (this.destroyed) {
-      throw new Error('Pointer already destroyed')
-    }
+	destroy() {
+		if (this.destroyed) {
+			throw new Error('Pointer already destroyed')
+		}
 
-    this.destroyed = true
-    this.rootElement.remove()
-    this.listeners.destroy?.forEach((cb) => cb(this))
-  }
+		this.destroyed = true
+		this.rootElement.remove()
+		this.listeners.destroy?.forEach((cb) => cb(this))
+	}
 
-  on: PointItOutPointer['on'] = (event, cb) => {
-    if (this.listeners[event] === undefined) {
-      return (this.listeners[event] = [cb])
-    }
+	on: PointItOutPointer['on'] = (event, cb) => {
+		if (this.listeners[event] === undefined) {
+			return (this.listeners[event] = [cb])
+		}
 
-    if (this.listeners[event].includes(cb)) {
-      return
-    }
+		if (this.listeners[event].includes(cb)) {
+			return
+		}
 
-    this.listeners[event].push(cb)
-  }
+		this.listeners[event].push(cb)
+	}
 }

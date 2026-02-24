@@ -8,7 +8,7 @@
 </script>
 
 <h1 class="examples__title">Rect</h1>
-<h2 class="examples__subtitle">create('rect', {`{...}`})</h2>
+<h2 class="examples__subtitle">create('rect', {'{...}'})</h2>
 <section class="examples">
   <section class="examples__section">
     <h1>Default</h1>

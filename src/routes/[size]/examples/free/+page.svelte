@@ -13,7 +13,7 @@
 <img src={swordPointer} bind:this={p1} class="pointer-img" alt="Sword pointer" />
 
 <h1 class="examples__title">Free pointer</h1>
-<h2 class="examples__subtitle">create('free', {`{...}`})</h2>
+<h2 class="examples__subtitle">create('free', {'{...}'})</h2>
 <p>NOTE: using distance: 20 in most examples for legibility.</p>
 <section class="examples">
   <section class="examples__section">
@@ -22,9 +22,9 @@
       {size}
       pointerName="free"
       pointerOptions={{
-        pointerElement: p1,
-        distance: 0, // TODO: fix distance
-        transformOrigin: { x: '85%', y: '61%' }
+      	pointerElement: p1,
+      	distance: 0, // TODO: fix distance
+      	transformOrigin: { x: '85%', y: '61%' }
       }}
     />
   </section>
