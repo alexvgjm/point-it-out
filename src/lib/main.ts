@@ -9,21 +9,21 @@ import { FreePointer } from './pointers/free-pointer'
 
 const created: Set<PointItOutPointer> = new Set()
 const onResize = () => {
-  update()
+	update()
 }
 const onLoad = () => {
-  update()
+	update()
 }
 
 let systemOptions: SystemOptions = {
-  updateOnResize: true,
-  updateAfterLoad: true
+	updateOnResize: true,
+	updateAfterLoad: true
 }
 
 let initialized = false
 
 function removePointerFromCreated(pointer: PointItOutPointer) {
-  created.delete(pointer)
+	created.delete(pointer)
 }
 
 /**
@@ -31,17 +31,17 @@ function removePointerFromCreated(pointer: PointItOutPointer) {
  * @param newOptions options to modify.
  */
 export function config(newOptions: Partial<SystemOptions>) {
-  systemOptions = { ...systemOptions, ...newOptions }
-  // Clear old listeners
-  window.removeEventListener('resize', onResize)
-  window.removeEventListener('load', onLoad)
-  if (systemOptions.updateOnResize) {
-    window.addEventListener('resize', onResize)
-  }
-  if (systemOptions.updateAfterLoad) {
-    window.addEventListener('load', onLoad)
-  }
-  return structuredClone(systemOptions)
+	systemOptions = { ...systemOptions, ...newOptions }
+	// Clear old listeners
+	window.removeEventListener('resize', onResize)
+	window.removeEventListener('load', onLoad)
+	if (systemOptions.updateOnResize) {
+		window.addEventListener('resize', onResize)
+	}
+	if (systemOptions.updateAfterLoad) {
+		window.addEventListener('load', onLoad)
+	}
+	return structuredClone(systemOptions)
 }
 
 /**
@@ -49,31 +49,31 @@ export function config(newOptions: Partial<SystemOptions>) {
  * @returns reference to a new PointItOutPointer
  */
 export function create<PointerName extends keyof PointerOptions>(
-  pointerName: PointerName,
-  options: PointerOptions[PointerName]
+	pointerName: PointerName,
+	options: PointerOptions[PointerName]
 ) {
-  if (!initialized) {
-    config(systemOptions)
-    initialized = true
-    if (systemOptions.updateAfterLoad && document.readyState == 'complete') {
-      onLoad()
-    }
-  }
+	if (!initialized) {
+		config(systemOptions)
+		initialized = true
+		if (systemOptions.updateAfterLoad && document.readyState == 'complete') {
+			onLoad()
+		}
+	}
 
-  let createdPointer!: BasePointer
+	let createdPointer!: BasePointer
 
-  // Deliberately using explicit if-casing instead mappings
-  if (pointerName == 'rect') {
-    createdPointer = new RectPointer(options)
-  } else if (pointerName == 'arrow') {
-    createdPointer = new ArrowPointer(options)
-  } else if (pointerName == 'free') {
-    createdPointer = new FreePointer(options as PointerOptions['free'])
-  }
+	// Deliberately using explicit if-casing instead mappings
+	if (pointerName == 'rect') {
+		createdPointer = new RectPointer(options)
+	} else if (pointerName == 'arrow') {
+		createdPointer = new ArrowPointer(options)
+	} else if (pointerName == 'free') {
+		createdPointer = new FreePointer(options as PointerOptions['free'])
+	}
 
-  createdPointer.on('destroy', removePointerFromCreated)
-  created.add(createdPointer)
-  return createdPointer
+	createdPointer.on('destroy', removePointerFromCreated)
+	created.add(createdPointer)
+	return createdPointer
 }
 
 /**
@@ -82,7 +82,7 @@ export function create<PointerName extends keyof PointerOptions>(
  * when used in SPA or while testing.
  */
 export function clear() {
-  created.forEach((p) => p.destroy())
+	created.forEach((p) => p.destroy())
 }
 
 /**
@@ -95,5 +95,5 @@ export function clear() {
  * manually via its update method.
  */
 export function update() {
-  created.forEach((s) => s.update())
+	created.forEach((s) => s.update())
 }

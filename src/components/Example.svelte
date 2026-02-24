@@ -13,12 +13,12 @@
   }
 
   const {
-    title = '',
-    container,
-    pointerName,
-    pointerOptions,
-    inBoxText = '',
-    size = { w: 128, h: 128 }
+  	title = '',
+  	container,
+  	pointerName,
+  	pointerOptions,
+  	inBoxText = '',
+  	size = { w: 128, h: 128 }
   }: ExampleProps<T> = $props()
 
   let target: HTMLElement | undefined = $state()
@@ -26,13 +26,13 @@
   let p: PointItOutPointer
 
   onMount(() => {
-    if (browser) {
-      p = create(pointerName, {
-        ...pointerOptions,
-        target: target,
-        container: container ? containerElm : undefined
-      } as PointerOptions[T])
-    }
+  	if (browser) {
+  		p = create(pointerName, {
+  			...pointerOptions,
+  			target: target,
+  			container: container ? containerElm : undefined
+  		} as PointerOptions[T])
+  	}
   })
 
   onDestroy(() => p?.destroy())

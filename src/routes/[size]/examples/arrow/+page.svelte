@@ -8,7 +8,7 @@
 </script>
 
 <h1 class="examples__title">Arrow</h1>
-<h2 class="examples__subtitle">create('arrow', {`{...}`})</h2>
+<h2 class="examples__subtitle">create('arrow', {'{...}'})</h2>
 <p>NOTE: using distance: 20 in most examples for legibility.</p>
 <section class="examples">
   <section class="examples__section">
