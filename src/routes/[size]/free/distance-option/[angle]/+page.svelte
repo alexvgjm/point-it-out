@@ -6,7 +6,7 @@
 
   let { data }: { data: PageData } = $props()
 
-  const degs = $page.params.angle
+  const degs = $page.params.angle!
   let p1: HTMLElement = $state()!
 
   const dx = Math.cos(degsToRads(+degs)) * 80

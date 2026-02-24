@@ -6,7 +6,7 @@
   export let data: PageData
 
   const namedAngle = originToAngle[$page.params.angle as keyof typeof originToAngle]
-  const angle = namedAngle ?? +$page.params.angle
+  const angle = namedAngle ?? +$page.params.angle!
 
   const w = 96
   const len = 128

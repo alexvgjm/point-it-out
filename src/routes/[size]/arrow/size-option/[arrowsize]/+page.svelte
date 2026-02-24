@@ -10,7 +10,7 @@
   const len = 128
 
   const namedSize = namedSizes[$page.params.arrowsize as keyof typeof namedSizes]
-  const size = namedSize ?? +$page.params.arrowsize
+  const size = namedSize ?? +$page.params.arrowsize!
 </script>
 
 <div
