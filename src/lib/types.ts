@@ -99,6 +99,16 @@ export interface FreePointerOptions extends CommonOptions, Animatable {
 }
 
 /**
+ * Geometric dimensions for the arrow pointer.
+ */
+export interface ArrowShape {
+	tailWidth?: number
+	tailLength?: number
+	headWidth?: number
+	headLength?: number
+}
+
+/**
  * Arrows are:
  * - A pointer, receiving CommonOptions.
  * - A SVGPointer, receiving SVGOptions.
@@ -106,7 +116,11 @@ export interface FreePointerOptions extends CommonOptions, Animatable {
  * their own pointerElement (an SVG).
  * - An animatable, receiving animate options.
  */
-export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> & SVGOptions
+export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> & 
+  SVGOptions & {
+  	/** Custom geometric dimensions for the arrow */
+  	shape?: ArrowShape
+  }
 
 export interface PointerOptions {
 	rect: RectOptions

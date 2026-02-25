@@ -96,6 +96,30 @@ test.describe('create(\'arrow\')', () => {
 				})
 			})
 
+			test.describe(`custom shape (${xW}x${xH})`, () => {
+				it('renders a custom parametric shape (long needle)', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape`,
+						action: () => {
+							return page.evaluate(() => {
+								pio.create('arrow', {
+									target: '.test-box',
+									shape: {
+										tailWidth: 4,
+										tailLength: 150,
+										headWidth: 30,
+										headLength: 60
+									}
+								})
+							})
+						},
+						pwPage: page,
+						pwTestInfo: testInfo
+					})
+				})
+			})
+
 			test.describe(`responsive (${xW}x${xH})`, { tag: '@responsive' }, () => {
 				async function expectArrowInsideContainer(page: Page, tolerance = 10, negate = false) {
 					const container = await page.getByTestId('limited-container').boundingBox()
