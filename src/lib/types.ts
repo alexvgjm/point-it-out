@@ -108,7 +108,8 @@ export interface ArrowShape {
 	headWidth?: number
 	headLength?: number
 
-	/** * Controls the "aggressiveness" or flare of the side tips. 
+	/**
+	 * Controls the "aggressiveness" or flare of the side tips. 
 	 * Higher values make it look more like a sharp diamond/spike.
 	 */
 	tipTaper?: number
