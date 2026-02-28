@@ -101,7 +101,7 @@ test.describe('Common options', () => {
 			await page.goto('/300x300/issues/static-container', { waitUntil: 'networkidle' })
 			const position = await page.evaluate(() => {
 				pio.create('rect', { target: '.test-box' })
-				const elm = document.querySelector('.visual-test')!
+				const elm = document.body
 				return Promise.resolve(getComputedStyle(elm).position)
 			})
 

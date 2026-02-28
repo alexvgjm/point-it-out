@@ -94,7 +94,7 @@
     </ul>
   </div>
 
-  <div class="category">
+  <div class="category category--arrow">
     <h3>create('arrow', {'{...}'})</h3>
     <ul>
       <li>
@@ -141,13 +141,6 @@
       </li>
 
       <li>
-        <a href={resolve('/300x300/arrow/custom-shape/all')}>
-          <span class="size">300x300</span>
-        </a>
-        Custom parametric shape
-      </li>
-
-      <li>
         {#each Object.keys(sizeNameToNumber) as sizeName (sizeName)}
           <a href={resolve(`/300x300/arrow/size-option/${sizeName}`)}>
             <span class="size">{sizeName}</span>
@@ -158,6 +151,40 @@
         </a>
         size option
       </li>
+
+      <li>
+
+      <ul>shape option:
+          <li>
+            <a href={resolve('/300x300/arrow/custom-shape/curvature')}>
+              <span class="size">baseCurvature | tailCurvature | headCurvature</span>
+            </a>
+          </li>
+
+          <li>
+            <a href={resolve('/300x300/arrow/custom-shape/length')}>
+              <span class="size">tailLength & headLength</span>
+            </a>
+          </li>
+          <li>
+            <a href={resolve('/300x300/arrow/custom-shape/taper')}>
+              <span class="size">tipTaper</span>
+            </a>
+          </li>
+          <li>
+            <a href={resolve('/300x300/arrow/custom-shape/width')}>
+              <span class="size">tailWidth & headWidth</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href={resolve('/300x300/arrow/custom-shape/all')}>
+              <span class="size">All options</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
     </ul>
   </div>
 
@@ -190,3 +217,97 @@
     </ul>
   </div>
 </section>
+
+
+<style>
+  ul ul {
+    margin-top: 1rem;
+  }
+  ul ul li {
+    padding-left: 1rem;
+  }
+  
+  .category--arrow {
+    grid-row: 1 / 3;
+    grid-column: 2;
+  }
+
+  .expected-index {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    flex-wrap: wrap;
+    border: 1px solid #444a;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  ul li {
+    margin-top: 0.2rem;
+    display: flex;
+  }
+
+  h2 {
+    margin: 0;
+  }
+  .expected-index h2 {
+    margin: 0;
+    position: absolute;
+    left: -1em;
+    top: -1em;
+    border: 1px solid #444a;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--color-bg);
+  }
+
+  .expected-index h3 {
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-font-highlight);
+  }
+
+  .size {
+    font-size: 0.8rem;
+    background: #10354f;
+    display: inline-block;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.3rem;
+    margin-right: 0.2rem;
+  }
+
+  .category {
+    margin: 1rem;
+  }
+
+  .test-pages-links {
+    display: flex;
+    max-width: 720px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .test-pages-links li {
+    margin: 0.25rem;
+  }
+
+  a {
+    color: whitesmoke;
+  }
+
+  :global(body) {
+    min-height: 110vh;
+  }
+</style>
