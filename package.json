@@ -19,13 +19,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
-    "preview": "vite preview",
     "test": "npm run test:visual && npm run test:unit",
     "lint": "eslint .",
     "test:visual": "playwright test",
     "test:unit": "vitest",
-    "build": "vite build && npm run package",
-    "package": "svelte-kit sync && svelte-package && publint",
     "build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js",
     "prepare": "husky"
   },
@@ -35,7 +32,6 @@
     "!dist/**/*.spec.*"
   ],
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.28.1",
     "@stylistic/eslint-plugin": "^5.9.0",
     "@sveltejs/adapter-auto": "^7.0.1",

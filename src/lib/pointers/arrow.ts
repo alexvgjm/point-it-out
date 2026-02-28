@@ -8,15 +8,35 @@ const DEFAULT_SHAPE: Required<ArrowShape> = {
 	tailWidth: 32,
 	tailLength: 64,
 	headWidth: 96,
-	headLength: 64
+	headLength: 64,
+	tipTaper: 0,
+	baseCurvature: 0,
+	tailCurvature: 0,
+	headCurvature: 0
 }
 
-function createArrowDPathAttribute(shape: Required<ArrowShape>, strw: number) {
-	const { tailWidth: tw, tailLength: tl, headWidth: hw, headLength: hl } = shape
-	const sw = strw / 2
-	const centerY = hw / 2
+function createArrowDPathAttribute(s: Required<ArrowShape>, w: number) {
+	/**
+     * Destroying readability is intentional. The SVG 'd' attribute string is highly 
+     * redundant and resists standard gzip compression. To minimize the final bundle 
+     * footprint and execution overhead, we use pre-calculated shorthand variables 
+     * and a unified command dispatcher (L/Q) to keep the path logic as lean as possible.
+     */
+	const { tailWidth: tw, tailLength: tl, headWidth: hw, headLength: hl, tipTaper: tp, baseCurvature: bc, tailCurvature: tc, headCurvature: hc } = s
+	const r = w / 2, y = hw / 2, x = r, v = y + r, n = hl + r, m = (hw - tw) / 2 + r, k = m + tw, h = hl + tp + r, e = hl + tl + r
+	const f = (c: number, x1: number, y1: number, x2: number, y2: number) => c === 0 ? `L ${x2} ${y2}` : `Q ${x1} ${y1} ${x2} ${y2}`
 
-	return `M ${sw} ${centerY + sw} ` + `l ${hl} ${-hw / 2} ` + `l 0 ${(hw - tw) / 2} ` + `l ${tl} 0 ` + `l 0 ${tw} ` + `l ${-tl} 0 ` + `l 0 ${(hw - tw) / 2} ` + 'Z'
+	return [
+		`M ${x} ${v}`,
+		f(hc, x + hl / 2, v - hw / 4 + hc, h, r),
+		f(hc, h - tp / 2, m - hc, n, m),
+		f(tc, n + tl / 2, m + tc, e, m),
+		f(bc, e - bc, v, e, k),
+		f(tc, n + tl / 2, k - tc, n, k),
+		f(hc, h - tp / 2, k + hc, h, hw + r),
+		f(hc, x + hl / 2, v + hw / 4 - hc, x, v),
+		'Z'
+	].join(' ')
 }
 
 const DEFAULT_ARROW_OPTIONS: Readonly<Omit<ArrowPointerOptions, 'target'>> = Object.freeze({

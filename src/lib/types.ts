@@ -2,14 +2,14 @@ import type { Animatable } from './pointers/animations/animatable'
 
 export type NamedScale = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type NamedOrigin =
-  | 'right'
-  | 'right top'
-  | 'top'
-  | 'left top'
-  | 'left'
-  | 'left bottom'
-  | 'bottom'
-  | 'right bottom'
+	| 'right'
+	| 'right top'
+	| 'top'
+	| 'left top'
+	| 'left'
+	| 'left bottom'
+	| 'bottom'
+	| 'right bottom'
 
 export type Origin = `${Percent | OriginX} ${Percent | OriginY}`
 
@@ -44,27 +44,27 @@ export interface SVGOptions {
 export interface RectOptions extends CommonOptions, SVGOptions, Animatable {
 	/** Space between stroke and content. Can be negative. Default: 0*/
 	padding?:
-    | number
-    | {
-    	/** Horizontal gap (left and right) */
-    	x?: number
-    	/** Vertical gap (top and bottom) */
-    	y?: number
-    }
+	| number
+	| {
+		/** Horizontal gap (left and right) */
+		x?: number
+		/** Vertical gap (top and bottom) */
+		y?: number
+	}
 
 	round?:
-    | number
-    | string
-    | {
-    	rx: number | string
-    	ry: number | string
-    }
+	| number
+	| string
+	| {
+		rx: number | string
+		ry: number | string
+	}
 }
 
 export type ResponsiveMode = 'rotate' | 'scale'
 export type ResponsiveConfigurationObject =
-  | { type: 'rotate' }
-  | { type: 'scale'; minScale?: number }
+	| { type: 'rotate' }
+	| { type: 'scale'; minScale?: number }
 
 export type ResponsiveOptions = false | ResponsiveMode | ResponsiveConfigurationObject
 
@@ -73,11 +73,11 @@ export type TransformOrigin = {
 	y: Percent | OriginY
 }
 export type TransformOriginOption =
-  | NamedOrigin
-  | {
-  	x: number | Percent | OriginX
-  	y: number | Percent | OriginY
-  }
+	| NamedOrigin
+	| {
+		x: number | Percent | OriginX
+		y: number | Percent | OriginY
+	}
 
 export interface FreePointerOptions extends CommonOptions, Animatable {
 	/** Element to use as a pointer */
@@ -91,21 +91,36 @@ export interface FreePointerOptions extends CommonOptions, Animatable {
 	scale?: number | NamedScale
 	responsive?: ResponsiveOptions
 	transformOrigin?:
-    | NamedOrigin
-    | {
-    	x: number | Percent | OriginX
-    	y: number | Percent | OriginY
-    }
+	| NamedOrigin
+	| {
+		x: number | Percent | OriginX
+		y: number | Percent | OriginY
+	}
 }
 
 /**
- * Geometric dimensions for the arrow pointer.
+ * Geometric dimensions and styling for the arrow pointer shape.
  */
 export interface ArrowShape {
+	// Dimensiones básicas
 	tailWidth?: number
 	tailLength?: number
 	headWidth?: number
 	headLength?: number
+
+	/** * Controls the "aggressiveness" or flare of the side tips. 
+	 * Higher values make it look more like a sharp diamond/spike.
+	 */
+	tipTaper?: number
+
+	/** Curvature of the very bottom/start of the arrow */
+	baseCurvature?: number
+
+	/** Curvature along the body (tail) of the arrow */
+	tailCurvature?: number
+
+	/** Curvature of the head's outer edges */
+	headCurvature?: number
 }
 
 /**
@@ -116,11 +131,11 @@ export interface ArrowShape {
  * their own pointerElement (an SVG).
  * - An animatable, receiving animate options.
  */
-export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> & 
-  SVGOptions & {
-  	/** Custom geometric dimensions for the arrow */
-  	shape?: ArrowShape
-  }
+export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> &
+	SVGOptions & {
+		/** Custom geometric dimensions for the arrow */
+		shape?: ArrowShape
+	}
 
 export interface PointerOptions {
 	rect: RectOptions

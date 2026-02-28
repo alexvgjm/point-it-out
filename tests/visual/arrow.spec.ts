@@ -96,26 +96,78 @@ test.describe('create(\'arrow\')', () => {
 				})
 			})
 
-			test.describe(`custom shape (${xW}x${xH})`, () => {
-				it('renders a custom parametric shape (long needle)', async ({ page }, testInfo) => {
+			test.describe(`Advanced Shape Features (${xW}x${xH})`, () => {
+
+				it('renders aggressive tips with head curvature', async ({ page }, testInfo) => {
 					await visualComparisonBetweenPages({
 						testingURL: `/${xW}x${xH}`,
-						expectedURL: `/${xW}x${xH}/arrow/custom-shape`,
-						action: () => {
-							return page.evaluate(() => {
-								pio.create('arrow', {
-									target: '.test-box',
-									shape: {
-										tailWidth: 4,
-										tailLength: 150,
-										headWidth: 30,
-										headLength: 60
-									}
-								})
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/taper`, 
+						action: () => page.evaluate(() => {
+							pio.create('arrow', {
+								target: '.test-box',
+								shape: { tailWidth: 32, tailLength: 64, headWidth: 96, headLength: 64, tipTaper: 12, headCurvature: 0 }
 							})
-						},
-						pwPage: page,
-						pwTestInfo: testInfo
+						}),
+						pwPage: page, pwTestInfo: testInfo
+					})
+				})
+
+				it('renders organic tail and rounded base', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/curvature`,
+						action: () => page.evaluate(() => {
+							pio.create('arrow', {
+								target: '.test-box',
+								shape: { tailWidth: 32, tailLength: 64, headWidth: 96, headLength: 64, tailCurvature: 20, baseCurvature: 20, headCurvature: 15 }
+							})
+						}),
+						pwPage: page, pwTestInfo: testInfo
+					})
+				})
+
+				it('renders extreme shape with all parameters', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/all`,
+						action: () => page.evaluate(() => {
+							pio.create('arrow', {
+								target: '.test-box',
+								shape: {
+									tailWidth: 32, tailLength: 100, headWidth: 100, headLength: 70,
+									tipTaper: 50, baseCurvature: 25, tailCurvature: 25, headCurvature: 20
+								}
+							})
+						}),
+						pwPage: page, pwTestInfo: testInfo
+					})
+				})
+
+				it('validates custom widths', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/width`,
+						action: () => page.evaluate(() => {
+							pio.create('arrow', {
+								target: '.test-box',
+								shape: { tailWidth: 15, headWidth: 40, tailLength: 64, headLength: 64 }
+							})
+						}),
+						pwPage: page, pwTestInfo: testInfo
+					})
+				})
+
+				it('validates custom lengths', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/length`,
+						action: () => page.evaluate(() => {
+							pio.create('arrow', {
+								target: '.test-box',
+								shape: { tailWidth: 32, headWidth: 96, tailLength: 30, headLength: 30 }
+							})
+						}),
+						pwPage: page, pwTestInfo: testInfo
 					})
 				})
 			})

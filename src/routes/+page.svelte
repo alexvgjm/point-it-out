@@ -141,10 +141,10 @@
       </li>
 
       <li>
-        <a href={resolve('/300x300/arrow/custom-shape')}>
+        <a href={resolve('/300x300/arrow/custom-shape/all')}>
           <span class="size">300x300</span>
         </a>
-        Custom parametric shape (tail/head dimensions)
+        Custom parametric shape
       </li>
 
       <li>
