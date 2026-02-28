@@ -10,7 +10,7 @@
 ></div>
 
 <style>
-  :global(.visual-test) {
+  :global(body) {
     padding: 1rem;
     display: block;
     visibility: visible;

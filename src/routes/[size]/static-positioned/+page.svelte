@@ -21,7 +21,7 @@
     margin-right: 12px;
   }
 
-  :global(body.visual-test) {
+  :global(body) {
     display: block;
   }
 </style>

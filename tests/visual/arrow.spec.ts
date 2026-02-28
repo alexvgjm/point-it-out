@@ -96,6 +96,83 @@ test.describe('create(\'arrow\')', () => {
 				})
 			})
 
+			test.describe(`shape (${xW}x${xH})`, () => {
+				test.describe('tipTaper', () => {
+					it('renders aggressive tips with head curvature', async ({ page }, testInfo) => {
+						await visualComparisonBetweenPages({
+							testingURL: `/${xW}x${xH}`,
+							expectedURL: `/${xW}x${xH}/arrow/custom-shape/taper`,
+							action: () => page.evaluate(() => {
+								pio.create('arrow', {
+									target: '.test-box',
+									shape: { tipTaper: 12 }
+								})
+							}),
+							pwPage: page, pwTestInfo: testInfo
+						})
+					})
+				})
+
+				test('test tailCurvature + baseCurvature + headCurvature', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/curvature`,
+						action: () => page.evaluate(() => {
+							pio.create('arrow', {
+								target: '.test-box',
+								shape: { tailCurvature: 20, baseCurvature: 20, headCurvature: 15 }
+							})
+						}),
+						pwPage: page, pwTestInfo: testInfo
+					})
+				})
+
+				test('test with all shape parameters', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/all`,
+						action: () => page.evaluate(() => {
+							pio.create('arrow', {
+								target: '.test-box',
+								shape: {
+									tailWidth: 32, tailLength: 100, headWidth: 100, headLength: 70,
+									tipTaper: 50, baseCurvature: 25, tailCurvature: 25, headCurvature: 20
+								}
+							})
+						}),
+						pwPage: page, pwTestInfo: testInfo
+					})
+				})
+
+				it('test tailWdith and headWitdth', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/width`,
+						action: () => page.evaluate(() => {
+							pio.create('arrow', {
+								target: '.test-box',
+								shape: { tailWidth: 15, headWidth: 40 }
+							})
+						}),
+						pwPage: page, pwTestInfo: testInfo
+					})
+				})
+
+				it('test tailLength and headLength', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/length`,
+						action: () => page.evaluate(() => {
+							pio.create('arrow', {
+								target: '.test-box',
+								shape: { tailLength: 30, headLength: 30 }
+							})
+						}),
+						pwPage: page, pwTestInfo: testInfo
+					})
+				})
+			})
+
 			test.describe(`responsive (${xW}x${xH})`, { tag: '@responsive' }, () => {
 				async function expectArrowInsideContainer(page: Page, tolerance = 10, negate = false) {
 					const container = await page.getByTestId('limited-container').boundingBox()
