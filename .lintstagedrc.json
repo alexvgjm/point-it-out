@@ -1,6 +1,5 @@
 {
   "*.{js,ts,svelte,svelte.ts}": [
-    "eslint",
     "eslint --fix"
   ]
 }

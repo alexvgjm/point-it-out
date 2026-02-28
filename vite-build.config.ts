@@ -15,7 +15,7 @@ export default defineConfig({
 		}
 	},
 	build: {
-		minify: 'esbuild',
+		minify: 'terser',
 		lib: {
 			entry: resolve(__dirname, 'src/lib/index.ts'),
 			formats: ['es']

@@ -1,6 +1,6 @@
 {
   "name": "pointitout",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "type": "module",
   "sideEffects": false,
   "description": "A tiny library to mark/point out DOM elements using absolutely positioned elements or procedurally generated SVGs",
@@ -32,6 +32,7 @@
     "!dist/**/*.spec.*"
   ],
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.28.1",
     "@stylistic/eslint-plugin": "^5.9.0",
     "@sveltejs/adapter-auto": "^7.0.1",
@@ -39,27 +40,25 @@
     "@sveltejs/package": "^2.5.7",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
     "@types/eslint": "^9.6.0",
+    "@types/node": "^22.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
     "eslint": "^10.0.2",
     "eslint-plugin-svelte": "^3.15.0",
     "globals": "^15.0.0",
     "happy-dom": "^14.12.3",
+    "highlight.js": "^11.10.0",
     "husky": "^9.1.4",
+    "just-throttle": "^4.2.0",
     "lint-staged": "^15.2.8",
     "publint": "^0.2.12",
     "svelte": "^5.53.3",
     "svelte-check": "^4.4.3",
+    "terser": "^5.46.0",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.18"
-  },
-  "dependencies": {
-    "@eslint/js": "^10.0.1",
-    "@types/node": "^22.0.0",
-    "cross-env": "^7.0.3",
-    "dotenv": "^16.4.5",
-    "highlight.js": "^11.10.0",
-    "just-throttle": "^4.2.0",
-    "vite-plugin-dts": "4.0.0-beta.2"
   }
 }
