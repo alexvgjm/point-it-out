@@ -4,7 +4,7 @@ import { type AnimatableOptions, type Animatable } from './animations/animatable
 import { DEFAULT_FREE_POINTER_OPTIONS, FreePointer } from './free-pointer'
 import { applyVirtualTransform } from './utils'
 
-const DEFAULT_SHAPE: Required<ArrowShape> = {
+export const DEFAULT_SHAPE: Required<ArrowShape> = {
 	tailWidth: 32,
 	tailLength: 64,
 	headWidth: 96,

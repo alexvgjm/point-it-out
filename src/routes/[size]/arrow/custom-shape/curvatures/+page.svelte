@@ -2,8 +2,8 @@
   import type { PageData } from './$types'
   export let data: PageData
 
-  const goldenPath = 'M 0 48 L 30 0 L 30 32 L 60 32 L 60 64 L 30 64 L 30 96 L 0 48 Z'
-  const vbW = 60 
+  const goldenPath = 'M 0 48 Q 32 39 64 0 Q 64 17 64 32 Q 96 52 128 32 Q 108 48 128 64 Q 96 44 64 64 Q 64 79 64 96 Q 32 57 0 48 Z'
+  const vbW = 128 
   const vbH = 96 
 </script>
 
