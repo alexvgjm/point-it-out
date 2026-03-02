@@ -15,26 +15,40 @@ const DEFAULT_SHAPE: Required<ArrowShape> = {
 	headCurvature: 0
 }
 
-function createArrowDPathAttribute(s: Required<ArrowShape>, w: number) {
+export function createArrowDPathAttribute(s: Required<ArrowShape>, w: number) {
 	/**
-     * Destroying readability is intentional. The SVG 'd' attribute string is highly 
-     * redundant and resists standard gzip compression. To minimize the final bundle 
-     * footprint and execution overhead, we use pre-calculated shorthand variables 
-     * and a unified command dispatcher (L/Q) to keep the path logic as lean as possible.
-     */
+	 * Destroying readability is intentional. The SVG 'd' attribute string is highly 
+	 * redundant and resists standard gzip compression. To minimize the final bundle 
+	 * footprint and execution overhead, we use pre-calculated shorthand variables 
+	 * and a unified command dispatcher (L/Q) to keep the path logic as lean as possible.
+	 */
 	const { tailWidth: tw, tailLength: tl, headWidth: hw, headLength: hl, tipTaper: tp, baseCurvature: bc, tailCurvature: tc, headCurvature: hc } = s
-	const r = w / 2, y = hw / 2, x = r, v = y + r, n = hl + r, m = (hw - tw) / 2 + r, k = m + tw, h = hl + tp + r, e = hl + tl + r
-	const f = (c: number, x1: number, y1: number, x2: number, y2: number) => c === 0 ? `L ${x2} ${y2}` : `Q ${x1} ${y1} ${x2} ${y2}`
+	const maxW = Math.max(tw, hw)
+	const r = w / 2
+	const v = (maxW / 2) + r
+	const x = r
+
+	const n = x + hl
+	const h = x + hl + tp
+	const e = x + hl + tl
+
+	const m = v - (tw / 2)
+	const k = v + (tw / 2)
+	const yTop = v - (hw / 2)
+	const yBottom = v + (hw / 2)
+
+	const f = (c: number, x1: number, y1: number, x2: number, y2: number) =>
+		c === 0 ? `L ${x2} ${y2}` : `Q ${x1} ${y1} ${x2} ${y2}`
 
 	return [
 		`M ${x} ${v}`,
-		f(hc, x + hl / 2, v - hw / 4 + hc, h, r),
+		f(hc, x + hl / 2, v - (hw / 4) + hc, h, yTop),
 		f(hc, h - tp / 2, m - hc, n, m),
 		f(tc, n + tl / 2, m + tc, e, m),
 		f(bc, e - bc, v, e, k),
 		f(tc, n + tl / 2, k - tc, n, k),
-		f(hc, h - tp / 2, k + hc, h, hw + r),
-		f(hc, x + hl / 2, v + hw / 4 - hc, x, v),
+		f(hc, h - tp / 2, k + hc, h, yBottom),
+		f(hc, x + hl / 2, v + (hw / 4) - hc, x, v),
 		'Z'
 	].join(' ')
 }
@@ -61,10 +75,15 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
 
 		const svg = createParentSVG(opts)
 
-		const svgW = shape.tailLength + shape.headLength + opts.strokeWidth
-		const svgH = Math.max(shape.tailWidth, shape.headWidth) + opts.strokeWidth
+		const { tailLength: tl, headLength: hl, tipTaper: tp } = shape
+		const maxW = Math.max(shape.tailWidth, shape.headWidth)
+
+		const realLength = hl + tl + (tp > 0 ? tp : 0)
+		const svgW = realLength + opts.strokeWidth
+		const svgH = maxW + opts.strokeWidth
 
 		svg.setAttribute('viewBox', `0 0 ${svgW} ${svgH}`)
+
 		svg.style.fill = opts.fillColor
 		svg.style.stroke = opts.strokeColor
 		svg.style.strokeWidth = `${opts.strokeWidth === 0 ? '0' : opts.strokeWidth}`
@@ -89,6 +108,7 @@ export class ArrowPointer extends FreePointer implements SVGPointer, Animatable 
 		this.fillColor = opts.fillColor
 		this.strokeColor = opts.strokeColor
 		this.path = path
+
 		this._transformOrigin = 'left center'
 
 		applyVirtualTransform(this.transform!, this.pointerElement)

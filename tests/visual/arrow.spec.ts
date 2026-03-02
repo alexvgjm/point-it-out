@@ -2,6 +2,13 @@ import { test, test as it, expect, type Page } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
 
+declare global {
+	interface Window {
+		pio: typeof pio;
+		testArrow: { destroy: () => void };
+	}
+}
+
 test.describe('create(\'arrow\')', () => {
 	const testsTargets = [{ xW: 300, xH: 300 }]
 
@@ -171,6 +178,29 @@ test.describe('create(\'arrow\')', () => {
 						pwPage: page, pwTestInfo: testInfo
 					})
 				})
+			})
+
+			test('test arrow vertical stability during shape modification', async ({ page }) => {
+				await page.goto(`/${xW}x${xH}`)
+				await page.waitForFunction(() => window.pio !== undefined)
+				await page.evaluate(() => {
+					window.testArrow = window.pio.create('arrow', {
+						target: '.test-box',
+						shape: { tailWidth: 40, headWidth: 40, tailLength: 100, headLength: 50 }
+					})
+				})
+				const boxInicial = await page.locator('svg path').boundingBox()
+				const centerYInicial = boxInicial!.y + (boxInicial!.height / 2)
+				await page.evaluate(() => {
+					window.testArrow.destroy()
+					window.pio.create('arrow', {
+						target: '.test-box',
+						shape: { tailWidth: 40, headWidth: 10, tailLength: 100, headLength: 50 }
+					})
+				})
+				const boxFinal = await page.locator('svg path').boundingBox()
+				const centerYFinal = boxFinal!.y + (boxFinal!.height / 2)
+				expect(Math.abs(centerYInicial - centerYFinal)).toBeLessThan(0.5)
 			})
 
 			test.describe(`responsive (${xW}x${xH})`, { tag: '@responsive' }, () => {
