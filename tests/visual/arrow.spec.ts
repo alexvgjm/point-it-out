@@ -108,7 +108,7 @@ test.describe('create(\'arrow\')', () => {
 				it('renders aggressive tips with head curvature', async ({ page }, testInfo) => {
 					await visualComparisonBetweenPages({
 						testingURL: `/${xW}x${xH}`,
-						expectedURL: `/${xW}x${xH}/arrow/custom-shape/tipTaper`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/tip-taper`,
 						pwPage: page,
 						pwTestInfo: testInfo,
 						action: () => page.evaluate((shapeParams) => {
