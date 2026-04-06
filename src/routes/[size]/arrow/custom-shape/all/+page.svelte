@@ -2,61 +2,23 @@
   import type { PageData } from './$types'
   export let data: PageData
 
-  // Test Config
-  const tw = 32, tl = 100, hw = 100, hl = 70, tp = 50, bc = 25, tc = 25, hc = 20
-
-  const sw = 0
-  const r = sw / 2
-  const y = hw / 2
-  
-  const x = r
-  const v = y + r 
-  const n = hl + r
-  const m = (hw - tw) / 2 + r
-  const k = m + tw
-  const h = hl + tp + r
-  const e = hl + tl + r
-
-  const f = (c: number, x1: number, y1: number, x2: number, y2: number) => 
-  	c === 0 ? `L ${x2} ${y2}` : `Q ${x1} ${y1} ${x2} ${y2}`
-
-  const d = [
-  	`M ${x} ${v}`,
-  	f(hc, x + hl / 2, v - hw / 4 + hc, h, r),
-  	f(hc, h - tp / 2, m - hc, n, m),
-  	f(tc, n + tl / 2, m + tc, e, m),
-  	f(bc, e - bc, v, e, k),
-  	f(tc, n + tl / 2, k - tc, n, k),
-  	f(hc, h - tp / 2, k + hc, h, hw + r),
-  	f(hc, x + hl / 2, v + hw / 4 - hc, x, v),
-  	'Z'
-  ].join(' ')
-
-  const totalLen = hl + tl + tp + Math.abs(bc) + sw
-  const totalW = hw + sw 
+  const goldenPath = 'M 0 50 Q 35 45 120 0 Q 95 14 70 34 Q 120 59 170 34 Q 145 50 170 66 Q 120 41 70 66 Q 95 86 120 100 Q 35 55 0 50 Z'
+  const vbW = 220 
+  const vbH = 100 
 </script>
 
-<div
-  class="test-box test-box--{data.w}x{data.h} test-box--expected"
-  style="width: {data.w}px; height: {data.h}px"
->
-  <svg 
-    class="expected-svg" 
-    xmlns="http://www.w3.org/2000/svg" 
-    width={totalLen} 
-    height={totalW}
-    style="overflow: visible;" 
-  >
-    <g><path {d} /></g>
+<div class="test-box test-box--{data.w}x{data.h} test-box--expected" style="width: {data.w}px; height: {data.h}px">
+  <svg class="expected-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {vbW} {vbH}" style="width: {vbW}px; height: {vbH}px;">
+    <path d={goldenPath} />
   </svg>
 </div>
 
 <style>
   .expected-svg {
     position: absolute;
-    transform-origin: center left;
     top: 50%;
     left: 50%;
+    transform-origin: 0px 50px; 
     transform: translateY(-50%) rotate(45deg);
   }
   path { fill: orange; stroke: none; }

@@ -1,6 +1,14 @@
 import { test, test as it, expect, type Page } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 import * as pio from '../../src/lib/main'
+import { DEFAULT_SHAPE } from '../../src/lib/pointers/arrow'
+
+declare global {
+	interface Window {
+		pio: typeof pio;
+		testArrow: { destroy: () => void };
+	}
+}
 
 test.describe('create(\'arrow\')', () => {
 	const testsTargets = [{ xW: 300, xH: 300 }]
@@ -97,33 +105,33 @@ test.describe('create(\'arrow\')', () => {
 			})
 
 			test.describe(`shape (${xW}x${xH})`, () => {
-				test.describe('tipTaper', () => {
-					it('renders aggressive tips with head curvature', async ({ page }, testInfo) => {
-						await visualComparisonBetweenPages({
-							testingURL: `/${xW}x${xH}`,
-							expectedURL: `/${xW}x${xH}/arrow/custom-shape/taper`,
-							action: () => page.evaluate(() => {
-								pio.create('arrow', {
-									target: '.test-box',
-									shape: { tipTaper: 12 }
-								})
-							}),
-							pwPage: page, pwTestInfo: testInfo
-						})
+				it('renders aggressive tips with head curvature', async ({ page }, testInfo) => {
+					await visualComparisonBetweenPages({
+						testingURL: `/${xW}x${xH}`,
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/tipTaper`,
+						pwPage: page,
+						pwTestInfo: testInfo,
+						action: () => page.evaluate((shapeParams) => {
+							window.pio.create('arrow', {
+								target: '.test-box',
+								shape: { ...shapeParams, tipTaper: 12 }
+							})
+						}, DEFAULT_SHAPE)
 					})
 				})
 
 				test('test tailCurvature + baseCurvature + headCurvature', async ({ page }, testInfo) => {
 					await visualComparisonBetweenPages({
 						testingURL: `/${xW}x${xH}`,
-						expectedURL: `/${xW}x${xH}/arrow/custom-shape/curvature`,
-						action: () => page.evaluate(() => {
-							pio.create('arrow', {
+						expectedURL: `/${xW}x${xH}/arrow/custom-shape/curvatures`,
+						pwPage: page,
+						pwTestInfo: testInfo,
+						action: () => page.evaluate((shapeParams) => {
+							window.pio.create('arrow', {
 								target: '.test-box',
-								shape: { tailCurvature: 20, baseCurvature: 20, headCurvature: 15 }
+								shape: { ...shapeParams, tailCurvature: 20, baseCurvature: 20, headCurvature: 15 }
 							})
-						}),
-						pwPage: page, pwTestInfo: testInfo
+						}, DEFAULT_SHAPE)
 					})
 				})
 
@@ -131,16 +139,18 @@ test.describe('create(\'arrow\')', () => {
 					await visualComparisonBetweenPages({
 						testingURL: `/${xW}x${xH}`,
 						expectedURL: `/${xW}x${xH}/arrow/custom-shape/all`,
-						action: () => page.evaluate(() => {
-							pio.create('arrow', {
+						pwPage: page,
+						pwTestInfo: testInfo,
+						action: () => page.evaluate((shapeParams) => {
+							window.pio.create('arrow', {
 								target: '.test-box',
 								shape: {
+									...shapeParams,
 									tailWidth: 32, tailLength: 100, headWidth: 100, headLength: 70,
 									tipTaper: 50, baseCurvature: 25, tailCurvature: 25, headCurvature: 20
-								}
+								},
 							})
-						}),
-						pwPage: page, pwTestInfo: testInfo
+						}, DEFAULT_SHAPE)
 					})
 				})
 
@@ -148,13 +158,14 @@ test.describe('create(\'arrow\')', () => {
 					await visualComparisonBetweenPages({
 						testingURL: `/${xW}x${xH}`,
 						expectedURL: `/${xW}x${xH}/arrow/custom-shape/width`,
-						action: () => page.evaluate(() => {
-							pio.create('arrow', {
+						pwPage: page,
+						pwTestInfo: testInfo,
+						action: () => page.evaluate((shapeParams) => {
+							window.pio.create('arrow', {
 								target: '.test-box',
-								shape: { tailWidth: 15, headWidth: 40 }
+								shape: { ...shapeParams, tailWidth: 15, headWidth: 40 }
 							})
-						}),
-						pwPage: page, pwTestInfo: testInfo
+						}, DEFAULT_SHAPE)
 					})
 				})
 
@@ -162,15 +173,39 @@ test.describe('create(\'arrow\')', () => {
 					await visualComparisonBetweenPages({
 						testingURL: `/${xW}x${xH}`,
 						expectedURL: `/${xW}x${xH}/arrow/custom-shape/length`,
-						action: () => page.evaluate(() => {
-							pio.create('arrow', {
+						pwPage: page,
+						pwTestInfo: testInfo,
+						action: () => page.evaluate((shapeParams) => {
+							window.pio.create('arrow', {
 								target: '.test-box',
-								shape: { tailLength: 30, headLength: 30 }
+								shape: { ...shapeParams, tailLength: 30, headLength: 30 }
 							})
-						}),
-						pwPage: page, pwTestInfo: testInfo
+						}, DEFAULT_SHAPE)
 					})
 				})
+			})
+
+			test('test arrow vertical stability during shape modification', async ({ page }) => {
+				await page.goto(`/${xW}x${xH}`)
+				await page.waitForFunction(() => window.pio !== undefined)
+				await page.evaluate(() => {
+					window.testArrow = window.pio.create('arrow', {
+						target: '.test-box',
+						shape: { tailWidth: 40, headWidth: 40, tailLength: 100, headLength: 50 }
+					})
+				})
+				const boxInicial = await page.locator('svg path').boundingBox()
+				const centerYInicial = boxInicial!.y + (boxInicial!.height / 2)
+				await page.evaluate(() => {
+					window.testArrow.destroy()
+					window.pio.create('arrow', {
+						target: '.test-box',
+						shape: { tailWidth: 40, headWidth: 10, tailLength: 100, headLength: 50 }
+					})
+				})
+				const boxFinal = await page.locator('svg path').boundingBox()
+				const centerYFinal = boxFinal!.y + (boxFinal!.height / 2)
+				expect(Math.abs(centerYInicial - centerYFinal)).toBeLessThan(0.5)
 			})
 
 			test.describe(`responsive (${xW}x${xH})`, { tag: '@responsive' }, () => {
