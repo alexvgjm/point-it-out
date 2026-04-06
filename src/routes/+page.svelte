@@ -156,7 +156,7 @@
 
       <ul>shape option:
           <li>
-            <a href={resolve('/300x300/arrow/custom-shape/curvature')}>
+            <a href={resolve('/300x300/arrow/custom-shape/curvatures')}>
               <span class="size">baseCurvature | tailCurvature | headCurvature</span>
             </a>
           </li>
@@ -167,7 +167,7 @@
             </a>
           </li>
           <li>
-            <a href={resolve('/300x300/arrow/custom-shape/taper')}>
+            <a href={resolve('/300x300/arrow/custom-shape/tip-taper')}>
               <span class="size">tipTaper</span>
             </a>
           </li>
