@@ -5,7 +5,7 @@ import { prepareAnimation } from './animations/animatable'
 
 const DEFAULT_SPOTLIGHT_OPTIONS: Readonly<Omit<SpotlightPointerOptions, 'target'>> = Object.freeze({
   ...DEFAULT_COMMON_OPTIONS,
-  overlayColor: 'rgba(0, 0, 0, 0.6)',
+  overlayColor: 'rgba(0, 0, 0, 0.75)',
   padding: 10,
   animate: false
 })
@@ -77,9 +77,11 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
     let top, left
 
     if (this.container === document.body) {
+      // Con position: fixed, usamos coordenadas del viewport directamente
       top = targetRect.top - this.padding
       left = targetRect.left - this.padding
     } else {
+      // Con position: absolute, calculamos relativo al container
       top = targetRect.top - containerRect.top + this.container.scrollTop - this.padding
       left = targetRect.left - containerRect.left + this.container.scrollLeft - this.padding
     }
@@ -89,14 +91,6 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
 
     if (this.container !== document.body) {
       const totalHeight = this.container.scrollHeight
-      this.rootElement.style.height = `${totalHeight}px`
-    } else {
-      const totalHeight = Math.max(
-        document.documentElement.scrollHeight,
-        document.documentElement.clientHeight,
-        document.body.scrollHeight,
-        document.body.clientHeight
-      )
       this.rootElement.style.height = `${totalHeight}px`
     }
 

@@ -4,21 +4,32 @@
   export let data: PageData
 </script>
 
-<div class="overlay"></div>
-
 <div class="page-wrapper">
-  <div class="page-content">
-    <p class="outside-text">Text outside target element</p>
+  <div class="overlay"></div>
 
-    <div class="test-box test-box--{data.w}x{data.h}" style="width: {data.w}px; height: {data.h}px">
-      <p>Text inside target</p>
+  <div class="page-content">
+    <p class="outside-text">This text should be darkened by the overlay</p>
+
+    <div
+      class="test-box test-box--{data.w}x{data.h} test-box--expected"
+      style="width: {data.w}px; height: {data.h}px"
+    >
+      <p>Visible text inside spotlight</p>
     </div>
 
-    <p class="outside-text">More text outside</p>
+    <p class="outside-text">More text that should be darkened</p>
   </div>
 </div>
 
 <style>
+  .page-wrapper {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .overlay {
     position: fixed;
     top: 0;
@@ -30,25 +41,21 @@
     z-index: 1;
   }
 
-  .page-wrapper {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
   .page-content {
+    position: relative;
+    z-index: 2;
     text-align: center;
   }
 
-  .test-box {
-    position: relative;
-    z-index: 3;
+  .test-box.test-box--expected {
+    background: transparent;
+    border: 2px dashed orange;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 40px auto;
+    position: relative;
+    z-index: 3;
   }
 
   .test-box p {
@@ -58,7 +65,7 @@
   }
 
   .outside-text {
-    color: white;
+    color: rgba(255, 255, 255, 0.3);
     font-size: 16px;
     margin: 20px 0;
   }

@@ -4,7 +4,7 @@ import * as pio from '../../src/lib/main'
 import type { PointerOptions } from '$lib/types'
 
 test.describe('System options', () => {
-  const pointers = ['arrow', 'rect'] as (keyof PointerOptions)[]
+  const pointers = ['arrow', 'rect', 'spotlight'] as (keyof PointerOptions)[]
 
   pointers.forEach((p) => {
     test.describe(`[${p}] updateOnResize`, () => {

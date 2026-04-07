@@ -110,17 +110,4 @@
     justify-content: center;
     align-items: center;
   }
-
-  .outside-text {
-    color: white;
-    font-size: 0.9rem;
-    margin: 0.5rem 0;
-    text-align: center;
-  }
-
-  .test-box p {
-    color: white;
-    margin: 0;
-    font-size: 0.9rem;
-  }
 </style>
