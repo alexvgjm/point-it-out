@@ -1,0 +1,160 @@
+﻿7c70b87 Fix: spotlights visual tests routes fixed
+263904c Merge branch 'main' of https://github.com/alexvgjm/point-it-out
+8c9ebcb ­ƒº╣ package.json scripts
+7c87a90 Animate hotfix
+596b9c5 Version 0.2.3
+94ae953 ­ƒº╣­ƒº¬ from option from arrow to free
+65fae9d Merge pull request #59 from alexvgjm/responsive-scale-fix
+3322edb ­ƒ®╣­ƒæü´©Å Responsive scale setting initial scale to 0
+c7962e4 Merge pull request #58 from alexvgjm/distance-option-fix
+9579059 ­ƒƒó Fix distance option with transformOrigin
+fe73c88 ­ƒö┤­ƒº¬ distance with transformOrigin spec
+f924103 Merge pull request #57 from alexvgjm/free-pointer-animation
+30ebf18 Free Pointer anima + ­ƒöÁ­ƒƒó remove old wrapper + units
+55d12dd Merge pull request #54 from alexvgjm/top-left-origin-in-wrapper
+f6c71e3 ­ƒƒó Top left origin in wrappers by default
+6348c38 Merge pull request #53 from alexvgjm/minScale-revisited
+b3aec97 ­ƒº¬­ƒƒó minScale option revisited
+7ff9e88 Merge pull request #52 from alexvgjm/free-pointer
+f0fb669 ­ƒº¬­ƒƒó Free pointer using div
+b547efd Merge pull request #51 from alexvgjm/static-container-issue
+f4a2503 ­ƒ®╣­ƒƒó Fix static issue
+3d41f12 ­ƒº¬­ƒôª Version 0.2.2
+5cbf36a Merge pull request #50 from alexvgjm/transform-origin-option
+1cc18e3 ­ƒƒó transformOrigin option + baseAngle calcule
+f38f67f ­ƒƒó­ƒ®╣ Fix not idempotent update
+56de0eb ­ƒƒó Fixing responsive option
+74625f7 ­ƒöÁ­ƒƒó­ƒ®╣ Distance fixed
+2ecae73 baseAngle based on origin + WIP: fixing distance
+5d995b7 ­ƒ®╣ Fixing distance croping svg
+78a43d1 Merge pull request #48 from alexvgjm/refactoring-distance-option
+82bb19d Remove the effect of distance from svg
+bba3bc3 ­ƒöÁ Refactoring distance option
+a770c96 Merge pull request #47 from alexvgjm/pointer-examples
+63a088e ­ƒƒó Examples
+6ee9a5f Merge pull request #46 from alexvgjm/animations-refactoring
+544f3ec ­ƒöÁ Animations refactoring
+000afa8 0.2.1
+d4ceea8 Merge pull request #45 from alexvgjm/refactoring-pointers
+7f00da9 Work in progress: simplify animation system
+a993b1f ­ƒöÁ FreePointer as a general manipulable pointer
+8a133fe v0.2.0 release
+486e9d0 Merge pull request #41 from alexvgjm/v0.2.0
+b2e2541 ­ƒöÁ minSize renamed to minScale ­ƒôª v0.2.0
+ff72353 ­ƒôª Preparing 0.2.0 (Beta)
+a811939 Merge pull request #40 from alexvgjm/remove-side-effects
+5a87af4 ­ƒöÁ Removed side effects
+3d31c03  ­ƒç╣­ƒç©­ƒ®╣ More duplicated types fixes
+547b1b0 ­ƒç╣­ƒç©­ƒ®╣ Fixing types
+5c9cd35 Merge pull request #39 from alexvgjm/responsive-arrow
+7f39fdd ­ƒöÁ­ƒö┤­ƒƒó Responsive + Animations
+d1dd56a Merge branch 'main' into responsive-arrow
+f15f6e2 ­ƒö┤­ƒƒó Responsive arrows
+7bcbf15 ­ƒöÁv0.1.14 prepare
+35a8ee0 ­ƒöÁ­ƒö┤­ƒƒó Wrapped arrow + pulse animation.
+a99ee8b ­ƒƒó pulse animation and keyframes generation
+3e5ebbe ­ƒöÁ Moving animation related things for SRP
+2d0e413 ­ƒƒí­ƒƒó imp to pass unit test
+118aca7 ­ƒö┤ First spec: animate with only animation name
+6a7a86a ­ƒöÁ Moving some types + typing animations
+0b6fc0a Merge branch 'responsive-arrow' of https://github.com/alexvgjm/point-it-out into responsive-arrow
+f54ebe9 Merge branch 'main' of https://github.com/alexvgjm/point-it-out
+5dab14a Update readme
+5c93c22 fix test to add container
+d7b6ad7 Update issue templates
+f5802c5 Update issue templates
+d43e0b3 updating tests index
+2f506d8 ­ƒöÁ­ƒö┤­ƒƒó add values file + arrow size option impl.
+9d686ad ­ƒö┤arrow size option specs
+8ce5e46 ­ƒöÁ­ƒç╣­ƒç© fixing types conflict + export declares
+1c5462f Update version to publish
+651953d ­ƒöÁ­ƒç╣­ƒç© types to interfaces + pseudo events system
+94b5814 ­ƒöÁ Cleaning to publish
+b7223e0 ­ƒöÁ­ƒƒó Arrow distance option works with fromAngle
+3fb0a48 ­ƒƒó Arrow distance option implementation
+9724afc ­ƒö┤ arrow distance options specs
+8f94369 ­ƒöÁ Restructuring doc dirs
+13edf0a Fix readme typo
+a773c94 ­ƒöÑ­ƒº» Hotfix clear deleting resize listener
+84efc99 ­ƒôâ Update readme
+8d5880e ­ƒƒóarrow stroke+fill & ­ƒöÁ round caps/joins by default
+5a1276f ­ƒöÁ commonSVGDefaults
+2df5333 ­ƒö┤­ƒƒóArrow strokeWidth + ­ƒ®╣ Fix intrusive styles
+52116f3 ­ƒ®╣ Fix tests index
+dc0292b Merge pull request #22 from alexvgjm/arrows
+87d59bd Update version
+ab29773 ­ƒƒó Arrow fromAngle option + ­ƒ®╣ some type fixes
+03ffb50 ­ƒöÁ­ƒö┤ Types organization & 'from' option arrow specs
+8375df4 ­ƒƒó Arrow default behavior
+c87c3b8 Recovering stash after merge
+c588dc3 ­ƒöÁ DRY: getRectsInfo() util
+d47689f ­ƒö┤ Arrow default behavior spec
+ad10251 Arrow test scenario
+1221736 ­ƒöÁ Restructuring tests dirs
+057d3fb ­ƒöÁ updateAfterLoad default
+6b22de8 ­ƒÉ║ + ­ƒÆ®­ƒÜ½ Husky + lint-staged
+1f43a09 ­ƒöÁ­ƒö┤­ƒƒó Added specs/test to updateAfterLad option
+c21d4d3 Merge pull request #18 from alexvgjm/option-to-avoid-layout-shifting
+a479b15 Added a updateAfterLoad option. WIP.
+50bc320 ­ƒôÜÔØî Removed docs (migrated to another repo)
+25736e0 Added license
+590a155 Merge pull request #14 from alexvgjm/docs-v0-1-5
+1677900 Update readme for 0.1.5
+ee8a2c9 ­ƒôÜ v0.1.5 docs
+3c6d5c0 ­ƒöÁ­ƒö┤­ƒƒó Destroy method (#13)
+3cf023a ­ƒöÁ­ƒö┤­ƒƒó Destroy method
+c38b4f9 Merge pull request #12 from alexvgjm/padding-axis
+e1d6fbb ­ƒöÁ­ƒö┤­ƒƒó Padding option with configurable axes
+30c6cb0 ­ƒöÁ Renaming types
+70af6ad ­ƒö┤­ƒƒó zIndex option
+dea32f4 ­ƒöÁ Renaming, fixing typos & responsibilities
+44e5a32 ­ƒôÜ Finishing docs & some fixes
+d72ff57 ­ƒôÜ­ƒ®╣ÔÜÖ´©Å Fixing docs build.
+5bf4b9c ­ƒôÜ Building docs & finishing 1.4 docs
+dd04176 ­ƒôÜ More docs + scroll spy + hljs on <Code> (#6)
+0fd5171 Merge pull request #5 from alexvgjm/docs
+e42b1e9 ­ƒôÜ Extended docs and examples (still WIP)
+af17745 indent using spaces
+fb7a5a8 configured some eslint rules
+3857f17 testing prettier-ignore
+ceabbb5 Merge branch 'main' into docs
+48d01cc ­ƒö┤­ƒƒó­ƒöÁ container option
+de67cec Format & linting. WIP
+5e1f4cf WIP: docs
+cbfa392 ­ƒÉ║­ƒº╣ Added prettier to pre-commit hook
+a3f0c57 format and husky (#2)
+a6da54b ÔÜÖ´©Å Build configuration (#1)
+2bbdf2d Added basic usage
+4aae8db Update readme
+634297b ­ƒôª First npm test release
+eb3be47 Update readme
+163660d ­ƒ®╣ Fix entry point name
+689dfe5 ­ƒôª WIP: npm packaging
+a55f4a4 ­ƒö┤­ƒƒó rect round option
+0239670 Added basic roadmap
+80648de ­ƒöÁ Migrated to SvelteKit project
+0f96bb1 Update readme
+8e6744c ­ƒ®╣­ƒö┤­ƒƒó­ƒöÁ target pos calculated with current scroll
+35f2ac3 ­ƒö┤­ƒƒó­ƒöÁ main update() & create returns shape reference
+3e7aefc ­ƒö┤­ƒƒó General/system options (updateOnResize)
+3496e4c Update readme
+a2ac49e ­ƒö┤­ƒƒó round shape padding option
+63e39ab ­ƒö┤­ƒƒó Padding option in square shape
+e8a8ccb ­ƒö┤­ƒƒó Created SVG with pointer-events: none
+fea142b ­ƒöÁ­ƒƒó Round SVG follows target
+3670e7a ­ƒöÁ Renaming & build config
+2067f08 ­ƒö┤­ƒƒó Round shape
+9c8886d ­ƒö┤­ƒƒó square onResize/update methods
+8c0d850 ­ƒöÁ renaming specs
+1a0abc4 ­ƒöÁ create function & OOP
+dc335c5 ­ƒö┤­ƒƒó strokeWidth & strokeColor options
+239c892 ­ƒƒó squareIt defaults (no options)
+388ec88 ­ƒöÁ­ƒö┤ Refactoring visual expected test using borders
+4250459 ­ƒƒó Added a global setup to clean old snapshots
+916086a ­ƒöÁÔÜÖ´©Å Vitest for unit tests | ­ƒ®╣­ƒöÁ Enh. page compare
+ced2330 ­ƒôü­ƒöÁ Visual comparison organization
+83732ac ­ƒö┤­ƒƒó squareIt creates a <rect> inside <svg>
+b2a81e3 ­ƒöÁ squareIt & some tests
+7e4f454 ­ƒöÁ Grouped common behavior tests
+ab618f2 ­ƒ®╣­ƒöÁ­ƒƒó Fix unhappy test suite
+8f44dc7 Initial commit. ­ƒö┤­ƒƒó squareIt(...) initial specs

@@ -1,5 +1,6 @@
 export * from './core'
 export * from './arrow'
 export * from './rect'
+export * from './spotlight'
 export * from './utils'
 export type * from '../types'

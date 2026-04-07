@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotlight - Standalone Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary { background: #3498db; color: white; }
+        .btn-success { background: #27ae60; color: white; }
+        .btn-warning { background: #f39c12; color: white; }
+        .btn-danger { background: #e74c3c; color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 30px 0;
+        }
+
+        #tour-controls {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        #tour-controls p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="page-title">Spotlight Pointer - Standalone Demo</h1>
+    
+    <p id="description">
+        This is a demonstration of the spotlight pointer working independently.
+        Click the buttons below to focus on different elements.
+    </p>
+
+    <div class="controls">
+        <button id="demo-button" class="btn-primary">
+            Example Button
+        </button>
+        
+        <button onclick="focusTitle()" class="btn-success">
+            Focus Title
+        </button>
+        
+        <button onclick="focusButton()" class="btn-warning">
+            Focus Button
+        </button>
+        
+        <button onclick="focusCard()" class="btn-warning">
+            Focus Card
+        </button>
+        
+        <button onclick="closeSpotlight()" class="btn-danger">
+            Close Spotlight
+        </button>
+    </div>
+
+    <div id="example-card" class="card">
+        <h3>Example Card</h3>
+        <p>This is a card element that can also be spotlighted.</p>
+    </div>
+
+    <hr>
+
+    <h2>Guided Tour</h2>
+    <p>Try a step-by-step tour through the page elements:</p>
+
+    <button onclick="startTour()" id="btn-start-tour" class="btn-success">
+        Start Tour
+    </button>
+
+    <div id="tour-controls" style="display: none;">
+        <p><strong>Step <span id="current-step">1</span> of <span id="total-steps">3</span></strong></p>
+        <p id="step-description"></p>
+        
+        <div class="controls">
+            <button onclick="previousStep()" id="btn-previous" class="btn-secondary">
+                Previous
+            </button>
+            <button onclick="nextStep()" id="btn-next" class="btn-primary">
+                Next
+            </button>
+            <button onclick="exitTour()" class="btn-danger">
+                Exit Tour
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Standalone Spotlight implementation
+        function createSpotlight(target, options = {}) {
+            const {
+                overlayColor = 'rgba(0, 0, 0, 0.75)',
+                padding = 10,
+                zIndex = 9999
+            } = options
+
+            const targetElement = typeof target === 'string' ? document.querySelector(target) : target
+            if (!targetElement) {
+                console.warn('Target element not found:', target)
+                return null
+            }
+
+            const overlay = document.createElement('div')
+            overlay.className = 'spotlight-overlay'
+            
+            Object.assign(overlay.style, {
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                width: '100%',
+                background: overlayColor,
+                zIndex: zIndex.toString(),
+                pointerEvents: 'none',
+                transition: 'clip-path 0.3s ease-in-out, opacity 0.3s ease-in-out',
+                opacity: '0'
+            })
+
+            document.body.appendChild(overlay)
+
+            const update = () => {
+                const rect = targetElement.getBoundingClientRect()
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+                const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
+                
+                const top = rect.top + scrollTop - padding
+                const left = rect.left + scrollLeft - padding
+                const width = rect.width + (padding * 2)
+                const height = rect.height + (padding * 2)
+
+                overlay.style.height = `${document.documentElement.scrollHeight}px`
+                overlay.style.clipPath = `polygon(
+                    0% 0%,
+                    0% 100%,
+                    ${left}px 100%,
+                    ${left}px ${top}px,
+                    ${left + width}px ${top}px,
+                    ${left + width}px ${top + height}px,
+                    ${left}px ${top + height}px,
+                    ${left}px 100%,
+                    100% 100%,
+                    100% 0%
+                )`
+            }
+
+            const onScroll = () => update()
+            const onResize = () => update()
+
+            window.addEventListener('scroll', onScroll)
+            window.addEventListener('resize', onResize)
+
+            update()
+            requestAnimationFrame(() => {
+                overlay.style.opacity = '1'
+            })
+
+            const destroy = () => {
+                overlay.style.opacity = '0'
+                window.removeEventListener('scroll', onScroll)
+                window.removeEventListener('resize', onResize)
+                setTimeout(() => overlay.remove(), 300)
+            }
+
+            return { overlay, update, destroy, destroyed: false }
+        }
+
+        // Global state
+        let titleSpotlight = null
+        let buttonSpotlight = null
+        let cardSpotlight = null
+        let tourSpotlight = null
+        let currentTourStep = -1
+
+        const tourSteps = [
+            { target: '#page-title', description: 'This is the page title' },
+            { target: '#description', description: 'This describes what the page does' },
+            { target: '#demo-button', description: 'This is an example button' },
+            { target: '#example-card', description: 'And this is a card component' }
+        ]
+
+        function closeAll() {
+            if (titleSpotlight) titleSpotlight.destroy()
+            if (buttonSpotlight) buttonSpotlight.destroy()
+            if (cardSpotlight) cardSpotlight.destroy()
+            if (tourSpotlight) tourSpotlight.destroy()
+            titleSpotlight = buttonSpotlight = cardSpotlight = tourSpotlight = null
+        }
+
+        window.focusTitle = function() {
+            closeAll()
+            titleSpotlight = createSpotlight('#page-title', {
+                overlayColor: 'rgba(0, 0, 0, 0.8)',
+                padding: 15
+            })
+        }
+
+        window.focusButton = function() {
+            closeAll()
+            buttonSpotlight = createSpotlight('#demo-button', {
+                overlayColor: 'rgba(0, 0, 0, 0.85)',
+                padding: 20
+            })
+        }
+
+        window.focusCard = function() {
+            closeAll()
+            cardSpotlight = createSpotlight('#example-card', {
+                overlayColor: 'rgba(0, 0, 0, 0.75)',
+                padding: 15
+            })
+        }
+
+        window.closeSpotlight = function() {
+            closeAll()
+        }
+
+        window.startTour = function() {
+            closeAll()
+            currentTourStep = 0
+            document.getElementById('btn-start-tour').style.display = 'none'
+            document.getElementById('tour-controls').style.display = 'block'
+            updateTourStep()
+        }
+
+        window.nextStep = function() {
+            if (currentTourStep < tourSteps.length - 1) {
+                currentTourStep++
+                updateTourStep()
+            } else {
+                exitTour()
+            }
+        }
+
+        window.previousStep = function() {
+            if (currentTourStep > 0) {
+                currentTourStep--
+                updateTourStep()
+            }
+        }
+
+        window.exitTour = function() {
+            closeAll()
+            currentTourStep = -1
+            document.getElementById('btn-start-tour').style.display = 'block'
+            document.getElementById('tour-controls').style.display = 'none'
+        }
+
+        function updateTourStep() {
+            if (tourSpotlight) {
+                tourSpotlight.destroy()
+            }
+
+            const step = tourSteps[currentTourStep]
+            tourSpotlight = createSpotlight(step.target, {
+                overlayColor: 'rgba(0, 0, 0, 0.85)',
+                padding: 15
+            })
+
+            document.getElementById('current-step').textContent = currentTourStep + 1
+            document.getElementById('total-steps').textContent = tourSteps.length
+            document.getElementById('step-description').textContent = step.description
+
+            document.getElementById('btn-previous').disabled = currentTourStep === 0
+            document.getElementById('btn-next').textContent = 
+                currentTourStep === tourSteps.length - 1 ? 'Finish' : 'Next'
+        }
+    </script>
+</body>
+</html>

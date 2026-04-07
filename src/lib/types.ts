@@ -138,10 +138,16 @@ export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> &
 		shape?: ArrowShape
 	}
 
+export interface SpotlightOptions extends CommonOptions, Animatable {
+	overlayColor?: string
+	padding?: number
+}
+
 export interface PointerOptions {
 	rect: RectOptions
 	arrow: ArrowPointerOptions
 	free: FreePointerOptions
+	spotlight: SpotlightOptions
 }
 
 export interface PIOPointerEvents {
