@@ -89,6 +89,10 @@
   margin: 0.25rem;
 }
 
+.test-pages-links .size {
+  white-space: nowrap;
+}
+
 .visual-test a {
   color: whitesmoke;
 }
