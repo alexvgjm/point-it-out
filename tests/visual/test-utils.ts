@@ -1,5 +1,7 @@
 import { expect, type Page, type TestInfo } from '@playwright/test'
-import { randomUUID } from 'crypto'
+import { createHash } from 'crypto'
+
+const generated = new Set<string>()
 
 type TestPagesParams = {
 	expectedURL: string
@@ -12,8 +14,6 @@ type TestPagesParams = {
 	pwTestInfo: TestInfo
 	not?: boolean
 }
-
-const generated = new Set<string>()
 
 export async function visualComparisonBetweenPages(params: TestPagesParams) {
 	const page = params.pwPage
