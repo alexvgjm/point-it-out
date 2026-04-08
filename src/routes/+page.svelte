@@ -216,6 +216,32 @@
       </li>
     </ul>
   </div>
+
+  <div class="category">
+    <h3>create('dot', {'{...}'})</h3>
+    <ul>
+      <li>
+        <a href={resolve('/300x300/dot/default')}
+          ><span class="size">300x300</span></a
+        >
+        defaults
+      </li>
+
+      <li>
+        <a href={resolve('/300x300/dot/stroke-width-color-options')}
+          ><span class="size">300x300</span></a
+        >
+        strokeWidth, strokeColor & fillColor options
+      </li>
+
+      <li>
+        <a href={resolve('/300x300/dot/radius-option')}
+          ><span class="size">300x300</span></a
+        >
+        radius option
+      </li>
+    </ul>
+  </div>
 </section>
 
 
