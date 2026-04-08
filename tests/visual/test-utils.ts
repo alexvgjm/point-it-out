@@ -1,5 +1,5 @@
 import { expect, type Page, type TestInfo } from '@playwright/test'
-import { createHash } from 'crypto'
+import { randomUUID } from 'crypto'
 
 const generated = new Set<string>()
 

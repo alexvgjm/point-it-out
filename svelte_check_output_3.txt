@@ -1,0 +1,296 @@
+Loading svelte-check in workspace: c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight
+Getting Svelte diagnostics...
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:8:16
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m<ul class="test-pages-links">
+  <li><a href={[35mresolve[36m('/300x300')}><span class="size">300x300</span></a></li>
+  <li><a href={resolve('/400x250')}><span class="size">400x250</span></a></li>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:9:16
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m  <li><a href={resolve('/300x300')}><span class="size">300x300</span></a></li>
+  <li><a href={[35mresolve[36m('/400x250')}><span class="size">400x250</span></a></li>
+  <li>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:11:14
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m  <li>
+    <a href={[35mresolve[36m('/300x300/free')}><span class="size">300x300 with image</span></a>
+  </li>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:14:14
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m  <li>
+    <a href={[35mresolve[36m('/400x250/free')}><span class="size">400x250 with image</span></a>
+  </li>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:17:14
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m  <li>
+    <a href={[35mresolve[36m('/300x300/spotlight-base')}><span class="size">300x300 spotlight</span></a>
+  </li>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:20:14
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m  <li>
+    <a href={[35mresolve[36m('/400x250/spotlight-base')}><span class="size">400x250 spotlight</span></a>
+  </li>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:30:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/rect/default')}><span class="size">300x300</span></a>
+        <a href={resolve('/400x250/rect/default')}><span class="size">400x250</span></a>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:31:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        <a href={resolve('/300x300/rect/default')}><span class="size">300x300</span></a>
+        <a href={[35mresolve[36m('/400x250/rect/default')}><span class="size">400x250</span></a>
+        defaults[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:36:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/rect/padding-option')}><span class="size">300x300</span></a>
+        <a href={resolve('/400x250/rect/padding-option')}><span class="size">400x250</span></a>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:37:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        <a href={resolve('/300x300/rect/padding-option')}><span class="size">300x300</span></a>
+        <a href={[35mresolve[36m('/400x250/rect/padding-option')}><span class="size">400x250</span></a>
+        padding option[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:42:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/rect/scroll/container-option')}
+          ><span class="size">300x300</span></a[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:45:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        >
+        <a href={[35mresolve[36m('/400x250/rect/scroll/container-option')}
+          ><span class="size">400x250</span></a[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:52:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/rect/stroke-width-color-options')}
+          ><span class="size">300x300</span></a[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:55:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        >
+        <a href={[35mresolve[36m('/400x250/rect/stroke-width-color-options')}
+          ><span class="size">400x250</span></a[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:62:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/rect/round-option/pixels')}><span class="size">300x300</span></a>
+        <a href={resolve('/400x250/rect/round-option/pixels')}><span class="size">400x250</span></a>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:63:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        <a href={resolve('/300x300/rect/round-option/pixels')}><span class="size">300x300</span></a>
+        <a href={[35mresolve[36m('/400x250/rect/round-option/pixels')}><span class="size">400x250</span></a>
+        round option (pixels)[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:67:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/rect/round-option/percent')}><span class="size">300x300</span></a
+        >[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:69:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        >
+        <a href={[35mresolve[36m('/400x250/rect/round-option/percent')}><span class="size">400x250</span></a
+        >[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:74:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/rect/round-option/x-and-y')}><span class="size">300x300</span></a
+        >[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:76:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        >
+        <a href={[35mresolve[36m('/400x250/rect/round-option/x-and-y')}><span class="size">400x250</span></a
+        >[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:87:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/arrow/default')}><span class="size">300x300</span></a>
+        defaults[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:91:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/free/from-option/90')}><span class="size">90º</span></a>
+        <a href={resolve('/300x300/free/from-option/120')}><span class="size">120º</span></a>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:92:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        <a href={resolve('/300x300/free/from-option/90')}><span class="size">90º</span></a>
+        <a href={[35mresolve[36m('/300x300/free/from-option/120')}><span class="size">120º</span></a>
+        <a href={resolve('/300x300/free/from-option/180')}><span class="size">180º</span></a>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:93:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        <a href={resolve('/300x300/free/from-option/120')}><span class="size">120º</span></a>
+        <a href={[35mresolve[36m('/300x300/free/from-option/180')}><span class="size">180º</span></a>
+        <a href={resolve('/300x300/free/from-option/328')}><span class="size">328º</span></a>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:94:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        <a href={resolve('/300x300/free/from-option/180')}><span class="size">180º</span></a>
+        <a href={[35mresolve[36m('/300x300/free/from-option/328')}><span class="size">328º</span></a>
+        <a href={resolve('/300x300/free/from-option/top-left')}[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:95:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        <a href={resolve('/300x300/free/from-option/328')}><span class="size">328º</span></a>
+        <a href={[35mresolve[36m('/300x300/free/from-option/top-left')}
+          ><span class="size">top-left</span></a[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:102:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/arrow/stroke-fill-strokewidth-options/only-strokewidth')}>
+          <span class="size">300x300</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:109:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/arrow/stroke-fill-strokewidth-options')}>
+          <span class="size">300x300</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:117:20
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        {#each Object.keys(sizeNameToNumber) as sizeName (sizeName)}
+          <a href={[35mresolve[36m(`/300x300/arrow/size-option/${sizeName}`)}>
+            <span class="size">{sizeName}</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:121:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        {/each}
+        <a href={[35mresolve[36m('/300x300/arrow/size-option/1.33')}>
+          <span class="size">1.33</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:131:22
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m          <li>
+            <a href={[35mresolve[36m('/300x300/arrow/custom-shape/curvatures')}>
+              <span class="size">baseCurvature | tailCurvature | headCurvature</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:137:22
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m          <li>
+            <a href={[35mresolve[36m('/300x300/arrow/custom-shape/length')}>
+              <span class="size">tailLength & headLength</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:142:22
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m          <li>
+            <a href={[35mresolve[36m('/300x300/arrow/custom-shape/tip-taper')}>
+              <span class="size">tipTaper</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:147:22
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m          <li>
+            <a href={[35mresolve[36m('/300x300/arrow/custom-shape/width')}>
+              <span class="size">tailWidth & headWidth</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:153:22
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m          <li>
+            <a href={[35mresolve[36m('/300x300/arrow/custom-shape/all')}>
+              <span class="size">All options</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:166:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/free/default')}><span class="size">300x300</span></a>
+        defaults[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:171:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/free/distance-option')}>
+          <span class="size">300x300</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:178:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/free/transform-origin-option')}>
+          <span class="size">300x300</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:181:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        </a>
+        <a href={[35mresolve[36m('/400x250/free/transform-origin-option')}>
+          <span class="size">400x250</span>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:193:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/spotlight/default')}><span class="size">300x300</span></a>
+        <a href={resolve('/400x250/spotlight/default')}><span class="size">400x250</span></a>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:194:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        <a href={resolve('/300x300/spotlight/default')}><span class="size">300x300</span></a>
+        <a href={[35mresolve[36m('/400x250/spotlight/default')}><span class="size">400x250</span></a>
+        defaults[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:199:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/spotlight/overlay-color-option')}
+          ><span class="size">300x300</span></a[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:202:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        >
+        <a href={[35mresolve[36m('/400x250/spotlight/overlay-color-option')}
+          ><span class="size">400x250</span></a[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:209:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m      <li>
+        <a href={[35mresolve[36m('/300x300/spotlight/padding-option')}><span class="size">300x300</span></a>
+        <a href={resolve('/400x250/spotlight/padding-option')}><span class="size">400x250</span></a>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:210:18
+[31mError[39m: Expected 2 arguments, but got 1. (ts)
+[36m        <a href={resolve('/300x300/spotlight/padding-option')}><span class="size">300x300</span></a>
+        <a href={[35mresolve[36m('/400x250/spotlight/padding-option')}><span class="size">400x250</span></a>
+        padding option[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\[size]\examples\arrow\+page.svelte[39m:7:21
+[33mWarn[39m: This reference only captures the initial value of `data`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m
+  const size = { ...[35mdata[36m }
+</script>[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\[size]\examples\free\+page.svelte[39m:8:21
+[33mWarn[39m: This reference only captures the initial value of `data`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m
+  const size = { ...[35mdata[36m }[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\[size]\examples\rect\+page.svelte[39m:7:21
+[33mWarn[39m: This reference only captures the initial value of `data`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m
+  const size = { ...[35mdata[36m }
+</script>[39m
+
+====================================
+[31msvelte-check found 45 errors and 3 warnings in 4 files
+[39m

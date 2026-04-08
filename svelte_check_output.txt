@@ -1,0 +1,61 @@
+
+====================================
+Loading svelte-check in workspace: c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight
+Getting Svelte diagnostics...
+
+8:56:15 [vite-plugin-svelte] You are using Svelte 5.0.0-next.202. Svelte 5 support is experimental, breaking changes can occur in any release until this notice is removed.
+work in progress:
+ - svelte-inspector is disabled until dev mode implements node to code mapping
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\+page.svelte[39m:2:12
+[31mError[39m: Module '"$app/paths"' has no exported member 'resolve'. (js)
+[36m<script>
+  import { [35mresolve[36m } from '$app/paths'
+  import { sizeNameToNumber } from '$lib/values'
+[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\[size]\arrow\custom-shape\all\+page.svelte[39m:2:33
+[31mError[39m: Cannot find module './$types' or its corresponding type declarations. (ts)
+[36m<script lang="ts">
+  import type { PageData } from [35m'./$types'[36m
+  export let data: PageData
+[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\[size]\arrow\custom-shape\curvatures\+page.svelte[39m:2:33
+[31mError[39m: Cannot find module './$types' or its corresponding type declarations. (ts)
+[36m<script lang="ts">
+  import type { PageData } from [35m'./$types'[36m
+  export let data: PageData
+[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\[size]\arrow\custom-shape\length\+page.svelte[39m:2:33
+[31mError[39m: Cannot find module './$types' or its corresponding type declarations. (ts)
+[36m<script lang="ts">
+  import type { PageData } from [35m'./$types'[36m
+  export let data: PageData
+[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\[size]\arrow\custom-shape\tip-taper\+page.svelte[39m:2:33
+[31mError[39m: Cannot find module './$types' or its corresponding type declarations. (ts)
+[36m<script lang="ts">
+  import type { PageData } from [35m'./$types'[36m
+  export let data: PageData
+[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32msrc\routes\[size]\arrow\custom-shape\width\+page.svelte[39m:2:33
+[31mError[39m: Cannot find module './$types' or its corresponding type declarations. (ts)
+[36m<script lang="ts">
+  import type { PageData } from [35m'./$types'[36m
+  export let data: PageData
+[39m
+
+c:\Users\juan-\Desktop\Proyectos\PracticasDAW\ForkSamuelPointItOut\point-it-out-spotlight\[32mtests\visual\test-utils.ts[39m:23:8
+[31mError[39m: Cannot find name 'randomUUID'. 
+[36m	do {
+		id = [35mrandomUUID[36m()
+		id = id.substring(id.lastIndexOf('-') + 1)
+[39m
+
+====================================
+[31msvelte-check found 7 errors and 0 warnings in 7 files
+[39m

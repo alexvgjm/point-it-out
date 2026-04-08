@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { resolve } from '$app/paths'
   import { sizeNameToNumber } from '$lib/values'
 </script>
@@ -8,17 +8,17 @@
   <li><a href={resolve('/300x300')}><span class="size">300x300</span></a></li>
   <li><a href={resolve('/400x250')}><span class="size">400x250</span></a></li>
   <li>
-    <a href={resolve('/300x300/free')}
-      ><span class="size">300x300 with image</span></a
-    >
+    <a href={resolve('/300x300/free')}><span class="size">300x300 with image</span></a>
   </li>
   <li>
-    <a href={resolve('/400x250/free')}
-      ><span class="size">400x250 with image</span></a
-    >
+    <a href={resolve('/400x250/free')}><span class="size">400x250 with image</span></a>
   </li>
-  <li><a href={resolve('/300x300/spotlight-base')}><span class="size">300x300 spotlight</span></a></li>
-  <li><a href={resolve('/400x250/spotlight-base')}><span class="size">400x250 spotlight</span></a></li>
+  <li>
+    <a href={resolve('/300x300/spotlight-base')}><span class="size">300x300 spotlight</span></a>
+  </li>
+  <li>
+    <a href={resolve('/400x250/spotlight-base')}><span class="size">400x250 spotlight</span></a>
+  </li>
 </ul>
 
 <section class="expected-index">
@@ -27,22 +27,14 @@
     <h3>create('rect', {'{...}'})</h3>
     <ul>
       <li>
-        <a href={resolve('/300x300/rect/default')}
-          ><span class="size">300x300</span></a
-        >
-        <a href={resolve('/400x250/rect/default')}
-          ><span class="size">400x250</span></a
-        >
+        <a href={resolve('/300x300/rect/default')}><span class="size">300x300</span></a>
+        <a href={resolve('/400x250/rect/default')}><span class="size">400x250</span></a>
         defaults
       </li>
 
       <li>
-        <a href={resolve('/300x300/rect/padding-option')}
-          ><span class="size">300x300</span></a
-        >
-        <a href={resolve('/400x250/rect/padding-option')}
-          ><span class="size">400x250</span></a
-        >
+        <a href={resolve('/300x300/rect/padding-option')}><span class="size">300x300</span></a>
+        <a href={resolve('/400x250/rect/padding-option')}><span class="size">400x250</span></a>
         padding option
       </li>
 
@@ -67,29 +59,21 @@
       </li>
 
       <li>
-        <a href={resolve('/300x300/rect/round-option/pixels')}
-          ><span class="size">300x300</span></a
-        >
-        <a href={resolve('/400x250/rect/round-option/pixels')}
-          ><span class="size">400x250</span></a
-        >
+        <a href={resolve('/300x300/rect/round-option/pixels')}><span class="size">300x300</span></a>
+        <a href={resolve('/400x250/rect/round-option/pixels')}><span class="size">400x250</span></a>
         round option (pixels)
       </li>
       <li>
-        <a href={resolve('/300x300/rect/round-option/percent')}
-          ><span class="size">300x300</span></a
+        <a href={resolve('/300x300/rect/round-option/percent')}><span class="size">300x300</span></a
         >
-        <a href={resolve('/400x250/rect/round-option/percent')}
-          ><span class="size">400x250</span></a
+        <a href={resolve('/400x250/rect/round-option/percent')}><span class="size">400x250</span></a
         >
         round option (percent)
       </li>
       <li>
-        <a href={resolve('/300x300/rect/round-option/x-and-y')}
-          ><span class="size">300x300</span></a
+        <a href={resolve('/300x300/rect/round-option/x-and-y')}><span class="size">300x300</span></a
         >
-        <a href={resolve('/400x250/rect/round-option/x-and-y')}
-          ><span class="size">400x250</span></a
+        <a href={resolve('/400x250/rect/round-option/x-and-y')}><span class="size">400x250</span></a
         >
         round option (different axis)
       </li>
@@ -100,24 +84,14 @@
     <h3>create('arrow', {'{...}'})</h3>
     <ul>
       <li>
-        <a href={resolve('/300x300/arrow/default')}
-          ><span class="size">300x300</span></a
-        >
+        <a href={resolve('/300x300/arrow/default')}><span class="size">300x300</span></a>
         defaults
       </li>
       <li>
-        <a href={resolve('/300x300/free/from-option/90')}
-          ><span class="size">90º</span></a
-        >
-        <a href={resolve('/300x300/free/from-option/120')}
-          ><span class="size">120º</span></a
-        >
-        <a href={resolve('/300x300/free/from-option/180')}
-          ><span class="size">180º</span></a
-        >
-        <a href={resolve('/300x300/free/from-option/328')}
-          ><span class="size">328º</span></a
-        >
+        <a href={resolve('/300x300/free/from-option/90')}><span class="size">90º</span></a>
+        <a href={resolve('/300x300/free/from-option/120')}><span class="size">120º</span></a>
+        <a href={resolve('/300x300/free/from-option/180')}><span class="size">180º</span></a>
+        <a href={resolve('/300x300/free/from-option/328')}><span class="size">328º</span></a>
         <a href={resolve('/300x300/free/from-option/top-left')}
           ><span class="size">top-left</span></a
         >
@@ -125,11 +99,7 @@
       </li>
 
       <li>
-        <a
-          href={resolve(
-          	'/300x300/arrow/stroke-fill-strokewidth-options/only-strokewidth',
-          )}
-        >
+        <a href={resolve('/300x300/arrow/stroke-fill-strokewidth-options/only-strokewidth')}>
           <span class="size">300x300</span>
         </a>
         strokeWidth only
@@ -155,8 +125,8 @@
       </li>
 
       <li>
-
-      <ul>shape option:
+        <ul>
+          shape option:
           <li>
             <a href={resolve('/300x300/arrow/custom-shape/curvatures')}>
               <span class="size">baseCurvature | tailCurvature | headCurvature</span>
@@ -178,7 +148,7 @@
               <span class="size">tailWidth & headWidth</span>
             </a>
           </li>
-          
+
           <li>
             <a href={resolve('/300x300/arrow/custom-shape/all')}>
               <span class="size">All options</span>
@@ -186,7 +156,6 @@
           </li>
         </ul>
       </li>
-
     </ul>
   </div>
 
@@ -194,9 +163,7 @@
     <h3>create('free', {'{...}'})</h3>
     <ul>
       <li>
-        <a href={resolve('/300x300/free/default')}
-          ><span class="size">300x300</span></a
-        >
+        <a href={resolve('/300x300/free/default')}><span class="size">300x300</span></a>
         defaults
       </li>
 
@@ -229,8 +196,12 @@
       </li>
 
       <li>
-        <a href={resolve('/300x300/spotlight/overlay-color-option')}><span class="size">300x300</span></a>
-        <a href={resolve('/400x250/spotlight/overlay-color-option')}><span class="size">400x250</span></a>
+        <a href={resolve('/300x300/spotlight/overlay-color-option')}
+          ><span class="size">300x300</span></a
+        >
+        <a href={resolve('/400x250/spotlight/overlay-color-option')}
+          ><span class="size">400x250</span></a
+        >
         overlayColor option
       </li>
 
@@ -243,7 +214,6 @@
   </div>
 </section>
 
-
 <style>
   ul ul {
     margin-top: 1rem;
@@ -251,7 +221,7 @@
   ul ul li {
     padding-left: 1rem;
   }
-  
+
   .category--arrow {
     grid-row: 1 / 3;
     grid-column: 2;
