@@ -134,20 +134,27 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
 			...(typeof animate === 'string' ? { name: animate } : animate)
 		}
 		const duration = ((opts.duration as number) ?? 1) * 1000
-		const pulsePx = 18
 		let startTime: number | null = null
-
 		const tick = (time: number) => {
 			if (this.destroyed) {return}
 			if (!startTime) {startTime = time}
 			const elapsed = time - startTime
-			const cycle = duration * 2
-			const pos = elapsed % cycle
-			// 0→1 first half, 1→0 second half (triangle wave)
-			const t = pos < duration ? pos / duration : 2 - pos / duration
-			// Ease with sine
-			const eased = Math.sin((t * Math.PI) / 2)
-			this.padding = this.basePadding + eased * pulsePx
+			
+			const targetRect = this.target.getBoundingClientRect()
+			const minSize = Math.min(targetRect.width, targetRect.height)
+			
+			// Calculamos valores dinámicos basados en el tamaño del elemento
+			// Margen de seguridad: 4% del tamaño (mínimo 6px, máximo 20px)
+			const dynamicOffset = Math.max(6, Math.min(20, minSize * 0.04))
+			// Amplitud del pulso: reducido al 5% del tamaño (mínimo 8px, máximo 20px)
+			const dynamicPulse = Math.max(8, Math.min(20, minSize * 0.05))
+
+			const phase = (elapsed % (duration * 2)) * Math.PI / duration
+			const eased = (1 - Math.cos(phase)) / 2
+			
+			// El padding base se suma a nuestro desfase dinámico calculado
+			this.padding = this.basePadding + dynamicOffset + (eased * dynamicPulse)
+			
 			this.update()
 			this.pulseAnimationId = requestAnimationFrame(tick)
 		}
