@@ -1,7 +1,7 @@
 import type { CommonOptions, PointItOutPointer } from '../types'
 import { BasePointer, DEFAULT_COMMON_OPTIONS } from './core'
 import type { Animatable, AnimatableOptions, CommonAnimations } from './animations/animatable'
-import { prepareAnimation } from './animations/animatable'
+import { prepareAnimation, animationDefaults } from './animations/animatable'
 
 const DEFAULT_SPOTLIGHT_OPTIONS: Readonly<Omit<SpotlightPointerOptions, 'target'>> = Object.freeze({
 	...DEFAULT_COMMON_OPTIONS,
@@ -22,6 +22,8 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
 	animate: false | AnimatableOptions<CommonAnimations> = false
 
 	private updatePositionHandler: (() => void) | null = null
+	private pulseAnimationId: number | null = null
+	private basePadding: number = 0
 
 	constructor(options: SpotlightPointerOptions) {
 		const opts = { ...DEFAULT_SPOTLIGHT_OPTIONS, ...options } as Required<SpotlightPointerOptions>
@@ -47,14 +49,20 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
 			background: this.overlayColor,
 			zIndex: opts.zIndex!.toString(),
 			pointerEvents: 'none',
-			transition: opts.animate ? 'clip-path 0.3s ease-in-out, opacity 0.3s ease-in-out' : 'none',
+			transition: opts.animate && this.isPulse(opts.animate) ? 'none' : (opts.animate ? 'clip-path 0.3s ease-in-out, opacity 0.3s ease-in-out' : 'none'),
 			opacity: '0'
 		})
 
 		this.container.appendChild(this.rootElement)
 
+		this.basePadding = this.padding
+
 		if (opts.animate) {
-			prepareAnimation(this, opts.animate)
+			if (this.isPulse(opts.animate)) {
+				this.startPulseAnimation(opts.animate)
+			} else {
+				prepareAnimation(this, opts.animate)
+			}
 		}
 
 		this.updatePositionHandler = () => this.update()
@@ -114,8 +122,45 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
     )`
 	}
 
+	private isPulse(animate: false | string | AnimatableOptions<CommonAnimations>): boolean {
+		if (!animate) {return false}
+		if (typeof animate === 'string') {return animate === 'pulse'}
+		return animate.name === 'pulse'
+	}
+
+	private startPulseAnimation(animate: string | AnimatableOptions<CommonAnimations>) {
+		const opts = {
+			...animationDefaults,
+			...(typeof animate === 'string' ? { name: animate } : animate)
+		}
+		const duration = ((opts.duration as number) ?? 1) * 1000
+		const pulsePx = 18
+		let startTime: number | null = null
+
+		const tick = (time: number) => {
+			if (this.destroyed) {return}
+			if (!startTime) {startTime = time}
+			const elapsed = time - startTime
+			const cycle = duration * 2
+			const pos = elapsed % cycle
+			// 0→1 first half, 1→0 second half (triangle wave)
+			const t = pos < duration ? pos / duration : 2 - pos / duration
+			// Ease with sine
+			const eased = Math.sin((t * Math.PI) / 2)
+			this.padding = this.basePadding + eased * pulsePx
+			this.update()
+			this.pulseAnimationId = requestAnimationFrame(tick)
+		}
+		this.pulseAnimationId = requestAnimationFrame(tick)
+	}
+
 	destroy(): void {
 		if (this.destroyed) {return}
+
+		if (this.pulseAnimationId !== null) {
+			cancelAnimationFrame(this.pulseAnimationId)
+			this.pulseAnimationId = null
+		}
 
 		this.rootElement.style.opacity = '0'
 

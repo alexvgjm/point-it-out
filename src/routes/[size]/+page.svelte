@@ -5,45 +5,22 @@
 </script>
 
 <div class="page-wrapper">
-  <div class="page-content">
-    <p class="outside-text">Text outside target element</p>
-
-    <div class="test-box test-box--{data.w}x{data.h}" style="width: {data.w}px; height: {data.h}px">
-      <p>Text inside target</p>
-    </div>
-
-    <p class="outside-text">More text outside</p>
+  <div class="test-box test-box--{data.w}x{data.h}" id="target" style="width: {data.w}px; height: {data.h}px">
   </div>
 </div>
 
 <style>
   .page-wrapper {
-    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .page-content {
-    text-align: center;
+    background: black;
   }
 
   .test-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 40px auto;
-  }
-
-  .test-box p {
-    color: white;
+    background: #333;
     margin: 0;
-    font-size: 18px;
-  }
-
-  .outside-text {
-    color: white;
-    font-size: 16px;
-    margin: 20px 0;
   }
 </style>
