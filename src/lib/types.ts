@@ -143,11 +143,6 @@ export interface SpotlightOptions extends CommonOptions, Animatable {
 	padding?: number
 }
 
-export interface SpotlightOptions extends CommonOptions, Animatable {
-  overlayColor?: string
-  padding?: number
-}
-
 export interface PointerOptions {
 	rect: RectOptions
 	arrow: ArrowPointerOptions

@@ -10,7 +10,18 @@
     "sourceMap": true,
     "strict": true,
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "target": "ESNext"
-  }
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.svelte"
+  ],
+  "exclude": [
+    "node_modules",
+    ".svelte-kit"
+  ]
 }

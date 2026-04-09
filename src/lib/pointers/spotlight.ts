@@ -77,7 +77,7 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
 	}
 
 	update(): void {
-		if (this.destroyed) {return}
+		if (this.destroyed) { return }
 
 		const targetRect = this.target.getBoundingClientRect()
 		const containerRect = this.container.getBoundingClientRect()
@@ -123,8 +123,8 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
 	}
 
 	private isPulse(animate: false | string | AnimatableOptions<CommonAnimations>): boolean {
-		if (!animate) {return false}
-		if (typeof animate === 'string') {return animate === 'pulse'}
+		if (!animate) { return false }
+		if (typeof animate === 'string') { return animate === 'pulse' }
 		return animate.name === 'pulse'
 	}
 
@@ -136,25 +136,25 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
 		const duration = ((opts.duration as number) ?? 1) * 1000
 		let startTime: number | null = null
 		const tick = (time: number) => {
-			if (this.destroyed) {return}
-			if (!startTime) {startTime = time}
+			if (this.destroyed) { return }
+			if (!startTime) { startTime = time }
 			const elapsed = time - startTime
-			
+
 			const targetRect = this.target.getBoundingClientRect()
 			const minSize = Math.min(targetRect.width, targetRect.height)
-			
-			// Calculamos valores dinámicos basados en el tamaño del elemento
-			// Margen de seguridad: 4% del tamaño (mínimo 6px, máximo 20px)
+
+			// Dynamic values based on element size
+			// Safety margin: 4% of size (minimum 6px, maximum 20px)
 			const dynamicOffset = Math.max(6, Math.min(20, minSize * 0.04))
-			// Amplitud del pulso: reducido al 5% del tamaño (mínimo 8px, máximo 20px)
+			// Pulse amplitude: reduced to 5% of size (minimum 8px, maximum 20px)
 			const dynamicPulse = Math.max(8, Math.min(20, minSize * 0.05))
 
 			const phase = (elapsed % (duration * 2)) * Math.PI / duration
 			const eased = (1 - Math.cos(phase)) / 2
-			
-			// El padding base se suma a nuestro desfase dinámico calculado
+
+			// Base padding is added to our calculated dynamic offset
 			this.padding = this.basePadding + dynamicOffset + (eased * dynamicPulse)
-			
+
 			this.update()
 			this.pulseAnimationId = requestAnimationFrame(tick)
 		}
@@ -163,21 +163,21 @@ export class SpotlightPointer extends BasePointer implements PointItOutPointer, 
 
 	destroy(): void {
 		if (this.destroyed) {return}
-
+		this.destroyed = true
 		if (this.pulseAnimationId !== null) {
 			cancelAnimationFrame(this.pulseAnimationId)
 			this.pulseAnimationId = null
 		}
-
-		this.rootElement.style.opacity = '0'
-
 		if (this.updatePositionHandler) {
 			window.removeEventListener('scroll', this.updatePositionHandler, true)
 			window.removeEventListener('resize', this.updatePositionHandler)
 			this.updatePositionHandler = null
 		}
-
+		this.rootElement.style.opacity = '0'
 		setTimeout(() => {
+			if (this.rootElement && this.rootElement.parentNode) {
+				this.rootElement.parentNode.removeChild(this.rootElement)
+			}
 			super.destroy()
 		}, 300)
 	}

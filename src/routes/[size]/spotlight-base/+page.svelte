@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { PageData } from './$types'
   import { onMount } from 'svelte'
-
-  export let data: PageData
+  let { data }: { data: PageData } = $props()
 
   onMount(async () => {
   	const pio = await import('$lib/main')
-  	window.pio = pio
+  	if (typeof window !== 'undefined') {
+  		;(window as unknown as { pio: unknown }).pio = pio
+  	}
   })
 </script>
 

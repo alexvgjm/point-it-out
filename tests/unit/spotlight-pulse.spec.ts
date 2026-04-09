@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import * as pio from '../../src/lib/main'
 
-describe('Animación Pulse - Spotlight (JS-based)', () => {
+describe('Pulse Animation - Spotlight (JS-based)', () => {
 	let target: HTMLElement
 
 	beforeEach(() => {
@@ -18,18 +18,18 @@ describe('Animación Pulse - Spotlight (JS-based)', () => {
 		document.head.querySelector('#point-it-out-keyframes')?.remove()
 	})
 
-	it('spotlight con pulse NO aplica CSS animation al rootElement', () => {
+	it('spotlight with pulse DOES NOT apply CSS animation to rootElement', () => {
 		const pointer = pio.create('spotlight', {
 			target: '#target',
 			animate: 'pulse'
 		})
 
 		const root = pointer.rootElement as HTMLElement
-		// El spotlight pulse es JS-based: no debe tener CSS animation en el rootElement
+		// Spotlight pulse is JS-based: it should not have a CSS animation on the rootElement
 		expect(root.style.animation).toBe('')
 	})
 
-	it('spotlight con pulse tiene clipPath definido (la animación JS actualiza el hole)', () => {
+	it('spotlight with pulse has clipPath defined (JS animation updates the hole)', () => {
 		const pointer = pio.create('spotlight', {
 			target: '#target',
 			animate: 'pulse'
@@ -39,20 +39,20 @@ describe('Animación Pulse - Spotlight (JS-based)', () => {
 		expect(root.style.clipPath).toContain('polygon')
 	})
 
-	it('spotlight con pulse no inyecta keyframes en el DOM', () => {
+	it('spotlight with pulse does not inject keyframes into the DOM', () => {
 		pio.create('spotlight', {
 			target: '#target',
 			animate: 'pulse'
 		})
 
 		const styleSheet = document.head.querySelector('#point-it-out-keyframes')
-		// No debería haber keyframes CSS para el pulse de spotlight
+		// There should be no CSS keyframes for the spotlight pulse
 		const hasSpotlightPulse = styleSheet?.innerHTML?.includes('@keyframes pio__pulse') ?? false
 		expect(hasSpotlightPulse).toBe(false)
 	})
 })
 
-describe('Animación Pulse - Rect (CSS-based)', () => {
+describe('Pulse Animation - Rect (CSS-based)', () => {
 	let target: HTMLElement
 
 	beforeEach(() => {
@@ -67,7 +67,7 @@ describe('Animación Pulse - Rect (CSS-based)', () => {
 		document.head.querySelector('#point-it-out-keyframes')?.remove()
 	})
 
-	it('rect con pulse SÍ aplica CSS animation al rootElement', () => {
+	it('rect with pulse DOES apply CSS animation to rootElement', () => {
 		const pointer = pio.create('rect', {
 			target: '#target',
 			animate: 'pulse'
@@ -77,7 +77,7 @@ describe('Animación Pulse - Rect (CSS-based)', () => {
 		expect(root.style.animation).toContain('pio__pulse')
 	})
 
-	it('rect con pulse inyecta los keyframes pio__pulse en el DOM', () => {
+	it('rect with pulse injects pio__pulse keyframes into the DOM', () => {
 		pio.create('rect', {
 			target: '#target',
 			animate: 'pulse'

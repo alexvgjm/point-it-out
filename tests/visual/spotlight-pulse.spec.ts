@@ -1,13 +1,9 @@
 import { test } from '@playwright/test'
 import { visualComparisonBetweenPages } from './test-utils'
 
-test.describe('Pruebas Visuales: Animación Spotlight Pulse', () => {
+test.describe('Visual Tests: Spotlight Pulse Animation', () => {
 
-	// expectedURL → /spotlight/default muestra el overlay estático con fondo oscuro + texto
-	// testingURL  → /spotlight-pulse muestra el overlay con el hueco ANIMANDO (pulse)
-	// not: true   → verificamos que el pulso crea diferencia visual respecto al estado estático
-
-	test('spotlight pulse es visualmente diferente al default en 300x300', async ({ page }, testInfo) => {
+	test('spotlight pulse is visually different from default at 300x300', async ({ page }, testInfo) => {
 		await visualComparisonBetweenPages({
 			pwPage: page,
 			pwTestInfo: testInfo,
@@ -18,7 +14,7 @@ test.describe('Pruebas Visuales: Animación Spotlight Pulse', () => {
 		})
 	})
 
-	test('spotlight pulse es visualmente diferente al default en 400x250', async ({ page }, testInfo) => {
+	test('spotlight pulse is visually different from default at 400x250', async ({ page }, testInfo) => {
 		await visualComparisonBetweenPages({
 			pwPage: page,
 			pwTestInfo: testInfo,
