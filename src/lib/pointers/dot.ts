@@ -60,13 +60,11 @@ export class DotPointer extends BasePointer implements SVGPointer, Animatable {
 		const centerX = targetRect.width / 2
 		const centerY = targetRect.height / 2
 
-		// Position the SVG at the target's position
 		this.rootElement.style.left = targetLeft + centerX - this.radius - strW + 'px'
 		this.rootElement.style.top = targetTop + centerY - this.radius - strW + 'px'
 		this.rootElement.setAttribute('width', size.toString())
 		this.rootElement.setAttribute('height', size.toString())
 
-		// Draw the circle in the center of the SVG
 		const circleCenter = this.radius + strW
 		this.circleElm.setAttribute('cx', `${circleCenter}`)
 		this.circleElm.setAttribute('cy', `${circleCenter}`)
