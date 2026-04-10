@@ -86,7 +86,9 @@ export function getSize(value: number | NamedScale) {
 
 export function getTransformOrigin(value: TransformOriginOption): Origin {
 	if (typeof value === 'string') {
-		return namedOriginToComponents[value]
+		const key = value.trim().toLowerCase().replace(/-/g, ' ')
+		const normalized = key.replace(/^(top|bottom) (left|right)$/, '$2 $1')
+		return (namedOriginToComponents as Record<string, Origin>)[normalized]
 	}
 
 	const x: OriginX | Percent = typeof value.x == 'number' ? `${value.x}%` : value.x
