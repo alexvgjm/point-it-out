@@ -124,6 +124,19 @@ export interface ArrowShape {
 	headCurvature?: number
 }
 
+export interface LinkOptions extends CommonOptions, SVGOptions, Animatable {
+	/** * The starting element of the link.
+	 * The 'target' property from CommonOptions will be used as the destination (to).
+	 */
+	from: string | HTMLElement
+
+	/** Type of line: straight or dashed. Default: 'straight' */
+	type?: 'straight' | 'dashed'
+
+	/** The pattern of dashes and gaps. Default: '5,5' */
+	dashArray?: string
+}
+
 /**
  * Arrows are:
  * - A pointer, receiving CommonOptions.
@@ -142,6 +155,7 @@ export interface PointerOptions {
 	rect: RectOptions
 	arrow: ArrowPointerOptions
 	free: FreePointerOptions
+	link: LinkOptions
 }
 
 export interface PIOPointerEvents {
