@@ -153,11 +153,13 @@
       </li>
 
       <li>
-
-      <ul>shape option:
+        <ul>
+          shape option:
           <li>
             <a href={resolve('/300x300/arrow/custom-shape/curvatures')}>
-              <span class="size">baseCurvature | tailCurvature | headCurvature</span>
+              <span class="size"
+                >baseCurvature | tailCurvature | headCurvature</span
+              >
             </a>
           </li>
 
@@ -176,7 +178,7 @@
               <span class="size">tailWidth & headWidth</span>
             </a>
           </li>
-          
+
           <li>
             <a href={resolve('/300x300/arrow/custom-shape/all')}>
               <span class="size">All options</span>
@@ -184,7 +186,6 @@
           </li>
         </ul>
       </li>
-
     </ul>
   </div>
 
@@ -216,8 +217,25 @@
       </li>
     </ul>
   </div>
-</section>
 
+  <div class="category">
+    <h3>create('link', {'{...}'})</h3>
+    <ul>
+      <li>
+        <a href={resolve('/300x300/link/default')}>
+          <span class="size">default</span>
+        </a>
+        default
+      </li>
+      <li>
+        <a href={resolve('/300x300/link/dashed')}>
+          <span class="size">dashed</span>
+        </a>
+        dashed option
+      </li>
+    </ul>
+  </div>
+</section>
 
 <style>
   ul ul {
@@ -226,7 +244,7 @@
   ul ul li {
     padding-left: 1rem;
   }
-  
+
   .category--arrow {
     grid-row: 1 / 3;
     grid-column: 2;
