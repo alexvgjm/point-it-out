@@ -138,10 +138,22 @@ export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> &
 		shape?: ArrowShape
 	}
 
+export interface SpotlightOptions extends CommonOptions, Animatable {
+	overlayColor?: string;
+	/** Space between the spotlight and the target. Default: 10 */
+	padding?: 
+        | number 
+        | { 
+        	x?: number; 
+        	y?: number; 
+        };
+}
+
 export interface PointerOptions {
 	rect: RectOptions
 	arrow: ArrowPointerOptions
 	free: FreePointerOptions
+	spotlight: SpotlightOptions
 }
 
 export interface PIOPointerEvents {
