@@ -1,6 +1,6 @@
 {
   "name": "pointitout",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "type": "module",
   "sideEffects": false,
   "description": "A tiny library to mark/point out DOM elements using absolutely positioned elements or procedurally generated SVGs",
@@ -23,6 +23,7 @@
     "lint": "eslint .",
     "test:visual": "playwright test",
     "test:unit": "vitest",
+    "build:tsup": "tsup && node ./postbuild.js",
     "build:package": "tsc && vite build --config vite-build.config.ts && node ./postbuild.js",
     "prepare": "husky"
   },
@@ -54,7 +55,7 @@
     "publint": "^0.2.12",
     "svelte": "^5.53.3",
     "svelte-check": "^4.4.3",
-    "terser": "^5.46.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1",
