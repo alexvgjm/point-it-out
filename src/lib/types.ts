@@ -137,11 +137,17 @@ export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> &
 		/** Custom geometric dimensions for the arrow */
 		shape?: ArrowShape
 	}
+export interface DotOptions extends CommonOptions, SVGOptions, Animatable {
+/** Radius of the core circle pointer. Default: 10 */
+	radius?: number
+}
+
 
 export interface PointerOptions {
 	rect: RectOptions
 	arrow: ArrowPointerOptions
 	free: FreePointerOptions
+	dot: DotOptions
 }
 
 export interface PIOPointerEvents {
