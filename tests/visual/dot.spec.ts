@@ -69,6 +69,34 @@ test.describe('create(\'dot\')', () => {
 					pwTestInfo: testInfo
 				})
 			})
+
+			test(`position option (${xW}x${xH})`, async ({ page }, testInfo) => {
+				await visualComparisonBetweenPages({
+					testingURL: `/${xW}x${xH}`,
+					expectedURL: `/${xW}x${xH}/dot/position-option`,
+					action: () => {
+						return page.evaluate(
+							({ xW, xH }) => {
+								pio.create('dot', {
+									target: `.test-box--${xW}x${xH}`,
+									position: 'center bottom'
+								})
+								pio.create('dot', {
+									target: `.test-box--${xW}x${xH}`,
+									position: 'right center'
+								})
+								pio.create('dot', {
+									target: `.test-box--${xW}x${xH}`,
+									position: '25% 25%'
+								})
+							},
+							{ xW, xH }
+						)
+					},
+					pwPage: page,
+					pwTestInfo: testInfo
+				})
+			})
 		})
 	})
 })
