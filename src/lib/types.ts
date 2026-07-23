@@ -138,7 +138,7 @@ export type ArrowPointerOptions = Omit<FreePointerOptions, 'pointerElement'> &
 		shape?: ArrowShape
 	}
 export interface DotOptions extends CommonOptions, SVGOptions, Animatable {
-/** Radius of the core circle pointer. Default: 10 */
+	/** Radius of the core circle pointer. Default: 10 */
 	radius?: number
 }
 
